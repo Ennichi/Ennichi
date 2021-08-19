@@ -1,0 +1,11 @@
+ echo "DXライブラリのセットアップを始めます!!"
+ echo "DXライブラリのダウンロードを始めます!!"
+ Invoke-WebRequest -Uri "https://dxlib.xsrv.jp/DxLib/DxLib_VC3_22c.zip" -OutFile "dxlib.zip"
+ echo "DXライブラリの解凍を始めます!!"
+ Expand-Archive -Path "dxlib.zip" -DestinationPath "."
+ New-Item -Path "3.22c_VS" -ItemType Directory
+ Copy-Item ".\DxLib_VC\プロジェクトに追加すべきファイル_VC用\*"  -Destination "./3.22c_VS"
+ Remove-Item -Recurse -Path "DxLib_VC"
+ Remove-Item "dxlib.zip"
+ echo "セットアップ終わったよ!!"
+ echo "プログラミングがんばれ!!"

@@ -1,0 +1,9 @@
+#include <DxLib.h>
+#include <stdlib.h>
+#include <time.h>
+#include <iostream>
+#include <vector>
+#include <stdexcept>
+#include <random>
+#include <cmath>
+#include <filesystem>

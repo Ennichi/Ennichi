@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="game_temp.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="kingyomain.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="shooting.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Goldfish.h">
+      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
+    </ClInclude>
+    <ClInclude Include="gun.h">
+      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj.h">
+      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
+    </ClInclude>
+    <ClInclude Include="Poi.h">
+      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダーファイル\特別なヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="functions.h">
+      <Filter>ヘッダーファイル\汎用クラス</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyInput.h">
+      <Filter>ヘッダーファイル\汎用クラス</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>ヘッダーファイル\汎用クラス</Filter>
+    </ClInclude>
+    <ClInclude Include="StringObj.h">
+      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>ヘッダーファイル\特別なヘッダ</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ソースファイル">
+      <UniqueIdentifier>{6c29532e-e939-49dc-9523-75763605a8d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダーファイル">
+      <UniqueIdentifier>{034d0305-42e2-49a9-a129-571773a18283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダーファイル\オブジェクトクラス">
+      <UniqueIdentifier>{a7c1d899-48e5-4513-9452-49d930dd5d1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダーファイル\特別なヘッダ">
+      <UniqueIdentifier>{90ed9f14-fd33-49c5-9fde-b0d2c4e54fb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダーファイル\汎用クラス">
+      <UniqueIdentifier>{35ded6b3-9026-479a-884b-73a42daaea9f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+</Project>
