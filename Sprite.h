@@ -19,7 +19,8 @@ public:
 	}
 
 	//コンストラクタ
-	Sprite(std::vector<const char*> image_path):__length{static_cast<int>(image_path.size())}
+	Sprite(const std::vector<const char*>& image_path
+	):__length{static_cast<int>(image_path.size())}
 	{
 		int i = 0;
 		image_handle = new int[__length];
