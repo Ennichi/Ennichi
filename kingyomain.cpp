@@ -12,7 +12,7 @@ void kingyomain() {
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice(1, 1000);
 
-	Sprite kingyo_spr(path);
+	Sprite kingyo_spr{ "./image/kingyo.png", "./image/background.png" };
 	Sprite button_spr(buttonpath);
 	Sprite poi_spr(poi_path);
 

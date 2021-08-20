@@ -26,7 +26,7 @@ public:
 		image_handle = new int[__length];
 		for (auto& path : image_path)
 		{
-			image_handle[i] = LoadGraph(path);
+			image_handle[i] = LoadGraph(path, 1);
 			++i;
 		}
 		GetGraphSize(image_handle[0], &width, &height);
@@ -40,7 +40,7 @@ public:
 		image_handle = new int[__length];
 		for (auto& path : path_list)
 		{
-			image_handle[i] = LoadGraph(path);
+			image_handle[i] = LoadGraph(path, 1);
 			++i;
 		}
 		GetGraphSize(image_handle[0], &width, &height);
