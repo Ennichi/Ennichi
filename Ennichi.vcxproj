@@ -197,7 +197,9 @@
     <ClInclude Include="KeyInput.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Obj.h" />
+    <ClInclude Include="ObjGroup.h" />
     <ClInclude Include="Poi.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StringObj.h" />
     <ClInclude Include="Timer.h" />

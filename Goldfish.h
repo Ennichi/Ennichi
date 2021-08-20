@@ -53,7 +53,7 @@ public:
 
 	//次のフレームに更新(検討中)
 	//金魚が向いてる向きに(x,y)を進める
-	inline void Next()
+	inline void next()
 	{
 		double delx = speed * std::cos(angle + ANGLE0) + xerr;
 		double dely = speed * std::sin(angle + ANGLE0) + yerr;
@@ -100,8 +100,8 @@ public:
 		int x,
 		int	y,
 		bool can_collision,
-		const std::vector<const char*>& image_path
-	) : Obj(x,y,can_collision,image_path)
+		const Sprite& sprite0
+	) : Obj(x,y,can_collision,sprite0)
 	{}
 
 	//コンストラクタ(検討中)
@@ -110,8 +110,8 @@ public:
 		int	y,
 		double angle,
 		bool can_collision,
-		const std::vector<const char*>& image_path
-	) : Obj(x,y,angle,can_collision,image_path)
+		const Sprite& sprite0
+	) : Obj(x,y,angle,can_collision,sprite0)
 	{}
 
 

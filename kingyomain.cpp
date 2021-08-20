@@ -12,6 +12,10 @@ void kingyomain() {
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice(1, 1000);
 
+	Sprite kingyo_spr(path);
+	Sprite button_spr(buttonpath);
+	Sprite poi_spr(poi_path);
+
 	int px, py;
 	int click_event, button_type, cx, cy, log_type;
 
@@ -19,9 +23,9 @@ void kingyomain() {
 	Button button2(250, 240 + 115 + 10, false, buttonpath);
 	Button button3(250, 240 + 115 * 2 + 10 * 2, false, buttonpath);
 
-	Goldfish *fish1=new Goldfish(0, 0, std::_Pi, true, path); //金魚
-	Goldfish fish2(100, 0, std::_Pi * 3.0 / 4.0, true, path);
-	Poi first(500, 500, true, poi_path);//ポイ
+	Goldfish* fish1 = new Goldfish(0, 0, std::_Pi, true, kingyo_spr); //金魚
+	Goldfish fish2(100, 0, std::_Pi * 3.0 / 4.0, true, kingyo_spr);
+	Poi first(500, 500, true, poi_spr);//ポイ
 	Goldfish fish3 = *fish1;
 
 	fish1->setDifficulty(50);
@@ -70,10 +74,10 @@ void kingyomain() {
 			input();
 			if (fish1 != NULL)
 			{
-				fish1->Next();
+				fish1->next();
 				fish1->draw();
 			}
-			fish3.Next();
+			fish3.next();
 			fish3.draw();;
 			first.point_change();
 			first.draw();
@@ -90,6 +94,9 @@ void kingyomain() {
 
 		}
 		else {  // ゲームの終了
+			kingyo_spr.destroy();
+			poi_spr.destroy();
+			button_spr.destroy();
 			return;
 		}
 		ScreenFlip();

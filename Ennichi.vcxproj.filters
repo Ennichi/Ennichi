@@ -54,6 +54,12 @@
     <ClInclude Include="main.h">
       <Filter>ヘッダーファイル\特別なヘッダ</Filter>
     </ClInclude>
+    <ClInclude Include="ObjGroup.h">
+      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>ヘッダーファイル\その他のヘッダ</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">
@@ -70,6 +76,9 @@
     </Filter>
     <Filter Include="ヘッダーファイル\汎用クラス">
       <UniqueIdentifier>{35ded6b3-9026-479a-884b-73a42daaea9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダーファイル\その他のヘッダ">
+      <UniqueIdentifier>{f63404b4-d136-48c0-a2d1-039129e77737}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -4,8 +4,8 @@
 
 class Gun : public Obj {
 public:
-	Gun(int x, int	y, bool can_collision, const std::vector<const char*>& image_path) 
-		: Obj(x, y, can_collision, image_path) {};
+	Gun(int x, int	y, bool can_collision, const Sprite& sprite0) 
+		: Obj(x, y, can_collision, sprite0) {};
 	void gunnt_change() {
 		SetDrawScreen(DX_SCREEN_BACK);  // 表示画面を裏に
 		ClearDrawScreen();  // 画面全体をクリア

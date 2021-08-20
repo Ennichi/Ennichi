@@ -42,9 +42,9 @@
 			{
 				windowFlag = 1;
 			}
-			fish1.Next();
+			fish1.next();
 			fish2.SetMovement(MOV_OPTION::WAVE, 20.0, 300.0);
-			fish2.Next();
+			fish2.next();
 			first.point_change();
 
 			if (input.GetKeyDown(KEY_INPUT_Z) == 1 && fish2.isCought(first, mt, dice))printfDx("•ß‚Ü‚Á‚½");
