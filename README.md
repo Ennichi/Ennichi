@@ -7,6 +7,7 @@
 - tt6-mzn
 - nmrintel
 - demiida
+- at-ohs
 # セットアップ
 DXライブラリの準備
 ``` shell
