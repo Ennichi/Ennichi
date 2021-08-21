@@ -7,6 +7,7 @@
 - tt6-mzn
 - nmrintel
 - demiida
+- tatehata7507
 # セットアップ
 DXライブラリの準備
 ``` shell
