@@ -1,4 +1,5 @@
 #pragma once
+#define max(a, b) (((a) > (b)) ? (a) : (b))
 #include "stdafx.h"
 
 //非同期式タイマー
@@ -27,7 +28,7 @@ public:
 	{
 		if (isSet)return;
 		start_time = GetNowHiPerformanceCount();
-		configured_time = (1000000i64 * (LL)frames) / fps;
+		configured_time = (1000000ll * (LL)frames) / fps;
 		isSet = true;
 	}
 
@@ -36,7 +37,7 @@ public:
 	{
 		if (isSet)return;
 		start_time = GetNowHiPerformanceCount();
-		configured_time = 1000i64 * (LL)ms;
+		configured_time = 1000ll * (LL)ms;
 		isSet = true;
 	}
 

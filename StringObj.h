@@ -6,7 +6,7 @@ public:
 	int x = 0, y = 0; // ¶ã‚ÌÀ•W
 	const char* label = NULL; // •\¦‚·‚é•¶š—ñ
 	unsigned int color = 0x000000;
-	int font = NULL;
+	int font = 0;
 
 	// ƒƒ“ƒoŠÖ”
 	StringObj(
