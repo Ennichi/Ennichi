@@ -1,5 +1,6 @@
 build:
-	g++ -o main -g3 -Wall -Wextra -std=gnu++20 main.cpp \
+	g++ -o  main -g3 -Wall -Wextra -std=gnu++20 kingyomain.cpp game_temp.cpp \
+     shooting.cpp title.cpp main.cpp \
      -I ./7_3_0 \
      -L ./7_3_0 \
      -DDX_GCC_COMPILE -DDX_NON_INLINE_ASM \
@@ -20,4 +21,4 @@ build:
      -lopusfile \
      -lopus \
      -lsilk_common \
-     -lcelt
+     -lcelt 
