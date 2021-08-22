@@ -170,7 +170,7 @@ public:
 		const std::vector<Goldfish>& goldfish, 
 		const Poi& poi,
 		std::mt19937_64& mt,
-		const std::uniform_int_distribution<int>& dice
+		std::uniform_int_distribution<int>& dice
 	)
 	{
 		std::vector<bool> result;
@@ -198,7 +198,7 @@ public:
 		const std::vector<Goldfish>& goldfish,
 		const Poi& poi,
 		std::mt19937_64& mt,
-		const std::uniform_int_distribution<int>& dice,
+		std::uniform_int_distribution<int>& dice,
 		std::vector<bool>& result
 	)
 	{
@@ -218,7 +218,7 @@ public:
 	bool isCought(
 		const Poi& poi,
 		std::mt19937_64& mt,
-		const std::uniform_int_distribution<int>& dice
+		std::uniform_int_distribution<int>& dice
 	)const&
 	{
 		if (dice.a() != 1 || dice.b() != 1000)throw new std::invalid_argument("乱数の範囲を1から1000に設定してください");
