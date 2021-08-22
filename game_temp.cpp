@@ -16,7 +16,7 @@
 	std::vector<const char*> button_path = { "./image/button1.png", "./image/button2.png" };
 
 	Goldfish fish1(0, 0, 0.0, true, path);
-	Goldfish fish2(100, 0, std::_Pi*3.0/4.0, true, path);
+	Goldfish fish2(100, 0, DX_PI *3.0/4.0, true, path);
 	Poi first(500, 500, true, poi_path);
 	Button button(300, 300, false, button_path);
 

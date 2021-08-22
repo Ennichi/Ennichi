@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "Poi.h"
 #include "functions.h"
-#define ANGLE0 (-std::_Pi/2.0)
+#define ANGLE0 (-DX_PI/2.0)
 
 //金魚の動き方
 enum class MOV_OPTION
@@ -81,14 +81,14 @@ public:
 		case MOV_OPTION::CIRCLE:
 			if (!(p2 == 1.0 || p2 == -1.0))
 				throw new std::out_of_range("円形移動のときはp2を1.0か-1.0にしてください");
-			angle += p2 * (std::_Pi / 2.0 - acos(speed / (p1 * 2.0)));
+			angle += p2 * (DX_PI / 2.0 - acos(speed / (p1 * 2.0)));
 			__wave_info_x = 0.0;
 			break;
 
 			//正弦波の軌道で動く
 		case MOV_OPTION::WAVE:
 			if (__wave_info_x == 0.0)__wave_info_angle = angle;
-			double slope = -p1 * (2.0 * std::_Pi / p2) * std::sin((2.0 * std::_Pi / p2) * __wave_info_x);
+			double slope = -p1 * (2.0 * DX_PI / p2) * std::sin((2.0 * DX_PI / p2) * __wave_info_x);
 			__wave_info_x += speed / (std::sqrt(slope * slope + 1));
 			angle = __wave_info_angle + std::atan(slope);
 			break;

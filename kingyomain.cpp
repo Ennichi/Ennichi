@@ -19,8 +19,8 @@ void kingyomain() {
 	Button button2(250, 240 + 115 + 10, false, buttonpath);
 	Button button3(250, 240 + 115 * 2 + 10 * 2, false, buttonpath);
 
-	Goldfish *fish1=new Goldfish(0, 0, std::_Pi, true, path); //金魚
-	Goldfish fish2(100, 0, std::_Pi * 3.0 / 4.0, true, path);
+	Goldfish *fish1=new Goldfish(0, 0, DX_PI, true, path); //金魚
+	Goldfish fish2(100, 0, DX_PI * 3.0 / 4.0, true, path);
 	Poi first(500, 500, true, poi_path);//ポイ
 	Goldfish fish3 = *fish1;
 
