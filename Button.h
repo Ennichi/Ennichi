@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 #include "stdafx.h"
 #include "Obj.h"
 #include "StringObj.h"
@@ -7,10 +7,10 @@
 class Button : public Obj
 {
 public:
-    /* ãƒ¡ãƒ³ãƒå¤‰æ•° */
+    /* ƒƒ“ƒo•Ï” */
     StringObj* label = NULL;
-    /* ãƒ¡ãƒ³ãƒé–¢æ•° */
-    // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    /* ƒƒ“ƒoŠÖ” */
+    // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
     Button(
         int x,
         int y,
@@ -33,10 +33,10 @@ public:
         return false;
     }
     void next(int px, int py) {
-        /* æ¬¡ã®ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ã§ã®çŠ¶æ…‹ã‚’æ±ºå®šã™ã‚‹
-        * ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ã«ã¤ã1å›å®Ÿè¡Œ
-        * px, pyã¯ãƒã‚¦ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã®åº§æ¨™
-        *  ãƒœã‚¿ãƒ³ã®ä¸Šã«ãƒã‚¦ã‚¹ãŒã‚ã‚‹ã‹èª¿ã¹, stateã‚’æ›´æ–°
+        /* Ÿ‚ÌƒQ[ƒ€ƒ‹[ƒv‚Å‚Ìó‘Ô‚ğŒˆ’è‚·‚é
+        * ƒQ[ƒ€ƒ‹[ƒv‚É‚Â‚«1‰ñÀs
+        * px, py‚Íƒ}ƒEƒX‚Ìƒ|ƒCƒ“ƒ^‚ÌÀ•W
+        *  ƒ{ƒ^ƒ“‚Ìã‚Éƒ}ƒEƒX‚ª‚ ‚é‚©’²‚×, state‚ğXV
         */
         if (isContain(px, py)) {
             state = 1;
@@ -46,28 +46,28 @@ public:
         }
     }
     bool isPushedLeft(int click_event, int button_type, int cx, int cy, int log_type) {
-        /* ãƒã‚¦ã‚¹å·¦ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‹ã‚’åˆ¤å®š */
+        /* ƒ}ƒEƒX¶ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚©‚ğ”»’è */
 		if (click_event == 0 && isContain(cx, cy) && log_type == MOUSE_INPUT_LOG_DOWN && (button_type & MOUSE_INPUT_LEFT)) {
 			return true;
 		}
         return false;
     }
     bool isReleasedLeft(int click_event, int button_type, int cx, int cy, int log_type) {
-        /* ãƒã‚¦ã‚¹å³ãƒœã‚¿ãƒ³ãŒé›¢ã•ã‚ŒãŸã‹ã‚’åˆ¤å®š */
+        /* ƒ}ƒEƒX‰Eƒ{ƒ^ƒ“‚ª—£‚³‚ê‚½‚©‚ğ”»’è */
 		if (click_event == 0 && isContain(cx, cy) && log_type == MOUSE_INPUT_LOG_UP && (button_type & MOUSE_INPUT_LEFT)) {
 			return true;
 		}
         return false;
     }
     bool isPushedRight(int click_event, int button_type, int cx, int cy, int log_type) {
-        /* ãƒã‚¦ã‚¹å·¦ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‹ã‚’åˆ¤å®š */
+        /* ƒ}ƒEƒX¶ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚©‚ğ”»’è */
 		if (click_event == 0 && isContain(cx, cy) && log_type == MOUSE_INPUT_LOG_DOWN && (button_type & MOUSE_INPUT_RIGHT)) {
 			return true;
 		}
         return false;
     }
     bool isReleasedRight(int click_event, int button_type, int cx, int cy, int log_type) {
-        /* ãƒã‚¦ã‚¹å³ãƒœã‚¿ãƒ³ãŒé›¢ã•ã‚ŒãŸã‹ã‚’åˆ¤å®š */
+        /* ƒ}ƒEƒX‰Eƒ{ƒ^ƒ“‚ª—£‚³‚ê‚½‚©‚ğ”»’è */
 		if (click_event == 0 && isContain(cx, cy) && log_type == MOUSE_INPUT_LOG_UP && (button_type & MOUSE_INPUT_RIGHT)) {
 			return true;
 		}

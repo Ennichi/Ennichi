@@ -1,25 +1,30 @@
-ï»¿#include "main.h"
+#include "main.h"
 
-int FontHandle;
 void titlemain() {
-	SetMainWindowText("ç¸æ—¥ã‚²ãƒ¼ãƒ (ã‚¿ã‚¤ãƒˆãƒ«)");
-
+	SetMainWindowText("‰“úƒQ[ƒ€(ƒ^ƒCƒgƒ‹)");
+	int FontHandle;
+	FontHandle = CreateFontToHandle(
+		NULL,
+		40,
+		3,
+		DX_FONTTYPE_ANTIALIASING_EDGE_4X4
+	);
 	int PADInput = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	DrawStringToHandle(250, 240 - 32, "ã‚¿ã‚¤ãƒˆãƒ«ã§ã™\nZã‚­ãƒ¼ã§é‡‘é­šã‚’é¸æŠã§ã™", GetColor(20 + rand() % 256, 20 + rand() % 256, 20 + rand() % 256), CreateFontToHandle("ãƒ¡ã‚¤ãƒªã‚ª", 50, -1, DX_FONTTYPE_ANTIALIASING_EDGE));
+	DrawStringToHandle(250, 240 - 32, "ƒ^ƒCƒgƒ‹‚Å‚·\nZƒL[‚Å‹à‹›‚ğ‘I‘ğ‚Å‚·", GetColor(0,120,120),FontHandle);
 	while (1) {
 		if (ProcessMessage() == -1) {
-			break;	//ã‚¨ãƒ©ãƒ¼
+			break;	//ƒGƒ‰[
 		}
 		PADInput = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 		if ((PADInput & PAD_INPUT_1) != 0) {
 			ClearDrawScreen();
 			kingyomain(); 
 		}
-		else if ((PADInput & PAD_INPUT_RIGHT) != 0) { // çŸ¢å°å³ã‚­ãƒ¼ã‚’æŠ¼ã™
+		else if ((PADInput & PAD_INPUT_RIGHT) != 0) { // –îˆó‰EƒL[‚ğ‰Ÿ‚·
 			ClearDrawScreen();
 			game_temp();
 		}
-		else if ((PADInput & PAD_INPUT_LEFT) != 0) { // çŸ¢å°å·¦ã‚­ãƒ¼ã‚’æŠ¼ã™
+		else if ((PADInput & PAD_INPUT_LEFT) != 0) { // –îˆó¶ƒL[‚ğ‰Ÿ‚·
 			ClearDrawScreen();
 			shootingmain();
 		}

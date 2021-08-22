@@ -1,10 +1,10 @@
-ï»¿#pragma once
+#pragma once
 #include "stdafx.h"
 #include "Poi.h"
 #include "functions.h"
 #define ANGLE0 (-DX_PI/2.0)
 
-//é‡‘é­šã®å‹•ãæ–¹
+//‹à‹›‚Ì“®‚«•û
 enum class MOV_OPTION
 {
 	CIRCLE = 0,
@@ -12,11 +12,11 @@ enum class MOV_OPTION
 };
 
 
-//ãƒ¡ã‚¤ãƒ³ã‚¯ãƒ©ã‚¹
+//ƒƒCƒ“ƒNƒ‰ƒX
 class Goldfish : public Obj
 {
 private:
-	/* å¤–éƒ¨ã‚¢ã‚¯ã‚»ã‚¹ä¸å¯ */
+	/* ŠO•”ƒAƒNƒZƒX•s‰Â */
 	double speed = 0.0;
 	double xerr = 0.0;
 	double yerr = 0.0;
@@ -24,9 +24,9 @@ private:
 	double __wave_info_angle = 0.0;
 	unsigned int difficulty = 10;
 
-	//ã‚¯ãƒ©ã‚¹å¤–ã§ã¯å®Ÿè¡Œã—ãªã„
-	//è‡ªèº«ã¨ãƒã‚¤ã‚’æ¯”è¼ƒ,è©•ä¾¡
-	//~1000ã®å€¤ã‚’è¿”ã™
+	//ƒNƒ‰ƒXŠO‚Å‚ÍŽÀs‚µ‚È‚¢
+	//Ž©g‚Æƒ|ƒC‚ð”äŠr,•]‰¿
+	//~1000‚Ì’l‚ð•Ô‚·
 	int triggeredLevel(const Poi& poi)const&
 	{
 		int midx = x, midy = y;
@@ -36,56 +36,56 @@ private:
 	}
 
 public:
-	/* ã‚¢ã‚¯ã‚»ã‚¹å¯èƒ½ */
+	/* ƒAƒNƒZƒX‰Â”\ */
 
-	//difficultyã®ã‚»ãƒƒã‚¿ãƒ¼(ä¸æ­£ãªå€¤å…¥åŠ›é˜²æ­¢)
+	//difficulty‚ÌƒZƒbƒ^[(•s³‚È’l“ü—Í–hŽ~)
 	void setDifficulty(unsigned int dif)
 	{
 		if (dif == 0)return;
 		difficulty = dif;
 	}
 
-	//difficultyã®ã‚²ãƒƒã‚¿ãƒ¼
+	//difficulty‚ÌƒQƒbƒ^[
 	int getDifficulty()
 	{
 		return difficulty;
 	}
 
-	//æ¬¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã«æ›´æ–°(æ¤œè¨Žä¸­)
-	//é‡‘é­šãŒå‘ã„ã¦ã‚‹å‘ãã«(x,y)ã‚’é€²ã‚ã‚‹
+	//ŽŸ‚ÌƒtƒŒ[ƒ€‚ÉXV(ŒŸ“¢’†)
+	//‹à‹›‚ªŒü‚¢‚Ä‚éŒü‚«‚É(x,y)‚ði‚ß‚é
 	inline void Next()
 	{
 		double delx = speed * std::cos(angle + ANGLE0) + xerr;
 		double dely = speed * std::sin(angle + ANGLE0) + yerr;
 		x += std::lround(delx);
 		y += std::lround(dely);
-		xerr = delx - std::lround(delx);//xåº§æ¨™ã®ä¸¸ã‚èª¤å·®(æ¬¡ãƒ«ãƒ¼ãƒ—ã§è¶³ã™)
-		yerr = dely - std::lround(dely);//yåº§æ¨™ã®ä¸¸ã‚èª¤å·®(æ¬¡ãƒ«ãƒ¼ãƒ—ã§è¶³ã™)
+		xerr = delx - std::lround(delx);//xÀ•W‚ÌŠÛ‚ßŒë·(ŽŸƒ‹[ƒv‚Å‘«‚·)
+		yerr = dely - std::lround(dely);//yÀ•W‚ÌŠÛ‚ßŒë·(ŽŸƒ‹[ƒv‚Å‘«‚·)
 	}
 	
-	/*é‡‘é­šã®å‹•ãã‚’è¨­å®š(æœªå®Œæˆ)
+	/*‹à‹›‚Ì“®‚«‚ðÝ’è(–¢Š®¬)
 	* 
-	**** Next()ã®å‰ã«å®Ÿè¡Œã—ã¦ãã ã•ã„(æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ å®Ÿè¡Œ) ****
+	**** Next()‚Ì‘O‚ÉŽÀs‚µ‚Ä‚­‚¾‚³‚¢(–ˆƒtƒŒ[ƒ€ŽÀs) ****
 	* MOV_OPTION::CIRCLE
-	* | å††å¼§ã«æ²¿ã£ã¦å‹•ã
-	* | p1...åŠå¾„, p2...1.0ãªã‚‰angle+90ã®æ–¹å‘ã«ä¸­å¿ƒã€-1.0ãªã‚‰angle-90ã®æ–¹å‘ã«ä¸­å¿ƒ
+	* | ‰~ŒÊ‚É‰ˆ‚Á‚Ä“®‚­
+	* | p1...”¼Œa, p2...1.0‚È‚çangle+90‚Ì•ûŒü‚É’†SA-1.0‚È‚çangle-90‚Ì•ûŒü‚É’†S
 	* MOV_OPTION::WAVE
-	* | æ³¢åž‹ã«å‹•ã
-	* | p1...æŒ¯å¹…, p2...æ³¢é•·
+	* | ”gŒ^‚É“®‚­
+	* | p1...U•, p2...”g’·
 	*/
 	inline void SetMovement(MOV_OPTION option, double p1, double p2)
 	{
 		switch (option)
 		{
-			//å††å¼§ã®è»Œé“ã§å‹•ã
+			//‰~ŒÊ‚Ì‹O“¹‚Å“®‚­
 		case MOV_OPTION::CIRCLE:
 			if (!(p2 == 1.0 || p2 == -1.0))
-				throw new std::out_of_range("å††å½¢ç§»å‹•ã®ã¨ãã¯p2ã‚’1.0ã‹-1.0ã«ã—ã¦ãã ã•ã„");
+				throw new std::out_of_range("‰~Œ`ˆÚ“®‚Ì‚Æ‚«‚Íp2‚ð1.0‚©-1.0‚É‚µ‚Ä‚­‚¾‚³‚¢");
 			angle += p2 * (DX_PI / 2.0 - acos(speed / (p1 * 2.0)));
 			__wave_info_x = 0.0;
 			break;
 
-			//æ­£å¼¦æ³¢ã®è»Œé“ã§å‹•ã
+			//³Œ·”g‚Ì‹O“¹‚Å“®‚­
 		case MOV_OPTION::WAVE:
 			if (__wave_info_x == 0.0)__wave_info_angle = angle;
 			double slope = -p1 * (2.0 * DX_PI / p2) * std::sin((2.0 * DX_PI / p2) * __wave_info_x);
@@ -95,7 +95,7 @@ public:
 		}
 	}
 
-	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿(æ¤œè¨Žä¸­)
+	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^(ŒŸ“¢’†)
 	Goldfish(
 		int x,
 		int	y,
@@ -104,7 +104,7 @@ public:
 	) : Obj(x,y,can_collision,image_path)
 	{}
 
-	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿(æ¤œè¨Žä¸­)
+	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^(ŒŸ“¢’†)
 	Goldfish(
 		int x,
 		int	y,
@@ -115,27 +115,27 @@ public:
 	{}
 
 
-	//ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚’æ±ºã‚ã‚‹
+	//ƒXƒs[ƒh‚ðŒˆ‚ß‚é
 	double setSpeed(double spmin, double spmax)
 	{
 		if (spmin > spmax || spmin < 0)
-			throw new std::out_of_range("spminã¨spmaxã¯ã¨ã‚‚ã«æ­£ã§å¾Œè€…ã®æ–¹ãŒå¤§ãããªã‘ã‚Œã°ãªã‚‰ãªã„");
+			throw new std::out_of_range("spmin‚Æspmax‚Í‚Æ‚à‚É³‚ÅŒãŽÒ‚Ì•û‚ª‘å‚«‚­‚È‚¯‚ê‚Î‚È‚ç‚È‚¢");
 		std::random_device seed;
 		std::mt19937_64 mt(seed());
 		std::uniform_real_distribution<> randsp(spmin, spmax);
-		speed = randsp(mt);//ä¹±æ•°
+		speed = randsp(mt);//—”
 		return speed;
 	}
 
 
-	//æç”»é–¢æ•°ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰(æ¤œè¨Žä¸­)
+	//•`‰æŠÖ”ƒI[ƒo[ƒ‰ƒCƒh(ŒŸ“¢’†)
 	void draw() override
 	{
 		Obj::draw();
 	}
 
-	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‹ã‚‰å®Ÿè¡Œã—ãªã„é–¢æ•°
-	//é‡‘é­šã®ä¸­å¿ƒã‚’è¿”ã™ãƒžã‚¯ãƒ­
+	//ƒCƒ“ƒXƒ^ƒ“ƒX‚©‚çŽÀs‚µ‚È‚¢ŠÖ”
+	//‹à‹›‚Ì’†S‚ð•Ô‚·ƒ}ƒNƒ
 	static inline void center(int& x, int& y, int xlength, int ylength)
 	{
 		x += xlength / 2;
@@ -144,10 +144,10 @@ public:
 
 
 	/*
-	* é‡‘é­šã‚’æ•ã¾ãˆã‚‹ã“ã¨ãŒã§ããŸã‹è¿”ã™é–¢æ•°
-	* ç¬¬ä¸€å¼•æ•°:é‡‘é­šã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®é…åˆ—
-	* ç¬¬äºŒå¼•æ•°:ãƒã‚¤ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
-	* ã§ãã‚Œã°ä»–ã®3ã¤ã®é–¢æ•°ã®ã©ã‚Œã‹ã‚’ä½¿ã£ã¦ãã ã•ã„(ã“ã£ã¡ã¯å°‘ã—å‹•ä½œãŒé…ã„ã‹ã‚‚)
+	* ‹à‹›‚ð•ß‚Ü‚¦‚é‚±‚Æ‚ª‚Å‚«‚½‚©•Ô‚·ŠÖ”
+	* ‘æˆêˆø”:‹à‹›‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ì”z—ñ
+	* ‘æ“ñˆø”:ƒ|ƒC‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	* ‚Å‚«‚ê‚Î‘¼‚Ì3‚Â‚ÌŠÖ”‚Ì‚Ç‚ê‚©‚ðŽg‚Á‚Ä‚­‚¾‚³‚¢(‚±‚Á‚¿‚Í­‚µ“®ì‚ª’x‚¢‚©‚à)
 	*/
 	static std::vector<bool> isCought(const std::vector<Goldfish>& goldfish, const Poi& poi)
 	{
@@ -159,12 +159,12 @@ public:
 
 
 	/*
-	* é‡‘é­šã‚’æ•ã¾ãˆã‚‹ã“ã¨ãŒã§ããŸã‹è¿”ã™é–¢æ•°
-	* ç¬¬ä¸€å¼•æ•°:é‡‘é­šã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®é…åˆ—
-	* ç¬¬äºŒå¼•æ•°:ãƒã‚¤ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
-	* ç¬¬ä¸‰å¼•æ•°:ä¹±æ•°å™¨æœ¬ä½“ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
-	* ç¬¬å››å¼•æ•°:é›¢æ•£ä¸€æ§˜åˆ†å¸ƒã‚¯ãƒ©ã‚¹(æ•´æ•°)ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹(ä¹±æ•°å™¨ã®ä¸€éƒ¨)
-	* std::uniform_int_distribution<>ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆæ™‚ã¯ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã®å¼•æ•°ã‚’1,1000ã«ã—ã¦ãã ã•ã„
+	* ‹à‹›‚ð•ß‚Ü‚¦‚é‚±‚Æ‚ª‚Å‚«‚½‚©•Ô‚·ŠÖ”
+	* ‘æˆêˆø”:‹à‹›‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ì”z—ñ
+	* ‘æ“ñˆø”:ƒ|ƒC‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	* ‘æŽOˆø”:—”Ší–{‘Ì‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	* ‘æŽlˆø”:—£ŽUˆê—l•ª•zƒNƒ‰ƒX(®”)‚ÌƒCƒ“ƒXƒ^ƒ“ƒX(—”Ší‚Ìˆê•”)
+	* std::uniform_int_distribution<>‚ÌƒCƒ“ƒXƒ^ƒ“ƒX¶¬Žž‚ÍƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ìˆø”‚ð1,1000‚É‚µ‚Ä‚­‚¾‚³‚¢
 	*/
 	static std::vector<bool> isCought(
 		const std::vector<Goldfish>& goldfish, 
@@ -174,10 +174,10 @@ public:
 	)
 	{
 		std::vector<bool> result;
-		if (dice.a() != 1 || dice.b() != 1000)throw new std::invalid_argument("ä¹±æ•°ã®ç¯„å›²ã‚’1ã‹ã‚‰1000ã«è¨­å®šã—ã¦ãã ã•ã„");
+		if (dice.a() != 1 || dice.b() != 1000)throw new std::invalid_argument("—”‚Ì”ÍˆÍ‚ð1‚©‚ç1000‚ÉÝ’è‚µ‚Ä‚­‚¾‚³‚¢");
 		for (unsigned int i = 0; i < goldfish.size(); ++i)
 		{
-			//can_collisionãŒfalseã ã£ãŸã‚‰false,poiã¨goldfishã®è·é›¢ã«ã‚ˆã£ã¦å¤‰å‹•ã™ã‚‹ç¢ºçŽ‡ã§trueã‹falseãŒæ±ºã¾ã‚‹
+			//can_collision‚ªfalse‚¾‚Á‚½‚çfalse,poi‚Ægoldfish‚Ì‹——£‚É‚æ‚Á‚Ä•Ï“®‚·‚éŠm—¦‚Åtrue‚©false‚ªŒˆ‚Ü‚é
 			result.push_back(goldfish[i].can_collision && goldfish[i].triggeredLevel(poi) >= dice(mt));
 		}
 		return result;
@@ -185,14 +185,14 @@ public:
 
 
 	/*
-	* é‡‘é­šã‚’æ•ã¾ãˆã‚‹ã“ã¨ãŒã§ããŸã‹è¿”ã™é–¢æ•°
-	* ç¬¬ä¸€å¼•æ•°:é‡‘é­šã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®é…åˆ—
-	* ç¬¬äºŒå¼•æ•°:ãƒã‚¤ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
-	* ç¬¬ä¸‰å¼•æ•°:ä¹±æ•°å™¨æœ¬ä½“ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
-	* ç¬¬å››å¼•æ•°:é›¢æ•£ä¸€æ§˜åˆ†å¸ƒã‚¯ãƒ©ã‚¹(æ•´æ•°)ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹(ä¹±æ•°å™¨ã®ä¸€éƒ¨)
-	* ç¬¬äº”å¼•æ•°:æˆ»ã‚Šå€¤ãŒæ ¼ç´ã•ã‚Œã‚‹å‚ç…§
-	* æˆ»ã‚Šå€¤:æ•ã¾ã£ãŸé‡‘é­šã®æ•°
-	* std::uniform_int_distribution<>ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆæ™‚ã¯ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã®å¼•æ•°ã‚’1,1000ã«ã—ã¦ãã ã•ã„
+	* ‹à‹›‚ð•ß‚Ü‚¦‚é‚±‚Æ‚ª‚Å‚«‚½‚©•Ô‚·ŠÖ”
+	* ‘æˆêˆø”:‹à‹›‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ì”z—ñ
+	* ‘æ“ñˆø”:ƒ|ƒC‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	* ‘æŽOˆø”:—”Ší–{‘Ì‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	* ‘æŽlˆø”:—£ŽUˆê—l•ª•zƒNƒ‰ƒX(®”)‚ÌƒCƒ“ƒXƒ^ƒ“ƒX(—”Ší‚Ìˆê•”)
+	* ‘æŒÜˆø”:–ß‚è’l‚ªŠi”[‚³‚ê‚éŽQÆ
+	* –ß‚è’l:•ß‚Ü‚Á‚½‹à‹›‚Ì”
+	* std::uniform_int_distribution<>‚ÌƒCƒ“ƒXƒ^ƒ“ƒX¶¬Žž‚ÍƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ìˆø”‚ð1,1000‚É‚µ‚Ä‚­‚¾‚³‚¢
 	*/
 	static int isCought(
 		const std::vector<Goldfish>& goldfish,
@@ -203,10 +203,10 @@ public:
 	)
 	{
 		int cought_count = 0;
-		if (dice.a() != 1 || dice.b() != 1000)throw new std::invalid_argument("ä¹±æ•°ã®ç¯„å›²ã‚’1ã‹ã‚‰1000ã«è¨­å®šã—ã¦ãã ã•ã„");
+		if (dice.a() != 1 || dice.b() != 1000)throw new std::invalid_argument("—”‚Ì”ÍˆÍ‚ð1‚©‚ç1000‚ÉÝ’è‚µ‚Ä‚­‚¾‚³‚¢");
 		for (unsigned int i = 0; i < goldfish.size(); ++i)
 		{
-			//can_collisionãŒfalseã ã£ãŸã‚‰false,poiã¨goldfishã®è·é›¢ã«ã‚ˆã£ã¦å¤‰å‹•ã™ã‚‹ç¢ºçŽ‡ã§trueã‹falseãŒæ±ºã¾ã‚‹
+			//can_collision‚ªfalse‚¾‚Á‚½‚çfalse,poi‚Ægoldfish‚Ì‹——£‚É‚æ‚Á‚Ä•Ï“®‚·‚éŠm—¦‚Åtrue‚©false‚ªŒˆ‚Ü‚é
 			result.push_back(goldfish[i].can_collision && goldfish[i].triggeredLevel(poi) >= dice(mt));
 			if (*result.end())cought_count++;
 		}
@@ -214,14 +214,14 @@ public:
 	}
 	
 
-	//å€‹åˆ¥ãƒ‘ã‚¿ãƒ¼ãƒ³
+	//ŒÂ•Êƒpƒ^[ƒ“
 	bool isCought(
 		const Poi& poi,
 		std::mt19937_64& mt,
 		std::uniform_int_distribution<int>& dice
 	)const&
 	{
-		if (dice.a() != 1 || dice.b() != 1000)throw new std::invalid_argument("ä¹±æ•°ã®ç¯„å›²ã‚’1ã‹ã‚‰1000ã«è¨­å®šã—ã¦ãã ã•ã„");
+		if (dice.a() != 1 || dice.b() != 1000)throw new std::invalid_argument("—”‚Ì”ÍˆÍ‚ð1‚©‚ç1000‚ÉÝ’è‚µ‚Ä‚­‚¾‚³‚¢");
 		return can_collision && triggeredLevel(poi) >= dice(mt);
 	}
 };
