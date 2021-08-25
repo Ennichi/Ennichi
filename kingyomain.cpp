@@ -1,4 +1,6 @@
 #include "main.h"
+#include "stdafx.h"
+
 void kingyomain() {
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60;//fps

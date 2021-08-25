@@ -1,4 +1,5 @@
 #include "main.h"
+#include "stdafx.h"
 
 void shootingmain() {
 	/* ‰Šú‰» */
