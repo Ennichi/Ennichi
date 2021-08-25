@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "Button.h"
 #include "functions.h"
 #include "Goldfish.h"

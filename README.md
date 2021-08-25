@@ -16,3 +16,4 @@ DXライブラリの準備
 ```
 # ライセンス
 - DX Library Copyright (C) 2001-2021 Takumi Yamada.
+Makefileは[[C++]DXライブラリ(DxLib)をMinGWで使う](https://qiita.com/C_Assembly/items/e921b7c0745651d31d79)を参考にしました。
