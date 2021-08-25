@@ -19,6 +19,9 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
+    <ClCompile Include="functions.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Goldfish.h">

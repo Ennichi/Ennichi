@@ -179,6 +179,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="functions.cpp" />
     <ClCompile Include="game_temp.cpp" />
     <ClCompile Include="kingyomain.cpp" />
     <ClCompile Include="main.cpp" />
