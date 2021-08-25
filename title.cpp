@@ -1,4 +1,5 @@
 #include "main.h"
+#include "stdafx.h"
 
 void titlemain() {
 	SetMainWindowText("縁日ゲーム(タイトル)");
