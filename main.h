@@ -1,4 +1,5 @@
-﻿#include "stdafx.h"
+﻿#pragma once
+#include "stdafx.h"
 #include "Button.h"
 #include "functions.h"
 #include "Goldfish.h"
