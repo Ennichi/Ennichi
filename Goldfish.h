@@ -31,7 +31,7 @@ private:
 	{
 		int midx = x, midy = y;
 		Goldfish::center(midx, midy, xlength, ylength);
-		double d = distance(midx, midy, poi.center());
+		double d = 1000.0 * dist_elipse(midx, midy, poi.center()[0], poi.center()[1], xlength, ylength);
 		return 1000 - (int)(d * static_cast<double>(difficulty));
 	}
 

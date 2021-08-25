@@ -1,5 +1,6 @@
 #pragma once
 #include "stdafx.h"
+#define _CAST(X) static_cast<double>(X)
 /* 汎用関数などまとめ */
 
 /*ベクトル構造体
@@ -45,8 +46,10 @@ struct Vector2
 };
 
 
-inline double distance(int x1, int y1, std::vector<int> pos2)
+inline double distance(double dx, double dy)
 {
-	return std::sqrt((x1 - pos2[0]) * (x1 - pos2[0]) + (y1 - pos2[1]) * (y1 - pos2[1]));
+	return std::sqrt(dx * dx + dy * dy);
 }
+
+double dist_elipse(int x1, int y1, int x2, int y2, double magx, double magy);
 

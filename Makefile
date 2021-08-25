@@ -1,5 +1,5 @@
 build:
-	g++ -o  main -g3 -Wall -Wextra  -std=gnu++20 kingyomain.cpp game_temp.cpp \
+	g++ -o  main -g3 -Wall -Wextra  -std=gnu++20 functions.cpp kingyomain.cpp game_temp.cpp \
      shooting.cpp title.cpp main.cpp \
      -I ./7_3_0 \
      -L ./7_3_0 \
