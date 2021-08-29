@@ -6,9 +6,9 @@ void kingyomain() {
 	int FramePerSecond = 60;//fps
 	LONGLONG nowtime, pretime;//現在時間
 
-	std::vector<const char*> path = { "./image/kingyo.png", "./image/background.png" };
-	std::vector<const char*> buttonpath = { "./image/gotokingyomain.png", "./image/button2.png" };
-	std::vector<const char*> poi_path = { "./image/poi_kirinuki.png" };
+	std::vector<const char*> path = { "./image/goldfish_open.png", "./image/goldfish_close.png" };
+	std::vector<const char*> buttonpath = { "./image/button2.png", "./image/button1.png" };
+	std::vector<const char*> poi_path = { "./image/poi.png" };
 
 	std::random_device seed;//乱数生成器
 	std::mt19937_64 mt(seed());
@@ -18,8 +18,8 @@ void kingyomain() {
 	int click_event, button_type, cx, cy, log_type;
 
 	Button button1(250, 240, false, buttonpath);
-	Button button2(250, 240 + 115 + 10, false, buttonpath);
-	Button button3(250, 240 + 115 * 2 + 10 * 2, false, buttonpath);
+	Button button2(250, 240 + 115 + 30, false, buttonpath);
+	Button button3(250, 240 + 115 * 2 + 30 * 2, false, buttonpath);
 
 	Goldfish *fish1=new Goldfish(0, 0, DX_PI, true, path); //金魚
 	Goldfish fish2(100, 0, DX_PI * 3.0 / 4.0, true, path);
@@ -50,7 +50,7 @@ void kingyomain() {
 		if (windowFlag == 0) {  // メニューウィンドウ
 			SetMainWindowText("金魚すくい(タイトル)");	//windowテキスト
 
-			DrawStringToHandle(250, 240 - 32, "金魚ゲーム", GetColor(20 + rand() % 256, 20 + rand() % 256, 20 + rand() % 256), font);
+			DrawStringToHandle(350, 120, "金魚ゲーム", GetColor(120,120,120), font);
 			button1.draw();	//ゲームスタート
 			button2.draw();	//チュートリアル
 			button3.draw();	//過去の成績
@@ -87,6 +87,9 @@ void kingyomain() {
 			}
 		}
 		else if (windowFlag == 2) {	//チュートリアル
+			SetMainWindowText("金魚すくい(チュートリアルはボタンでキャンセルできます)");	//windowテキスト
+			PlayMovie("./image/tutorial.mp4", 1, DX_MOVIEPLAYTYPE_BCANCEL);	//チュートリアルを再生する(ボタンキャンセルあり)
+			windowFlag = 0;
 		}
 		else if (windowFlag == 3) {
 
