@@ -82,11 +82,11 @@ void kingyomain() {
 			}
 			//60秒たったら終了
 			if ((GetNowCount() - clock) >= 60000) {
+				SetMainWindowText("スコア表示中");	//windowテキスト
 				windowFlag = 0;
 				DrawFormatString(500, 200, GetColor(120, 120, 120), "スコアは%dです\nゲームを続けるにはキーを押してください...", score, font);
 			}
 			DrawFormatString(350, 120, GetColor(120, 120, 120) ,"ゲーム終了まで%d", (GetNowCount() - clock), font);
-
 		}
 		else if (windowFlag == 2) {	//チュートリアル
 			SetMainWindowText("金魚すくい(チュートリアルはボタンでキャンセルできます)");	//windowテキスト
