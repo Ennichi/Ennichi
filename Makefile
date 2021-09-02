@@ -36,7 +36,8 @@ LDFLAGS := -lDxLib \
      -lopusfile \
      -lopus \
      -lsilk_common \
-     -lcelt
+     -lcelt \
+     -mwindows
 
 MAKE_ICON = windres icon.rc -O coff -o icon.res #アイコンファイルの作成
 
