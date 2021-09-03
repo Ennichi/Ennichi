@@ -8,12 +8,7 @@ CFLAGS+= -DDX_GCC_COMPILE
 CFLAGS+= -DDX_NON_INLINE_ASM
 
 TARGET = Ennichi #実行ファイルの名前
-SRCS = functions.cpp \
-		kingyomain.cpp \
-		game_temp.cpp \
-		shooting.cpp \
-		title.cpp \
-		main.cpp
+SRCS = *.cpp
 ICON = icon.res #アイコンファイルの場所
 INC_DIR := -I ./7_3_0 #インクルードするディレクトリ
 LIB_DIR := -L ./7_3_0 #ライブラリディレクトリ
@@ -37,7 +32,7 @@ LDFLAGS := -lDxLib \
      -lopus \
      -lsilk_common \
      -lcelt \
-     -mwindows
+     -mwindows 
 
 MAKE_ICON = windres icon.rc -O coff -o icon.res #アイコンファイルの作成
 
