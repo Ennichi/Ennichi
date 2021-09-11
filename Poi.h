@@ -16,7 +16,6 @@ public:
 
 	void point_change() {
 		int PADInput = GetJoypadInputState(DX_INPUT_KEY_PAD1); //要検討(金魚用と合わせて一階のゲームループの最初で受け取ってもいいかも)
-
 		if ((PADInput & PAD_INPUT_RIGHT) != 0) { //十字右キーの入力
 			x = x + 3;
 		}
@@ -32,7 +31,6 @@ public:
 		if ((PADInput & PAD_INPUT_UP) != 0) { //十字上キーの入力
 			y = y - 3;
 		}
-
 	}
 };
 
