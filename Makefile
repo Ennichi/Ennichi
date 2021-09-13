@@ -34,7 +34,6 @@ LDFLAGS := -lDxLib \
      -lcelt \
      -mwindows 
 
-MAKE_ICON = windres icon.rc -O coff -o icon.res #アイコンファイルの作成
 
 $(TARGET):
 	$(CC) -o $(TARGET) $(CFLAGS) $(SRCS) $(ICON) $(INC_DIR) $(LIB_DIR) $(LDFLAGS)
