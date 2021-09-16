@@ -60,7 +60,7 @@ public:
 	}
 
 	//コピーコンストラクタ
-	InputText(const InputText& base) : Obj(base),CancelValidFlag{base.CancelValidFlag}, SingleCharOnlyFlag{base.SingleCharOnlyFlag}, NumCharOnlyFlag{base.NumCharOnlyFlag}, maxlen{base.maxlen}
+	InputText(const InputText& base) : Obj(base),CancelValidFlag{base.CancelValidFlag}, SingleCharOnlyFlag{base.SingleCharOnlyFlag}, NumCharOnlyFlag{base.NumCharOnlyFlag}, maxlen{base.maxlen}, fontHandle{base.fontHandle}
 	{
 		__textptr = new char[maxlen];
 		inputHandle = MakeKeyInput(maxlen, BOOLTOINT(CancelValidFlag), BOOLTOINT(SingleCharOnlyFlag), BOOLTOINT(NumCharOnlyFlag));
