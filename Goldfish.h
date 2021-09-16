@@ -100,8 +100,8 @@ public:
 		int x,
 		int	y,
 		bool can_collision,
-		const std::vector<const char*>& image_path
-	) : Obj(x,y,can_collision,image_path)
+		const std::vector<int>& image_handle
+	) : Obj(x,y,can_collision,image_handle)
 	{}
 
 	//コンストラクタ(検討中)
@@ -110,8 +110,8 @@ public:
 		int	y,
 		double angle,
 		bool can_collision,
-		const std::vector<const char*>& image_path
-	) : Obj(x,y,angle,can_collision,image_path)
+		const std::vector<int>& image_handle
+	) : Obj(x,y,angle,can_collision,image_handle)
 	{}
 
 
@@ -222,6 +222,6 @@ public:
 	)const&
 	{
 		if (dice.a() != 1 || dice.b() != 1000)throw new std::invalid_argument("乱数の範囲を1から1000に設定してください");
-		return can_collision && triggeredLevel(poi) >= dice(mt);
+		return can_collision && (triggeredLevel(poi) >= dice(mt));
 	}
 };

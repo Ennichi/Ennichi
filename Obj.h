@@ -4,11 +4,17 @@
 
 class Obj
 {
+protected:
+	/* 派生クラスのみアクセス可能 */
+	unsigned int __frames = 0;
+
 public:
 	/* メンバ変数 */
 	int x, y; // オブジェクトの座標
 	int xlength=0, ylength=0; // x, y方向の長さ
 	int state = 0; // 描画する画像の、imageにおける添え字
+
+	unsigned int animsp = 0;//アニメーションのコマ送りの速度(何フレームに一回の速度か)(0なら停止)
 
 	double angle = 0.0; // 画像の回転
 
@@ -23,18 +29,10 @@ public:
 		int x,
 		int	y,
 		bool can_collision,
-		const std::vector<const char*>& image_path
-	) : x(x), y(y), can_collision(can_collision)
+		const std::vector<int>& image_handle
+	) : x(x), y(y), can_collision(can_collision),images(image_handle)
 	{
-		/* image_pathで指定された画像を読み込み, imagesに保存 */
-		for (int i = 0; i < (int)image_path.size(); i++) {
-			int t = LoadGraph(image_path[i]); // 指定画像を読み込む
-			if (t == -1) {
-				exit(1);
-			}
-			images.push_back(t); // imagesに追加
-			GetGraphSize(images[0], &xlength, &ylength);
-		}
+		if(!images.empty())GetGraphSize(images[0], &xlength, &ylength);
 	}
 
 	Obj( // コンストラクタ(角度指定あり)
@@ -42,25 +40,21 @@ public:
 		int	y,
 		double angle,
 		bool can_collision,
-		const std::vector<const char*>& image_path
-	) : x(x), y(y), angle(angle), can_collision(can_collision)
+		const std::vector<int>& image_handle
+	) : x(x), y(y), angle(angle), can_collision(can_collision),images(image_handle)
 	{
-		/* image_pathで指定された画像を読み込み, imagesに保存 */
-		for (int i = 0; i < (int)image_path.size(); i++) {
-			int t = LoadGraph(image_path[i], 1); // 指定画像を読み込む
-			if (t == -1) {
-				exit(1);
-			}
-			images.push_back(t); // imagesに追加
-			GetGraphSize(images[0], &xlength, &ylength);
-		}
+		if(!images.empty())GetGraphSize(images[0], &xlength, &ylength);
 	}
 
+	//画像無しコンストラクタ
+	Obj(
+		int x,
+		int y
+	) : x(x), y(y), can_collision(false), images()
+	{}
 
 	virtual ~Obj() {
-		for (int i = 0; i < (int)images.size(); i++) {
-			DeleteGraph(images[i]); // 読み込んだ画像をメモリから削除
-		}
+
 	}
 
 	virtual void draw()
@@ -69,6 +63,15 @@ public:
 		if (DrawRotaGraph(x + xlength / 2, y + ylength / 2, 1.0, angle, images[state], 1) == -1) {
 			throw new std::runtime_error("描画失敗");
 			exit(1);
+		}
+		if (animsp != 0)
+		{
+			__frames++;
+			if (__frames >= animsp)
+			{
+				__frames = 0;
+				state = (state + 1) % static_cast<int>(images.size());
+			}
 		}
 	}
 

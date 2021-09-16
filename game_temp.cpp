@@ -17,10 +17,45 @@
 	std::vector<const char*> button_path = { "./image/button2.png", "./image/button1.png" };
 	std::vector<const char*> poi_path = { "./image/poi.png" };
 
-	Goldfish fish1(0, 0, 0.0, true, path);
-	Goldfish fish2(100, 0, DX_PI *3.0/4.0, true, path);
-	Poi first(500, 500, true, poi_path);
-	Button button(300, 300, false, button_path);
+	/* 要検討 */
+	//同じ書き方を何度もしている
+	std::vector<int> handle{};
+	for (auto image_path : path)
+	{
+		handle.push_back(LoadGraph(image_path));
+		if (*(handle.end() - 1) == -1)
+		{
+			MessageBox(NULL, "画像読み込み時エラー", "Error Info", MB_ICONHAND);
+			exit(1);
+		}
+	}
+
+	std::vector<int> button_handle{};
+	for (auto image_path : button_path)
+	{
+		button_handle.push_back(LoadGraph(image_path));
+		if (*(button_handle.end() - 1) == -1)
+		{
+			MessageBox(NULL, "画像読み込み時エラー", "Error Info", MB_ICONHAND);
+			exit(1);
+		}
+	}
+
+	std::vector<int> poi_handle{};
+	for (auto image_path : poi_path)
+	{
+		poi_handle.push_back(LoadGraph(image_path));
+		if (*(poi_handle.end() - 1) == -1)
+		{
+			MessageBox(NULL, "画像読み込み時エラー", "Error Info", MB_ICONHAND);
+			exit(1);
+		}
+	}
+
+	Goldfish fish1(0, 0, 0.0, true, handle);
+	Goldfish fish2(100, 0, DX_PI *3.0/4.0, true, handle);
+	Poi first(500, 500, true, poi_handle);
+	Button button(300, 300, false, button_handle);
 
 	fish1.setSpeed(1.0, 2.0);
 	fish2.setSpeed(1.0, 10.0);
@@ -82,3 +117,41 @@
 		ScreenFlip();
 	}
 }
+
+/*
+//動作確認用関数
+void test1()
+{
+	char str[256] = "";
+	int input_handle = MakeKeyInput(256, FALSE, FALSE, FALSE);
+	int scene = 0;
+	if (input_handle == -1)exit(1);
+	SetActiveKeyInput(input_handle);
+	while (!ProcessMessage())
+	{
+		SetDrawScreen(DX_SCREEN_BACK);
+		ClearDrawScreen();
+		if (scene == 0)
+		{
+			if (CheckKeyInput(input_handle) != 0)
+			{
+				scene = 1;
+				ScreenFlip();
+				continue;
+			}
+			if(DrawKeyInputModeString(500, 1000)==-1)printfDx("1");
+			if(DrawKeyInputString(0, 20, input_handle)==-1)printfDx("2");
+		}
+		if (scene == 1)
+		{
+			GetKeyInputString(str, input_handle);
+			printfDx(str);
+			SetActiveKeyInput(input_handle);
+			scene = 0;
+		}
+		
+		ScreenFlip();
+	}
+	
+}
+*/

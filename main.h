@@ -6,8 +6,11 @@
 #include "KeyInput.h"
 #include "Poi.h"
 #include "Timer.h"
+#include "Text.h"
 
 void titlemain();
 void shootingmain();
 void kingyomain();
 void game_temp();
+
+//void test1();

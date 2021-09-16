@@ -5,12 +5,12 @@
 //ポイのクラスの定義(Objの継承)
 class Poi : public Obj {
 public:
-	Poi(int x, int	y, bool can_collision, const std::vector<const char*>& image_path) : Obj(x, y, can_collision, image_path) {};
+	Poi(int x, int	y, bool can_collision, const std::vector<int>& image_handle) : Obj(x, y, can_collision, image_handle) {};
 	//Objの角度なしコンストラクタ呼び出し
 	//画像サイズが400×400の時のとき、左上に対する中心の座標は(240,160)
 	inline std::vector<int> center()const&
 	{
-		std::vector<int> pos = {x + 240, y + 160};
+		std::vector<int> pos = {x + 58, y + 34};
 		return pos;
 	}
 
