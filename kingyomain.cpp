@@ -70,6 +70,10 @@ void kingyomain() {
 	prevtime = GetNowHiPerformanceCount();
 	int clock = GetNowCount();	//現在時刻の取得
 	int score=0;	//ゲームのスコア
+
+	std::string str1;
+	InputText in(0, 0, 5);
+	in.set();
 	/* ゲームループ */
 	while (1) {
 		SetDrawScreen(DX_SCREEN_BACK);  // 表示画面を裏に
@@ -116,7 +120,8 @@ void kingyomain() {
 				fish1 = NULL;
 				score++;
 			}
-
+			in.draw();
+			in.text(str1);
 			//60秒たったら終了
 			if ((GetNowCount() - clock) >= 60000) {
 				SetMainWindowText("スコア表示中");	//windowテキスト

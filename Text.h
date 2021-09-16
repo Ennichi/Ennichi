@@ -6,6 +6,7 @@
 
 class InputText : public Obj
 {
+	using ULL = unsigned long long;
 private:
 	/* 外部アクセス不可 */
 	char* __textptr;
@@ -31,7 +32,7 @@ public:
 	//コンストラクタ
 	InputText(int x0, int y0, unsigned int maxlen0, int font = -1) :Obj(x0, y0), CancelValidFlag{false}, SingleCharOnlyFlag{false}, NumCharOnlyFlag{false}, maxlen{maxlen0}, fontHandle{font}
 	{
-		__textptr = new char[maxlen];
+		__textptr = new char[static_cast<ULL>(maxlen) + 1ull];
 		inputHandle = MakeKeyInput(maxlen, FALSE, FALSE, FALSE);
 		if (inputHandle == -1)throw new std::runtime_error("テキスト入力オブジェクト作成失敗");
 		SetActiveKeyInput(inputHandle);
@@ -53,7 +54,7 @@ public:
 		if (CancelValidFlag)c = TRUE;
 		if (SingleCharOnlyFlag)s = TRUE;
 		if (NumCharOnlyFlag)n = TRUE;
-		__textptr = new char[maxlen];
+		__textptr = new char[static_cast<ULL>(maxlen) + 1ull];
 		inputHandle = MakeKeyInput(maxlen, c, s, n);
 		if (inputHandle == -1)throw new std::runtime_error("テキスト入力オブジェクト作成失敗");
 		SetKeyInputCursorBrinkFlag(TRUE);
@@ -92,10 +93,9 @@ public:
 	}
 
 	//テキスト取得
-	const std::string& text()
+	void text(std::string& str)
 	{
-		std::string txt(__textptr);
-		return txt;
+		str = __textptr;
 	}
 
 	//テキスト取得

@@ -12,5 +12,3 @@ void titlemain();
 void shootingmain();
 void kingyomain();
 void game_temp();
-
-//void test1();

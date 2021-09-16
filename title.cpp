@@ -29,13 +29,5 @@ void titlemain() {
 			ClearDrawScreen();
 			shootingmain();
 		}
-		/*
-		else if ((PADInput & PAD_INPUT_UP) != 0)
-		{
-			SetBackgroundColor(0, 0, 0);
-			ClearDrawScreen();
-			test1();
-		}
-		*/
 	}
 }
