@@ -1,10 +1,20 @@
-build:
-	g++ -o  main -g3 -Wall -Wextra  -std=gnu++20 functions.cpp kingyomain.cpp game_temp.cpp \
-     shooting.cpp title.cpp main.cpp \
-     -I ./7_3_0 \
-     -L ./7_3_0 \
-     -DDX_GCC_COMPILE -DDX_NON_INLINE_ASM \
-     -lDxLib \
+CC:=g++ #g++でビルドする
+
+CFLAGS:= -g3 #デバッグ情報最大化
+CFLAGS+= -Wall #エラーを全部出す
+CFLAGS+= -Wextra #追加の警告オプション
+CFLAGS+= -std=gnu++20 #C++20でビルドする
+CFLAGS+= -DDX_GCC_COMPILE
+CFLAGS+= -DDX_NON_INLINE_ASM
+
+TARGET = Ennichi #実行ファイルの名前
+SRCS = *.cpp
+ICON = icon.res #アイコンファイルの場所
+INC_DIR := -I ./7_3_0 #インクルードするディレクトリ
+LIB_DIR := -L ./7_3_0 #ライブラリディレクトリ
+
+#リンク時のフラグ
+LDFLAGS := -lDxLib \
      -lDxUseCLib \
      -lDxDrawFunc \
      -ljpeg \
@@ -21,4 +31,9 @@ build:
      -lopusfile \
      -lopus \
      -lsilk_common \
-     -lcelt 
+     -lcelt \
+     -mwindows 
+
+
+$(TARGET):
+	$(CC) -o $(TARGET) $(CFLAGS) $(SRCS) $(ICON) $(INC_DIR) $(LIB_DIR) $(LDFLAGS)
