@@ -93,19 +93,19 @@ public:
 	}
 
 	//テキスト取得
-	void text(std::string& str)
+	void text(std::string& str)const&
 	{
 		str = __textptr;
 	}
 
 	//テキスト取得
-	void text(char* str)
+	void text(char* str)const&
 	{
 		GetKeyInputString(str, inputHandle);
 	}
 
 	//有効化
-	void set()
+	void set()const&
 	{
 		SetActiveKeyInput(inputHandle);
 		SetKeyInputString("", inputHandle);

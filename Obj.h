@@ -53,6 +53,12 @@ public:
 	) : x(x), y(y), can_collision(false), images()
 	{}
 
+	//コピーコンストラクタ自動生成
+	Obj(const Obj&) = default;
+
+	//ムーブコンストラクタ無し
+	Obj(Obj&&) = delete;
+
 	virtual ~Obj() {
 
 	}
