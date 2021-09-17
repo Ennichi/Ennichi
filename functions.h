@@ -16,11 +16,8 @@ struct Vector2
 	{}
 
 	//コンストラクタ
-	Vector2(double x0, double y0)
-	{
-		x = x0;
-		y = y0;
-	}
+	Vector2(double x0, double y0) : x{x0}, y{y0}
+	{}
 
 	/*
 	* コンストラクタ(イニシャライザーリスト)
