@@ -6,6 +6,7 @@
 #include "KeyInput.h"
 #include "Poi.h"
 #include "Timer.h"
+#include "Text.h"
 
 void titlemain();
 void shootingmain();

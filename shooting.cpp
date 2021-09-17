@@ -6,7 +6,13 @@ void shootingmain() {
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
 	std::vector<const char*> file_path = { "./score_shoooting.csv" };
 	std::vector<const char*> gun_path = { "./image/gun.png" };
-	Gun first(0, 250, true, gun_path);
+	std::vector<int> gun_handle{LoadGraph(*(gun_path.begin()))};
+	if (*(gun_handle.begin()) == -1)
+	{
+		MessageBox(NULL, "画像読み込み時エラー", "Error Info", MB_ICONHAND);
+		exit(1);
+	}
+	Gun first(0, 250, true, gun_handle);
 	/* ゲームループ */
 	while (1) {
 		SetDrawScreen(DX_SCREEN_BACK);  // 表示画面を裏に
