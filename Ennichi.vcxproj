@@ -102,7 +102,9 @@
       <AdditionalLibraryDirectories>$(ProjectDir)/3.22c_VS;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /e image Debug\image\ /y</Command>
+      <Command>robocopy "$(ProjectDir)asset" "$(OutDir)asset" /xo /E /COPY:DT /R:3
+IF %ERRORLEVEL% LSS 8 EXIT 0
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -127,7 +129,9 @@
       <AdditionalLibraryDirectories>$(ProjectDir)/3.22c_VS;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /e image Release\image\ /y</Command>
+      <Command>robocopy "$(ProjectDir)asset" "$(OutDir)asset" /xo /E /COPY:DT /R:3
+IF %ERRORLEVEL% LSS 8 EXIT 0
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -150,7 +154,9 @@
       <AdditionalLibraryDirectories>$(ProjectDir)/3.22c_VS;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /e image Debug\image\ /y</Command>
+      <Command>robocopy "$(ProjectDir)asset" "$(OutDir)asset" /xo /E /COPY:DT /R:3
+IF %ERRORLEVEL% LSS 8 EXIT 0
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -175,7 +181,9 @@
       <AdditionalLibraryDirectories>$(ProjectDir)/3.22c_VS;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /e image Release\image\ /y</Command>
+      <Command>robocopy "$(ProjectDir)asset" "$(OutDir)asset" /xo /E /COPY:DT /R:3
+IF %ERRORLEVEL% LSS 8 EXIT 0
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -6,9 +6,9 @@ void kingyomain() {
 	int FramePerSecond = 60;//fps
 	LONGLONG nowtime, prevtime;//現在時間
 
-	std::vector<const char*> path = { "./image/goldfish_open.png", "./image/goldfish_close.png" };
-	std::vector<const char*> buttonpath = { "./image/button2.png", "./image/button1.png" };
-	std::vector<const char*> poi_path = { "./image/poi.png" };
+	std::vector<const char*> path = { "./asset/image/goldfish_open.png", "./asset/image/goldfish_close.png" };
+	std::vector<const char*> buttonpath = { "./asset/image/button2.png", "./asset/image/button1.png" };
+	std::vector<const char*> poi_path = { "./asset/image/poi.png" };
 
 	std::random_device seed;//乱数生成器
 	std::mt19937_64 mt(seed());
@@ -137,7 +137,7 @@ void kingyomain() {
 		}
 		else if (windowFlag == 2) {	//チュートリアル
 			SetMainWindowText("金魚すくい(チュートリアルはボタンでキャンセルできます)");	//windowテキスト
-			PlayMovie("./image/tutorial.mp4", 1, DX_MOVIEPLAYTYPE_BCANCEL);	//チュートリアルを再生する(ボタンキャンセルあり)
+			PlayMovie("./asset/video/tutorial.mp4", 1, DX_MOVIEPLAYTYPE_BCANCEL);	//チュートリアルを再生する(ボタンキャンセルあり)
 			windowFlag = 0;
 		}
 		else {  // ゲームの終了
