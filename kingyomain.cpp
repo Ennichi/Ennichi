@@ -5,7 +5,7 @@ void kingyomain() {
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60;//fps
 	LONGLONG nowtime, prevtime;//現在時間
-
+	
 	std::vector<const char*> path = { "./asset/image/goldfish_open.png", "./asset/image/goldfish_close.png" };
 	std::vector<const char*> buttonpath = { "./asset/image/button2.png", "./asset/image/button1.png" };
 	std::vector<const char*> poi_path = { "./asset/image/poi.png" };
