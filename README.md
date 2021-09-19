@@ -19,11 +19,17 @@
 そして、展開して、**プロジェクトに追加すべきファイル_VC用**を**3.22c_VS**にリネームし、そのディレクトリに配置してください。
 すると、ビルドができます。
 
+# 使用している効果音について
+この曲は[魔王魂](https://maou.audio/)様の音を使用しています。
+扱いやすくするためタイトルを変更しています。
+利用規約については[魔王魂様の音楽利用のルール](https://maou.audio/rule/)をご確認ください。
+著作表記
+- 音楽：魔王魂 https://maou.audio/
+- 音楽：まおうだましい
+- 音楽：MaouDamashii
+
 # ライセンス
 - DX Library Copyright (C) 2001-2021 Takumi Yamada.
-
-Makefileは[[C++]DXライブラリ(DxLib)をMinGWで使う](https://qiita.com/C_Assembly/items/e921b7c0745651d31d79)を参考にしました。
-
 # DXライブラリの使用しているライセンス
 libjpeg Copyright (C) 1991-2013, Thomas G. Lane, Guido Vollbeding.
    this software is based in part on the work of the Independent JPEG Group
@@ -184,11 +190,3 @@ libjpeg Copyright (C) 1991-2013, Thomas G. Lane, Guido Vollbeding.
 
    Bullet Copyright (c) 2003-2006 Erwin Coumans.
    
-# 使用している効果音について
-この曲は[魔王魂](https://maou.audio/)様の音を使用しています。
-扱いやすくするためタイトルを変更しています。
-利用規約については[魔王魂様の音楽利用のルール](https://maou.audio/rule/)をご確認ください。
-著作表記
-- 音楽：魔王魂 https://maou.audio/
-- 音楽：まおうだましい
-- 音楽：MaouDamashii
