@@ -17,19 +17,15 @@ void titlemain() {
 		PADInput = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 		if ((PADInput & PAD_INPUT_1) != 0) {
 			ClearDrawScreen();
-			DeleteSoundMem(bgm); 
-			PlaySoundMem(effect, DX_PLAYTYPE_NORMAL);
-			DeleteSoundMem(effect);
-			kingyomain(); 
+			PlaySoundMem(effect, DX_PLAYTYPE_BACK);
+			kingyomain(FontHandle,bgm,effect); 
 		}
 		else if ((PADInput & PAD_INPUT_RIGHT) != 0) { // 矢印右キーを押す
 			ClearDrawScreen();
-			DeleteSoundMem(bgm);
 			game_temp();
 		}
 		else if ((PADInput & PAD_INPUT_2) != 0) { // 矢印左キーを押す
 			ClearDrawScreen();
-			DeleteSoundMem(bgm);
 			shootingmain();
 		}
 	}

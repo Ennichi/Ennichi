@@ -1,7 +1,7 @@
 #include "main.h"
 #include "stdafx.h"
 
-void kingyomain() {
+void kingyomain(int font,int bgm,int effect) {
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60;//fps
 	LONGLONG nowtime, prevtime;//現在時間
@@ -63,9 +63,6 @@ void kingyomain() {
 	KeyInput input(KEY_INPUT_Z);
 
 	fish1->setSpeed(0.5, 1.0);//スピード設定
-
-	int font = CreateFontToHandle("Mplus1-Regular", 50, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
-
 
 	prevtime = GetNowHiPerformanceCount();
 	int clock = GetNowCount();	//現在時刻の取得

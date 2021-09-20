@@ -10,5 +10,5 @@
 
 void titlemain();
 void shootingmain();
-void kingyomain();
+void kingyomain(int font, int bgm, int effect);
 void game_temp();
