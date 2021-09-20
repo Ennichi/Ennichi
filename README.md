@@ -30,7 +30,9 @@
 
 # ライセンス
 - DX Library Copyright (C) 2001-2021 Takumi Yamada.
-# DXライブラリの使用しているライセンス
+# 
+<summary>DXライブラリの使用しているライセンスです。広げると表示されます。</summary>
+
 libjpeg Copyright (C) 1991-2013, Thomas G. Lane, Guido Vollbeding.
    this software is based in part on the work of the Independent JPEG Group
 
@@ -189,4 +191,6 @@ libjpeg Copyright (C) 1991-2013, Thomas G. Lane, Guido Vollbeding.
 
 
    Bullet Copyright (c) 2003-2006 Erwin Coumans.
+
+</details>
    

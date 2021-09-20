@@ -64,7 +64,7 @@ void kingyomain() {
 
 	fish1->setSpeed(0.5, 1.0);//スピード設定
 
-	int font = CreateFontToHandle("メイリオ", 50, -1, DX_FONTTYPE_ANTIALIASING_EDGE);
+	int font = CreateFontToHandle("Mplus1-Regular", 50, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 
 
 	prevtime = GetNowHiPerformanceCount();
