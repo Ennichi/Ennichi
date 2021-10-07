@@ -60,7 +60,7 @@
 	fish1.setSpeed(1.0, 2.0);
 	fish2.setSpeed(1.0, 10.0);
 	
-	Timer timer;
+	Timer timer(3000);
 	KeyInput input = { KEY_INPUT_0, KEY_INPUT_1,KEY_INPUT_Z };
 
 	/* ゲームループ */
@@ -74,7 +74,6 @@
 		if (ProcessMessage() == -1) break;	//エラーが起きたらループをぬける
 		if (windowFlag == 0) {  // メニューウィンドウ
 
-			timer.sets(50);
 			if (timer() == 0)
 			{
 				windowFlag = 1;
@@ -102,6 +101,7 @@
 			fish2.draw();
 			first.draw();
 			button.draw();
+			timer.update();
 		}
 		else if (windowFlag == 1) { // ゲーム中のウィンドウ
 			button.draw();
