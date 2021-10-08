@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "Poi.h"
 #include "functions.h"
-#define ANGLE0 (-DX_PI/2.0)
+#define ANGLE0 (0)
 
 
 //‹à‹›‚Ì“®‚«•û
