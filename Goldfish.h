@@ -4,10 +4,12 @@
 #include "functions.h"
 #define ANGLE0 (0)
 
+
 //金魚の動き方
 enum class MOV_OPTION
 {
-	CIRCLE = 0,
+	LINEAR = 0,
+	CIRCLE,
 	WAVE
 };
 
@@ -20,9 +22,15 @@ private:
 	double speed = 0.0;
 	double xerr = 0.0;
 	double yerr = 0.0;
+
 	double __wave_info_x = 0.0;
 	double __wave_info_angle = 0.0;
+	MOV_OPTION moveOption = MOV_OPTION::LINEAR;
+	double move_paramater1;
+	double move_paramater2;
+
 	unsigned int difficulty = 10;
+
 
 	//クラス外では実行しない
 	//自身とポイを比較,評価
@@ -53,7 +61,7 @@ public:
 
 	//次のフレームに更新(検討中)
 	//金魚が向いてる向きに(x,y)を進める
-	inline void Next()
+	void Next()
 	{
 		double delx = speed * std::cos(angle + ANGLE0) + xerr;
 		double dely = speed * std::sin(angle + ANGLE0) + yerr;
@@ -61,11 +69,29 @@ public:
 		y += std::lround(dely);
 		xerr = delx - std::lround(delx);//x座標の丸め誤差(次ループで足す)
 		yerr = dely - std::lround(dely);//y座標の丸め誤差(次ループで足す)
+		switch (moveOption)
+		{
+			//円弧の軌道で動く
+		case MOV_OPTION::CIRCLE:
+			if (!(move_paramater2 == 1.0 || move_paramater2 == -1.0))
+				throw new std::out_of_range("円形移動のときはp2を1.0か-1.0にしてください");
+			angle += move_paramater2 * (DX_PI / 2.0 - acos(speed / (move_paramater1 * 2.0)));
+			__wave_info_x = 0.0;
+			break;
+
+			//正弦波の軌道で動く
+		case MOV_OPTION::WAVE:
+			if (__wave_info_x == 0.0)__wave_info_angle = angle;
+			double slope = - move_paramater1 * (2.0 * DX_PI / move_paramater2) * std::sin((2.0 * DX_PI / move_paramater2) * __wave_info_x);
+			__wave_info_x += speed / (std::sqrt(slope * slope + 1));
+			angle = __wave_info_angle + std::atan(slope);
+			break;
+		}
 	}
-	
+
 	/*金魚の動きを設定(未完成)
-	* 
-	**** Next()の前に実行してください(毎フレーム実行) ****
+	*
+	**** Next()の前に実行してください(一回のみ実行) ****
 	* MOV_OPTION::CIRCLE
 	* | 円弧に沿って動く
 	* | p1...半径, p2...1.0ならangle+90の方向に中心、-1.0ならangle-90の方向に中心
@@ -73,26 +99,11 @@ public:
 	* | 波型に動く
 	* | p1...振幅, p2...波長
 	*/
-	inline void SetMovement(MOV_OPTION option, double p1, double p2)
+	void SetMovement(MOV_OPTION option, double p1, double p2)
 	{
-		switch (option)
-		{
-			//円弧の軌道で動く
-		case MOV_OPTION::CIRCLE:
-			if (!(p2 == 1.0 || p2 == -1.0))
-				throw new std::out_of_range("円形移動のときはp2を1.0か-1.0にしてください");
-			angle += p2 * (DX_PI / 2.0 - acos(speed / (p1 * 2.0)));
-			__wave_info_x = 0.0;
-			break;
-
-			//正弦波の軌道で動く
-		case MOV_OPTION::WAVE:
-			if (__wave_info_x == 0.0)__wave_info_angle = angle;
-			double slope = -p1 * (2.0 * DX_PI / p2) * std::sin((2.0 * DX_PI / p2) * __wave_info_x);
-			__wave_info_x += speed / (std::sqrt(slope * slope + 1));
-			angle = __wave_info_angle + std::atan(slope);
-			break;
-		}
+		moveOption = option;
+		move_paramater1 = p1;
+		move_paramater2 = p2;
 	}
 
 	//コンストラクタ(検討中)
@@ -101,7 +112,7 @@ public:
 		int	y,
 		bool can_collision,
 		const std::vector<int>& image_handle
-	) : Obj(x,y,can_collision,image_handle)
+	) : Obj(x, y, can_collision, image_handle)
 	{}
 
 	//コンストラクタ(検討中)
@@ -111,9 +122,11 @@ public:
 		double angle,
 		bool can_collision,
 		const std::vector<int>& image_handle
-	) : Obj(x,y,angle,can_collision,image_handle)
+	) : Obj(x, y, angle, can_collision, image_handle)
 	{}
 
+	Goldfish(const Goldfish&) = default;
+	Goldfish(Goldfish&&) = default;
 
 	//スピードを決める
 	double setSpeed(double spmin, double spmax)
@@ -167,7 +180,7 @@ public:
 	* std::uniform_int_distribution<>のインスタンス生成時はコンストラクタの引数を1,1000にしてください
 	*/
 	static std::vector<bool> isCought(
-		const std::vector<Goldfish>& goldfish, 
+		const std::vector<Goldfish>& goldfish,
 		const Poi& poi,
 		std::mt19937_64& mt,
 		std::uniform_int_distribution<int>& dice
@@ -212,7 +225,7 @@ public:
 		}
 		return cought_count;
 	}
-	
+
 
 	//個別パターン
 	bool isCought(

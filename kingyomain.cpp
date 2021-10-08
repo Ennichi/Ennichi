@@ -53,10 +53,12 @@ void kingyomain(int font,int bgm,int effect) {
 	Button button1(250, 240, false, button_handle);
 	Button button2(250, 240 + 200, false, button_handle);
 
-	Goldfish *fish1=new Goldfish(0, 0, 0, true, handle); //金魚
+	Goldfish *fish1=new Goldfish(300, 300, 0, true, handle); //金魚
 	Goldfish fish2(100, 0, DX_PI * 3.0 / 4.0, true, handle);
 	Poi first(500, 500, true, poi_handle);//ポイ
 	Goldfish fish3 = *fish1;
+
+	ObjGroup<Goldfish> fish4;
 
 	fish1->setDifficulty(10);
 	fish1->animsp = 30;
@@ -64,6 +66,11 @@ void kingyomain(int font,int bgm,int effect) {
 
 	fish1->setSpeed(0.5, 1.0);//スピード設定
 
+	fish4.addcpy(*fish1, 10);
+	for (int i = 0; i < 10; ++i)
+	{
+		fish4[i].angle -= (double)i * 0.2;
+	}
 	prevtime = GetNowHiPerformanceCount();
 	int clock = GetNowCount();	//現在時刻の取得
 	int score=0;	//ゲームのスコア
@@ -107,6 +114,8 @@ void kingyomain(int font,int bgm,int effect) {
 			}
 			fish3.Next();
 			fish3.draw();
+			fish4.Next();
+			fish4.draw();
 			first.point_change();
 			first.draw();
 			if (fish1 != NULL && input.GetKeyDown(KEY_INPUT_Z) == 1 && fish1->isCought(first, mt, dice))
