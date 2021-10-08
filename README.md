@@ -1,6 +1,7 @@
 
 # このプロジェクトについて
 縁日ゲームをDXライブラリにて作るプロジェクトです。
+
 # メンバー
 - 312k
 - Esu0
@@ -9,16 +10,29 @@
 - demiida
 - at-ohs
 - tatehata7507
-# セットアップ
-DXライブラリの準備
-``` shell
-.\setupdxlib.ps1
-```
-# ライセンス
-- DX Library Copyright (C) 2001-2021 Takumi Yamada.<br>
-Makefileは[[C++]DXライブラリ(DxLib)をMinGWで使う](https://qiita.com/C_Assembly/items/e921b7c0745651d31d79)を参考にしました。
 
-# DXライブラリの使用しているライセンス
+# セットアップ
+このプログラムはVisual Studio 2019にて開発されました。
+よって、このリポジトリをローカルにクローンすると、ビルドができます。
+なお、実際に実行する際にはDXライブラリが必要です。
+クローンした、ディレクトリに移動して、ブラウザで[ＤＸライブラリ Windows版 VisualStudio( C++ )用(VerXXXX)をダウンロードする(zip圧縮形式(約XXXMB))](https://dxlib.xsrv.jp/dxdload.html)からZIPファイルをダウンロードしてください。
+そして、展開して、**プロジェクトに追加すべきファイル_VC用**を**3.22c_VS**にリネームし、そのディレクトリに配置してください。
+すると、ビルドができます。
+
+# 使用している効果音について
+この曲は[魔王魂](https://maou.audio/)様の音を使用しています。
+扱いやすくするためタイトルを変更しています。
+利用規約については[魔王魂様の音楽利用のルール](https://maou.audio/rule/)をご確認ください。
+著作表記
+- 音楽：魔王魂 https://maou.audio/
+- 音楽：まおうだましい
+- 音楽：MaouDamashii
+
+# ライセンス
+- DX Library Copyright (C) 2001-2021 Takumi Yamada.
+# 
+<summary>DXライブラリの使用しているライセンスです。広げると表示されます。</summary>
+
 libjpeg Copyright (C) 1991-2013, Thomas G. Lane, Guido Vollbeding.
    this software is based in part on the work of the Independent JPEG Group
 
@@ -177,3 +191,6 @@ libjpeg Copyright (C) 1991-2013, Thomas G. Lane, Guido Vollbeding.
 
 
    Bullet Copyright (c) 2003-2006 Erwin Coumans.
+
+</details>
+   
