@@ -56,8 +56,8 @@ public:
 	//コピーコンストラクタ自動生成
 	Obj(const Obj&) = default;
 
-	//ムーブコンストラクタ無し
-	Obj(Obj&&) = delete;
+	//ムーブコンストラクタ自動生成
+	Obj(Obj&&) = default;
 
 	virtual ~Obj() {
 
@@ -81,6 +81,9 @@ public:
 		}
 	}
 
+	virtual void Next()
+	{
+	}
 	virtual bool isCollision(Obj& other) {
 		if (!(can_collision && other.can_collision)) return false; // どちらかが衝突不可
 		int dx = x - other.x, dy = y - other.y;//*thisの座標に対するotherの相対座標
@@ -89,3 +92,78 @@ public:
 	}
 };
 
+template<class Obj_orig>
+class Prehab
+{
+private:
+	Obj_orig base;
+public:
+	template<class... Args>
+	Prehab(Args... args) : base(args...)
+	{}
+
+	Prehab(const Obj_orig& object) : base(object)
+	{}
+
+	const Obj_orig& Copy()const&
+	{
+		return base;
+	}
+};
+
+template<class T>
+class ObjGroup
+{
+private:
+	std::vector<T> objects;
+
+public:
+	ObjGroup():objects{}
+	{}
+
+	void addcpy(T& object, ...)
+	{
+		for (T& tmp: std::initializer_list<T>{ object... })
+		{
+			objects.push_back(tmp);
+		}
+	}
+
+	void addcpy(T& object, unsigned int number)
+	{
+		for (unsigned int i = 0; i < number; ++i)
+		{
+			objects.push_back(object);
+		}
+	}
+
+	void draw()
+	{
+		for (T& tmp : objects)
+		{
+			tmp.draw();
+		}
+	}
+
+	void Next()
+	{
+		for (T& tmp : objects)
+		{
+			tmp.Next();
+		}
+	}
+
+	void destroy(std::size_t index)
+	{
+		objects[index] = objects.pop_back();
+	}
+
+	T& operator[](std::size_t index)&
+	{
+		return objects[index];
+	}
+	const T& operator[](std::size_t index)const&
+	{
+		return objects[index];
+	}
+};

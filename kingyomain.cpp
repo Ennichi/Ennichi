@@ -58,12 +58,19 @@ void kingyomain(int font,int bgm,int effect) {
 	Poi first(500, 500, true, poi_handle);//ポイ
 	Goldfish fish3 = *fish1;
 
+	ObjGroup<Goldfish> fish4;
+
 	fish1->setDifficulty(10);
 	fish1->animsp = 30;
 	KeyInput input(KEY_INPUT_Z);
 
 	fish1->setSpeed(0.5, 1.0);//スピード設定
 
+	fish4.addcpy(*fish1, 10);
+	for (int i = 0; i < 10; ++i)
+	{
+		fish4[i].angle -= (double)i * 0.2;
+	}
 	prevtime = GetNowHiPerformanceCount();
 	int clock = GetNowCount();	//現在時刻の取得
 	int score=0;	//ゲームのスコア
@@ -108,6 +115,8 @@ void kingyomain(int font,int bgm,int effect) {
 			}
 			fish3.Next();
 			fish3.draw();
+			fish4.Next();
+			fish4.draw();
 			first.point_change();
 			first.draw();
 			if (fish1 != NULL && input.GetKeyDown(KEY_INPUT_Z) == 1 && fish1->isCought(first, mt, dice))
