@@ -54,7 +54,7 @@ public:
 	}
 
 	//キーが押されているか
-	bool GetKey(uchar KeyCode)
+	bool GetKey(uchar KeyCode)const&
 	{
 		for (auto __key : Pressed)
 		{
@@ -64,7 +64,7 @@ public:
 	}
 
 	//キーが押されたか
-	bool GetKeyDown(uchar KeyCode)
+	bool GetKeyDown(uchar KeyCode)const&
 	{
 		for (auto __key : Pressed)
 		{
@@ -81,7 +81,7 @@ public:
 	}
 
 	//キーが離されたか
-	bool GetKeyUp(uchar KeyCode)
+	bool GetKeyUp(uchar KeyCode)const&
 	{
 		for (auto __key : Pressed)
 		{

@@ -2,8 +2,6 @@
 #include "stdafx.h"
 #include "Obj.h"
 
-#define BOOLTOINT(X) ((X) ? TRUE : FALSE)
-
 class InputText : public Obj
 {
 	using ULL = unsigned long long;
@@ -50,12 +48,8 @@ public:
 		int font = -1
 	) : Obj(x0, y0), CancelValidFlag{CancelValidFlag0}, SingleCharOnlyFlag{SingleCharOnlyFlag0}, NumCharOnlyFlag{NumCharOnlyFlag0},maxlen{maxlen0}, fontHandle{font}
 	{
-		int c = FALSE, s = FALSE, n = FALSE;
-		if (CancelValidFlag)c = TRUE;
-		if (SingleCharOnlyFlag)s = TRUE;
-		if (NumCharOnlyFlag)n = TRUE;
 		__textptr = new char[static_cast<ULL>(maxlen) + 1ull];
-		inputHandle = MakeKeyInput(maxlen, c, s, n);
+		inputHandle = MakeKeyInput(maxlen, CancelValidFlag, SingleCharOnlyFlag, NumCharOnlyFlag);
 		if (inputHandle == -1)throw new std::runtime_error("テキスト入力オブジェクト作成失敗");
 		SetKeyInputCursorBrinkFlag(TRUE);
 	}
@@ -64,7 +58,7 @@ public:
 	InputText(const InputText& base) : Obj(base),CancelValidFlag{base.CancelValidFlag}, SingleCharOnlyFlag{base.SingleCharOnlyFlag}, NumCharOnlyFlag{base.NumCharOnlyFlag}, maxlen{base.maxlen}, fontHandle{base.fontHandle}
 	{
 		__textptr = new char[maxlen];
-		inputHandle = MakeKeyInput(maxlen, BOOLTOINT(CancelValidFlag), BOOLTOINT(SingleCharOnlyFlag), BOOLTOINT(NumCharOnlyFlag));
+		inputHandle = MakeKeyInput(maxlen, CancelValidFlag, SingleCharOnlyFlag, NumCharOnlyFlag);
 		if (inputHandle == -1)throw new std::runtime_error("テキスト入力オブジェクト作成失敗");
 	}
 
@@ -93,19 +87,19 @@ public:
 	}
 
 	//テキスト取得
-	void text(std::string& str)
+	void text(std::string& str)const&
 	{
 		str = __textptr;
 	}
 
 	//テキスト取得
-	void text(char* str)
+	void text(char* str)const&
 	{
 		GetKeyInputString(str, inputHandle);
 	}
 
 	//有効化
-	void set()
+	void set()const&
 	{
 		SetActiveKeyInput(inputHandle);
 		SetKeyInputString("", inputHandle);
