@@ -53,7 +53,7 @@ void kingyomain(int font,int bgm,int effect) {
 	Button button1(250, 240, false, button_handle);
 	Button button2(250, 240 + 200, false, button_handle);
 
-	Goldfish *fish1=new Goldfish(0, 0, 0, true, handle); //‹à‹›
+	Goldfish *fish1=new Goldfish(300, 300, 0, true, handle); //‹à‹›
 	Goldfish fish2(100, 0, DX_PI * 3.0 / 4.0, true, handle);
 	Poi first(500, 500, true, poi_handle);//ƒ|ƒC
 	Goldfish fish3 = *fish1;
