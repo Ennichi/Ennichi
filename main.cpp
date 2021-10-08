@@ -11,8 +11,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         MessageBox(NULL, "解像度が低いよ\n新しいモニタ買ってね", "Error Info", MB_ICONHAND);
         exit(1);
     }
-    if (std::filesystem::exists("./image") == 0) {
-        MessageBox(NULL, "画像フォルダが見つからないよ\n画像をGithubのリリースからダウンロードしてね", "Error Info", MB_ICONHAND);
+    if (std::filesystem::exists("./asset") == 0) {
+        MessageBox(NULL, "素材フォルダが見つからないよ\n素材をGithubのリリースからダウンロードしてね", "Error Info", MB_ICONHAND);
         ShellExecute(NULL, "open", "https://github.com/Ennichi/Ennichi", NULL, NULL, SW_SHOW);
         exit(1);
     }

@@ -13,9 +13,9 @@
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice(1, 1000);
 
-	std::vector<const char*> path = { "./image/goldfish_open.png", "./image/goldfish_close.png" };
-	std::vector<const char*> button_path = { "./image/button2.png", "./image/button1.png" };
-	std::vector<const char*> poi_path = { "./image/poi.png" };
+	std::vector<const char*> path = { "./asset/image/goldfish_open.png", "./asset/image/goldfish_close.png" };
+	std::vector<const char*> button_path = { "./asset/image/button2.png", "./asset/image/button1.png" };
+	std::vector<const char*> poi_path = { "./asset/image/poi.png" };
 
 	/* —vŒŸ“¢ */
 	//“¯‚¶‘‚«•û‚ğ‰½“x‚à‚µ‚Ä‚¢‚é
