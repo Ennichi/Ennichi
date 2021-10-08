@@ -53,7 +53,7 @@ void kingyomain(int font,int bgm,int effect) {
 	Button button1(250, 240, false, button_handle);
 	Button button2(250, 240 + 200, false, button_handle);
 
-	Goldfish *fish1=new Goldfish(0, 0, DX_PI, true, handle); //金魚
+	Goldfish *fish1=new Goldfish(0, 0, 0, true, handle); //金魚
 	Goldfish fish2(100, 0, DX_PI * 3.0 / 4.0, true, handle);
 	Poi first(500, 500, true, poi_handle);//ポイ
 	Goldfish fish3 = *fish1;
@@ -68,9 +68,8 @@ void kingyomain(int font,int bgm,int effect) {
 	int clock = GetNowCount();	//現在時刻の取得
 	int score=0;	//ゲームのスコア
 
-	std::string str1;
-	InputText in(0, 0, 5);
-	in.set();
+	Timer timer(3600);
+	Timer timer2(2400);
 	/* ゲームループ */
 	while (1) {
 		SetDrawScreen(DX_SCREEN_BACK);  // 表示画面を裏に
@@ -117,20 +116,21 @@ void kingyomain(int font,int bgm,int effect) {
 				fish1 = NULL;
 				score++;
 			}
-			in.draw();
-			in.text(str1);
+
 			//60秒たったら終了
-			if ((GetNowCount() - clock) >= 60000) {
+			if (timer() == 0) {
 				SetMainWindowText("スコア表示中");	//windowテキスト
 				DrawFormatString(500, 200, GetColor(120, 120, 120), "スコアは%dです", score, font);
-				if ((GetNowCount() - clock) >= 100000) {
+				if (timer2() == 0) {
 					windowFlag = 0;
 				}
+				timer2.update();
 			}
 			else {
-				DrawFormatString(1200, 0, GetColor(120, 120, 120), "残り%d秒", 60 - (GetNowCount() - clock) / 1000, font);
+				DrawFormatString(1200, 0, GetColor(120, 120, 120), "残り%d秒", timer() / 60, font);
 
 			}
+			timer.update();
 		}
 		else if (windowFlag == 2) {	//チュートリアル
 			SetMainWindowText("金魚すくい(チュートリアルはボタンでキャンセルできます)");	//windowテキスト

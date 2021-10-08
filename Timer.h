@@ -3,7 +3,7 @@
 #include "stdafx.h"
 
 //非同期式タイマー
-class Timer
+class nSyncTimer
 {
 	using LL = long long;
 
@@ -18,10 +18,10 @@ public:
 	/* 外部参照可 */
 
 	//デフォルトコンストラクタ
-	Timer(){}
+	nSyncTimer(){}
 
 	//fps設定コンストラクタ
-	Timer(unsigned short FramePerSecond) : fps{FramePerSecond} {}
+	nSyncTimer(unsigned short FramePerSecond) : fps{FramePerSecond} {}
 
 	//単位フレームでタイマーセット
 	void setf(unsigned int frames)
@@ -72,5 +72,60 @@ public:
 	{
 		LL temp = configured_time + start_time - GetNowHiPerformanceCount();
 		return max(temp, 0);
+	}
+};
+
+//同期式タイマー
+class Timer
+{
+	using uLL = unsigned long long;
+
+private:
+	/* 外部参照不可 */
+
+	uLL __remaining = 0;
+	uLL __configured = 0;
+
+public:
+
+	//コンストラクタ
+	Timer()
+	{}
+
+	Timer(uLL frames):__configured{frames}, __remaining{frames}
+	{}
+
+	//時間を設定(フレーム)
+	void set(uLL frames)
+	{
+		__configured = frames;
+	}
+
+	//時間を設定(秒)
+	void sets(uLL sec)
+	{
+		__configured = sec * 60;
+	}
+
+	//タイマーをリセットする
+	void reset()
+	{
+		__remaining = __configured;
+	}
+
+	//毎フレーム実行
+	//これを実行している間タイマーが作動する
+	void update()
+	{
+		if (__remaining != 0)
+		{
+			--__remaining;
+		}
+	}
+
+	//残りフレーム
+	uLL operator()()
+	{
+		return __remaining;
 	}
 };
