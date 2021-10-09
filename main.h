@@ -7,6 +7,7 @@
 #include "Poi.h"
 #include "Timer.h"
 #include "Text.h"
+#include "csvManager.h"
 
 void titlemain();
 void shootingmain();

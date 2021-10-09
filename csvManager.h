@@ -1,16 +1,11 @@
 ﻿#pragma once
+#include "stdafx.h"
 #include "functions.h"
 #define CSVMODE (std::ios::in | std::ios::out | std::ios::ate)
 
 class csvManager
 {
 	using ULL = unsigned long long;
-
-	enum class MODE : char
-	{
-		OPEN = 0,
-		CLOSED
-	};
 
 private:
 	std::fstream iofs;
@@ -22,41 +17,22 @@ private:
 
 public:
 	//コンストラクタ
-	csvManager(std::string fpath, MODE mode = MODE::OPEN
-	): iofs(fpath, CSVMODE), 
+	csvManager(std::string fpath
+	): iofs(), 
 		file_path{fpath}, 
 		detail{},
 		itr{detail.begin()}
 	{
-		if (mode == MODE::CLOSED)
+		if(!file_exists(fpath))
 		{
-			iofs.close();
+			std::ofstream ofs(fpath);
 		}
+		iofs.open(fpath, CSVMODE);
 	}
 
-	//コピーコンストラクタ(ファイルを閉じてるときだけ)
-	csvManager(const csvManager& manager
-	): file_path{manager.file_path}, 
-		column_num{manager.column_num}, 
-		detail{manager.detail},
-		itr{detail.begin()}
-	{
-		if (!manager.iofs.is_open())
-		{
-			iofs.open(file_path, CSVMODE);
-		}
-	}
+	csvManager(const csvManager&) = delete;
 
 	csvManager(csvManager&&)noexcept = default;
-	//csvファイルを新しく生成
-	static csvManager create(const std::string& fpath)
-	{
-		{
-			std::ofstream tmp(fpath);
-		}
-		csvManager manager(fpath, MODE::CLOSED);
-		return manager;
-	}
 
 	//デストラクタ
 	~csvManager()
