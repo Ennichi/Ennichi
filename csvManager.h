@@ -170,6 +170,7 @@ public:
 };
 
 
+//次に作る
 class Ranking :public csvManager
 {
 
