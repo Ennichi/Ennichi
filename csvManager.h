@@ -58,6 +58,12 @@ public:
 		return manager;
 	}
 
+	//デストラクタ
+	~csvManager()
+	{
+		if(iofs.is_open())iofs.close();
+	}
+	
 	//ファイルを読み込むだけ
 	void readAll()
 	{
