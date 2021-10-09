@@ -70,6 +70,7 @@ public:
 		std::string tmp;
 		iofs.clear();
 		iofs.seekg(std::ios::beg);
+		detail.clear();
 		while (1)
 		{
 			std::getline(iofs, tmp);
