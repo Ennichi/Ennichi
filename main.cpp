@@ -4,6 +4,7 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     ChangeWindowMode(TRUE); //ウィンドウモードにする
     SetWindowIconID(333);	//アイコン表示
+    SetDoubleStartValidFlag(TRUE);
     int dispx = GetSystemMetrics(SM_CXSCREEN);  //ウィンドウのX座標の取得
     int dispy = GetSystemMetrics(SM_CYSCREEN);  //ウィンドウのY座標の取得
     //ディスプレイの1280x720以下の時

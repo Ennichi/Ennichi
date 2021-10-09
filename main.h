@@ -7,6 +7,7 @@
 #include "Poi.h"
 #include "Timer.h"
 #include "Text.h"
+#include "networking.h"
 
 void titlemain();
 void shootingmain();

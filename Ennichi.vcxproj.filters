@@ -60,6 +60,9 @@
     <ClInclude Include="Text.h">
       <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
     </ClInclude>
+    <ClInclude Include="networking.h">
+      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">
