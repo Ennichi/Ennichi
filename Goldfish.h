@@ -26,8 +26,8 @@ private:
 	double __wave_info_x = 0.0;
 	double __wave_info_angle = 0.0;
 	MOV_OPTION moveOption = MOV_OPTION::LINEAR;
-	double move_paramater1;
-	double move_paramater2;
+	double move_paramater1 = 0.0;
+	double move_paramater2 = 0.0;
 
 	unsigned int difficulty = 10;
 

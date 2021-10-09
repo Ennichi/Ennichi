@@ -200,6 +200,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="csvManager.h" />
     <ClInclude Include="gun.h" />
     <ClInclude Include="functions.h" />
     <ClInclude Include="Goldfish.h" />
