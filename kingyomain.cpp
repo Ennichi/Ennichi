@@ -73,7 +73,7 @@ void kingyomain(int font,int bgm,int effect) {
 	Timer timer(3600);
 	Timer timer2(2400);
 	//bgm‚ğ“Ç‚İ‚Ş
-	//PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
+	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
 	int back_img = LoadGraph("./asset/image/background.png");
 	/* ƒQ[ƒ€ƒ‹[ƒv */
 	while (1) {
