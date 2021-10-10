@@ -4,6 +4,7 @@
 void kingyomain(int font,int bgm,int effect) {
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60;//fps
+	int score = 0;	//ゲームのスコア
 	LONGLONG nowtime, prevtime;//現在時間
 	
 	std::vector<const char*> path = { "./asset/image/goldfish_open.png", "./asset/image/goldfish_close.png" };
@@ -35,7 +36,6 @@ void kingyomain(int font,int bgm,int effect) {
 			exit(1);
 		}
 	}
-
 	std::vector<int> poi_handle{};
 	for (auto image_path : poi_path)
 	{
@@ -48,11 +48,9 @@ void kingyomain(int font,int bgm,int effect) {
 	}
 
 	int px, py;
-	int click_event, button_type, cx, cy, log_type;
-
+	int click_event, button_type, cx, cy, log_type;	
 	Button button1(250, 240, false, button_handle);
 	Button button2(250, 240 + 200, false, button_handle);
-
 	Goldfish *fish1=new Goldfish(300, 300, 0, true, handle); //金魚
 	Goldfish fish2(100, 0, DX_PI * 3.0 / 4.0, true, handle);
 	Poi first(500, 500, true, poi_handle);//ポイ
@@ -73,15 +71,15 @@ void kingyomain(int font,int bgm,int effect) {
 	}
 	prevtime = GetNowHiPerformanceCount();
 	int clock = GetNowCount();	//現在時刻の取得
-	int score=0;	//ゲームのスコア
-
 	Timer timer(3600);
 	Timer timer2(2400);
+	//bgmを読み込む
+	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
+	int back_img = LoadGraph("./asset/image/background.png");
 	/* ゲームループ */
 	while (1) {
 		SetDrawScreen(DX_SCREEN_BACK);  // 表示画面を裏に
 		ClearDrawScreen();  // 画面全体をクリア
-
 
 		GetMousePoint(&px, &py);
 		click_event = GetMouseInputLog2(&button_type, &cx, &cy, &log_type);
@@ -90,12 +88,13 @@ void kingyomain(int font,int bgm,int effect) {
 
 		if (windowFlag == 0) {  // メニューウィンドウ
 			SetMainWindowText("金魚すくい(タイトル)");	//windowテキスト
-
+			
 			DrawStringToHandle(350, 120, "金魚ゲーム", GetColor(120,120,120), font);
 			button1.draw();	//ゲームスタート
 			button2.draw();	//チュートリアル
 			button1.next(px, py);
 			button2.next(px, py);
+
 			if (button1.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				windowFlag = 1;	//ボタン用
 			}
@@ -105,6 +104,7 @@ void kingyomain(int font,int bgm,int effect) {
 		}
 		else if (windowFlag == 1) { // ゲーム中のウィンドウ
 			SetMainWindowText("金魚すくい(ゲーム中)");	//windowテキスト
+			DrawGraph(0, 0, back_img, TRUE);
 			input();
 
 			if (fish1 != NULL)
@@ -128,7 +128,7 @@ void kingyomain(int font,int bgm,int effect) {
 
 			//60秒たったら終了
 			if (timer() == 0) {
-				SetMainWindowText("スコア表示中");	//windowテキスト
+				SetMainWindowText("スコア表示");	//windowテキスト
 				DrawFormatString(500, 200, GetColor(120, 120, 120), "スコアは%dです", score, font);
 				if (timer2() == 0) {
 					windowFlag = 0;

@@ -191,17 +191,14 @@ IF %ERRORLEVEL% LSS 8 EXIT 0
     <ClCompile Include="game_temp.cpp" />
     <ClCompile Include="kingyomain.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="shooting.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="csvManager.h" />
-    <ClInclude Include="gun.h" />
     <ClInclude Include="functions.h" />
     <ClInclude Include="Goldfish.h" />
     <ClInclude Include="KeyInput.h" />
