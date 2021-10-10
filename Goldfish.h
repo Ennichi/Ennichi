@@ -63,6 +63,18 @@ public:
 	//‹à‹›‚ªŒü‚¢‚Ä‚éŒü‚«‚É(x,y)‚ði‚ß‚é
 	void Next()
 	{
+		if (x > 1080) {
+			x = 1080;
+		}
+		else if (x < 100) {
+			x = 100;
+		}
+		else if (y > 500) {
+			y = 500;
+		}
+		else if (y < 100) {
+			y = 100;
+		}
 		double delx = speed * std::cos(angle + ANGLE0) + xerr;
 		double dely = speed * std::sin(angle + ANGLE0) + yerr;
 		x += std::lround(delx);

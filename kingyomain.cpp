@@ -49,8 +49,7 @@ void kingyomain(int font,int bgm,int effect) {
 
 	int px, py;
 	int click_event, button_type, cx, cy, log_type;	
-	Button button1(250, 240, false, button_handle);
-	Button button2(250, 240 + 200, false, button_handle);
+	Button button1(400, 240, false, button_handle);
 	Goldfish *fish1=new Goldfish(300, 300, 0, true, handle); //金魚
 	Goldfish fish2(100, 0, DX_PI * 3.0 / 4.0, true, handle);
 	Poi first(500, 500, true, poi_handle);//ポイ
@@ -74,7 +73,7 @@ void kingyomain(int font,int bgm,int effect) {
 	Timer timer(3600);
 	Timer timer2(2400);
 	//bgmを読み込む
-	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
+	//PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
 	int back_img = LoadGraph("./asset/image/background.png");
 	/* ゲームループ */
 	while (1) {
@@ -89,17 +88,12 @@ void kingyomain(int font,int bgm,int effect) {
 		if (windowFlag == 0) {  // メニューウィンドウ
 			SetMainWindowText("金魚すくい(タイトル)");	//windowテキスト
 			
-			DrawStringToHandle(350, 120, "金魚ゲーム", GetColor(120,120,120), font);
+			DrawStringToHandle(500, 120, "金魚ゲーム", GetColor(120,120,120), font);
 			button1.draw();	//ゲームスタート
-			button2.draw();	//チュートリアル
 			button1.next(px, py);
-			button2.next(px, py);
 
 			if (button1.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				windowFlag = 1;	//ボタン用
-			}
-			else if (button2.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
-				windowFlag = 2;	//ボタン用
 			}
 		}
 		else if (windowFlag == 1) { // ゲーム中のウィンドウ
@@ -137,14 +131,8 @@ void kingyomain(int font,int bgm,int effect) {
 			}
 			else {
 				DrawFormatString(1200, 0, GetColor(120, 120, 120), "残り%d秒", timer() / 60, font);
-
 			}
 			timer.update();
-		}
-		else if (windowFlag == 2) {	//チュートリアル
-			SetMainWindowText("金魚すくい(チュートリアルはボタンでキャンセルできます)");	//windowテキスト
-			PlayMovie("./asset/video/tutorial.mp4", 1, DX_MOVIEPLAYTYPE_BCANCEL);	//チュートリアルを再生する(ボタンキャンセルあり)
-			windowFlag = 0;
 		}
 		else {  // ゲームの終了
 			return;
