@@ -60,6 +60,9 @@
     <ClInclude Include="Text.h">
       <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
     </ClInclude>
+    <ClInclude Include="csvManager.h">
+      <Filter>ヘッダーファイル\汎用クラス</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">
