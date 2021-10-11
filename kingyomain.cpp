@@ -5,47 +5,19 @@ void kingyomain(int font,int bgm,int effect) {
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60;//fps
 	LONGLONG nowtime, prevtime;//現在時間
-	
-	std::vector<const char*> path = { "./asset/image/goldfish_open.png", "./asset/image/goldfish_close.png" };
-	std::vector<const char*> buttonpath = { "./asset/image/button2.png", "./asset/image/button1.png" };
-	std::vector<const char*> poi_path = { "./asset/image/poi.png" };
 
 	std::random_device seed;//乱数生成器
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice(1, 1000);
 
 	std::vector<int> handle{};
-	for (auto image_path : path)
-	{
-		handle.push_back(LoadGraph(image_path));
-		if (*(handle.end() - 1) == -1)
-		{
-			MessageBox(NULL, "画像読み込み時エラー", "Error Info", MB_ICONHAND);
-			exit(1);
-		}
-	}
+	makeImageHandle(handle, "./asset/image/goldfish_open.png", "./asset/image/goldfish_close.png");
 
 	std::vector<int> button_handle{};
-	for (auto image_path : buttonpath)
-	{
-		button_handle.push_back(LoadGraph(image_path));
-		if (*(button_handle.end() - 1) == -1)
-		{
-			MessageBox(NULL, "画像読み込み時エラー", "Error Info", MB_ICONHAND);
-			exit(1);
-		}
-	}
+	makeImageHandle(button_handle, "./asset/image/button2.png", "./asset/image/button1.png");
 
 	std::vector<int> poi_handle{};
-	for (auto image_path : poi_path)
-	{
-		poi_handle.push_back(LoadGraph(image_path));
-		if (*(poi_handle.end() - 1) == -1)
-		{
-			MessageBox(NULL, "画像読み込み時エラー", "Error Info", MB_ICONHAND);
-			exit(1);
-		}
-	}
+	makeImageHandle(poi_handle, "./asset/image/poi.png");
 
 	int px, py;
 	int click_event, button_type, cx, cy, log_type;
@@ -67,6 +39,7 @@ void kingyomain(int font,int bgm,int effect) {
 	fish1->setSpeed(0.5, 1.0);//スピード設定
 
 	fish4.addcpy(*fish1, 10);
+
 	for (int i = 0; i < 10; ++i)
 	{
 		fish4[i].angle -= (double)i * 0.2;

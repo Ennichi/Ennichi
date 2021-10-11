@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#define _CAST(X) static_cast<double>(X)
+
 /* 汎用関数などまとめ */
 
 /*ベクトル構造体
@@ -51,3 +51,36 @@ inline double distance(double dx, double dy)
 double dist_elipse(int x1, int y1, int x2, int y2, double magx, double magy);
 
 bool file_exists(const std::string&);
+
+template<typename... strArgs>
+void makeImageHandle(std::vector<int>& vHandle, const strArgs... pathArgs)
+{
+	std::vector<const char*> path_v = { pathArgs... };
+	unsigned int vsize = static_cast<unsigned int>(vHandle.size());
+	if (vsize > path_v.size())
+	{
+		vHandle.erase(vHandle.begin() + path_v.size() - 1ull, vHandle.end());
+	}
+	std::vector<int>::iterator itr = vHandle.begin(), itrend = vHandle.end();
+	for (auto tmp : path_v)
+	{
+		if (itr != itrend)
+		{
+			*itr = LoadGraph(tmp);
+			if (*itr == -1)
+			{
+				throw new std::runtime_error("画像ファイル" + static_cast<std::string>(tmp) + "が読み込めませんでした");
+			}
+			++itr;
+		}
+		else
+		{
+			vHandle.push_back(LoadGraph(tmp));
+			if (*(vHandle.end() - 1) == -1)
+			{
+				throw new std::runtime_error("画像ファイル" + static_cast<std::string>(tmp) + "が読み込めませんでした");
+			}
+		}
+	}
+
+}
