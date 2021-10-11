@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "functions.h"
+#define _CAST(X) static_cast<double>(X)
 
 double dist_elipse(int x1, int y1, int x2, int y2, double magx, double magy)
 {
