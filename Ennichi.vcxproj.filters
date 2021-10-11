@@ -10,12 +10,6 @@
     <ClCompile Include="main.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="shooting.cpp">
-      <Filter>ソースファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="title.cpp">
-      <Filter>ソースファイル</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
@@ -28,9 +22,6 @@
       <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
-    </ClInclude>
-    <ClInclude Include="gun.h">
       <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
     </ClInclude>
     <ClInclude Include="Obj.h">

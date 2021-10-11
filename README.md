@@ -1,23 +1,25 @@
-
 # このプロジェクトについて
-縁日ゲームをDXライブラリにて作るプロジェクトです。
+[DXライブラリ](https://dxlib.xsrv.jp/)で縁日ゲームを作るプロジェクトです。
 
 # メンバー
-- 312k
-- Esu0
-- tt6-mzn
-- nmrintel
-- demiida
-- at-ohs
-- tatehata7507
+- [312k](https://github.com/312k)
+- [Esu0](https://github.com/Esu0)
+- [tt6-mzn](https://github.com/tt6-mzn)
+- [nmrintel](https://github.com/nmrintel)
+- [demiida](https://github.com/demiida)
+- [at-ohs](https://github.com/at-ohs)
+- [tatehata7507](https://github.com/tatehata7507)
 
 # セットアップ
-このプログラムはVisual Studio 2019にて開発されました。
-よって、このリポジトリをローカルにクローンすると、ビルドができます。
-なお、実際に実行する際にはDXライブラリが必要です。
-クローンした、ディレクトリに移動して、ブラウザで[ＤＸライブラリ Windows版 VisualStudio( C++ )用(VerXXXX)をダウンロードする(zip圧縮形式(約XXXMB))](https://dxlib.xsrv.jp/dxdload.html)からZIPファイルをダウンロードしてください。
-そして、展開して、**プロジェクトに追加すべきファイル_VC用**を**3.22c_VS**にリネームし、そのディレクトリに配置してください。
-すると、ビルドができます。
+このプログラムは[Visual Studio 2019](https://visualstudio.microsoft.com/ja/)にて開発されました。<br>
+このリポジトリから直接[ビルド](https://docs.microsoft.com/ja-jp/visualstudio/ide/compiling-and-building-in-visual-studio?view=vs-2019)ができます。<br>
+ビルドする際には[DXライブラリ](https://dxlib.xsrv.jp/)が必要です。<br>
+
+# ビルド方法
+1. ブラウザで[ＤＸライブラリ Windows版 VisualStudio( C++ )用(VerXXXX)をダウンロードする(zip圧縮形式(約XXXMB))](https://dxlib.xsrv.jp/dxdload.html)からZIPファイルをダウンロードしてください。
+2. 展開して、**プロジェクトに追加すべきファイル_VC用**を**3.22c_VS**にリネームして下さい。
+3. クローンした、ディレクトリ直下に配置してください。
+4. ビルドができます。
 
 # 使用している効果音について
 この曲は[魔王魂](https://maou.audio/)様の音を使用しています。
@@ -28,9 +30,15 @@
 - 音楽：まおうだましい
 - 音楽：MaouDamashii
 
+# 使用しているフォントについて
+使用しているフォントは[M+ FONTS](https://github.com/coz-m/MPLUS_FONTS/)を使用しています。<br>
+OFL-1.1 Licenseでライセンスされています。<br>
+利用規約については[LICENSE](https://mplusfonts.github.io/#license)をご確認ください。
+
 # ライセンス
-- DX Library Copyright (C) 2001-2021 Takumi Yamada.
-# 
+- DX Library Copyright (C) 2001-2021 Takumi Yamada.<br>
+
+<details>
 <summary>DXライブラリの使用しているライセンスです。広げると表示されます。</summary>
 
 libjpeg Copyright (C) 1991-2013, Thomas G. Lane, Guido Vollbeding.
@@ -193,4 +201,3 @@ libjpeg Copyright (C) 1991-2013, Thomas G. Lane, Guido Vollbeding.
    Bullet Copyright (c) 2003-2006 Erwin Coumans.
 
 </details>
-   
