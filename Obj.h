@@ -118,7 +118,7 @@ private:
 	std::vector<T> objects;
 
 public:
-	ObjGroup():objects{}
+	ObjGroup(): objects{}
 	{}
 
 	void addcpy(T& object, ...)

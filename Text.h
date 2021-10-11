@@ -99,7 +99,7 @@ public:
 	}
 
 	//有効化
-	void set()const&
+	void set()const& noexcept
 	{
 		SetActiveKeyInput(inputHandle);
 		SetKeyInputString("", inputHandle);
