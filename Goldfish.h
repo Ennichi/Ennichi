@@ -47,14 +47,14 @@ public:
 	/* アクセス可能 */
 
 	//difficultyのセッター(不正な値入力防止)
-	void setDifficulty(unsigned int dif)
+	void setDifficulty(unsigned int dif)noexcept
 	{
 		if (dif == 0)return;
 		difficulty = dif;
 	}
 
 	//difficultyのゲッター
-	int getDifficulty()
+	int getDifficulty()noexcept
 	{
 		return difficulty;
 	}
@@ -73,8 +73,6 @@ public:
 		{
 			//円弧の軌道で動く
 		case MOV_OPTION::CIRCLE:
-			if (!(move_paramater2 == 1.0 || move_paramater2 == -1.0))
-				throw new std::out_of_range("円形移動のときはp2を1.0か-1.0にしてください");
 			angle += move_paramater2 * (DX_PI / 2.0 - acos(speed / (move_paramater1 * 2.0)));
 			__wave_info_x = 0.0;
 			break;
@@ -101,6 +99,8 @@ public:
 	*/
 	void SetMovement(MOV_OPTION option, double p1, double p2)
 	{
+		if (option == MOV_OPTION::CIRCLE && !(move_paramater2 == 1.0 || move_paramater2 == -1.0))
+			throw new std::out_of_range("円形移動のときはp2を1.0か-1.0にしてください");
 		moveOption = option;
 		move_paramater1 = p1;
 		move_paramater2 = p2;
@@ -149,7 +149,7 @@ public:
 
 	//インスタンスから実行しない関数
 	//金魚の中心を返すマクロ
-	static inline void center(int& x, int& y, int xlength, int ylength)
+	static void center(int& x, int& y, int xlength, int ylength)noexcept
 	{
 		x += xlength / 2;
 		y += ylength / 2;
