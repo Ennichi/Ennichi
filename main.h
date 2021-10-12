@@ -7,6 +7,8 @@
 #include "Timer.h"
 #include "Text.h"
 #include "csvManager.h"
+#include "gun.h"
 
 void kingyomain(int font, int bgm, int effect);
 void game_temp();
+void syatekimain(int font, int bgm, int effect);
