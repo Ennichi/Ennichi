@@ -1,7 +1,7 @@
 #include "main.h"
 #include "stdafx.h"
 
-void syatekimain(int font, int bgm, int effect) {
+void syatekimain(int font, int bgm, int effect, int calling_check) {
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60;//fps
 	int score = 0;	//ゲームのスコア
@@ -81,7 +81,8 @@ void syatekimain(int font, int bgm, int effect) {
 			timer.update();
 		}
 		else if (windowFlag == 10) {  // ゲームの終了
-			kingyomain(font, bgm, effect);
+			calling_check=1;
+			kingyomain(font, bgm, effect,calling_check);
 		}
 		else {
 			return;

@@ -1,7 +1,7 @@
 #include "main.h"
 #include "stdafx.h"
 
-void kingyomain(int font,int bgm,int effect) {
+void kingyomain(int font,int bgm,int effect, int calling_check) {
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60;//fps
 	int score = 0;	//ゲームのスコア
@@ -49,7 +49,9 @@ void kingyomain(int font,int bgm,int effect) {
 	Timer timer(3600);
 	Timer timer2(2400);
 	//bgmを読み込む
-	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
+	if (calling_check == 0) {
+		PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
+	}
 	int back_img = LoadGraph("./asset/image/background.png");
 	/* ゲームループ */
 	while (1) {
@@ -115,7 +117,7 @@ void kingyomain(int font,int bgm,int effect) {
 			timer.update();
 		}
 		else if(windowFlag==10) {  // ゲームの終了
-			syatekimain(font, bgm, effect);
+			syatekimain(font, bgm, effect,calling_check);
 		}
 		else {
 			return;

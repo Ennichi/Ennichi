@@ -35,9 +35,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
         ShellExecute(NULL, "open", "https://github.com/Ennichi/Ennichi", NULL, NULL, SW_SHOW);
         exit(1);
     }
- 
+    int calling_check = 0;
     //bgmÇì«Ç›çûÇﬁ
-    kingyomain(FontHandle, bgm, effect);
+    kingyomain(FontHandle, bgm, effect,calling_check);
     //èIÇÌÇË
     DxLib_End();
     return 0;
