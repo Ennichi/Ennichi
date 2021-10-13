@@ -12,15 +12,19 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	std::uniform_int_distribution<> dice(1, 1000);
 
 	std::vector<int> button_handle{};
-	makeImageHandle(button_handle, "./asset/image/button2.png", "./asset/image/button1.png");	//TODO:ボタンを「次へ」に変更する
+	makeImageHandle(button_handle, "./asset/image/uncheck.png", "./asset/image/checked.png");
 
 	std::vector<int> gun_handle{};
 	makeImageHandle(gun_handle, "./asset/image/syateki.png");	//TODO:画像を置換する
 
 	int px, py;
 	int click_event, button_type, cx, cy, log_type;
-	Button button1(400, 240, false, button_handle);	
-	Button next_panel(800, 600, false, button_handle);
+	Button button_start(100, 200, false, button_handle);	//STARTボタン
+	StringObj start_obj(150, 250, "スタート", GetColor(120, 120, 120), font);
+	Button button_result(200, 350, false, button_handle);	//設定ボタン
+	StringObj result_obj(250, 400, "結果", GetColor(120, 120, 120), font);
+	Button button_gotokingyo(1000, 600, false, button_handle);	//射的ゲームへ行くボタン
+	StringObj gotokingyo_obj(1025, 650, "金魚すくい", GetColor(120, 120, 120), font);
 	Gun gun_syateki(100, 600, false, gun_handle);
 	KeyInput input(KEY_INPUT_Z);
 
@@ -43,15 +47,23 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 			SetMainWindowText("射的ゲーム(タイトル)");	//windowテキスト
 
 			DrawStringToHandle(500, 120, "射的ゲーム[WIP]", GetColor(120, 120, 120), font);
-			button1.draw();	//ゲームスタート
-			button1.next(px, py);
-			next_panel.draw();	//金魚ゲームへ
-			next_panel.next(px, py);
-			if (button1.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
-				windowFlag = 1;	//ボタン用
+			button_start.draw();	//ゲームスタート
+			button_start.next(px, py);
+			start_obj.draw();
+			button_result.draw();	//結果画面
+			button_result.next(px, py);
+			result_obj.draw();
+			button_gotokingyo.draw();		//射的ゲームへ
+			button_gotokingyo.next(px, py);
+			gotokingyo_obj.draw();
+			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+				windowFlag = 1;	//金魚すくいスタート
 			}
-			if (next_panel.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
-				windowFlag = 10;	//金魚ゲームへ遷移
+			if (button_result.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+				windowFlag = 2;	//結果表示
+			}
+			if (button_gotokingyo.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+				windowFlag = 10;	//金魚すくいゲームへ遷移
 			}
 		}
 		else if (windowFlag == 1) { // ゲーム中のウィンドウ
@@ -79,6 +91,9 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 				DrawFormatString(1200, 0, GetColor(120, 120, 120), "残り%d秒", timer() / 60, font);
 			}
 			timer.update();
+		}
+		else if (windowFlag == 3) {
+			SetMainWindowText("結果");	//windowテキスト
 		}
 		else if (windowFlag == 10) {  // ゲームの終了
 			calling_check=1;

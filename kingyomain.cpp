@@ -15,15 +15,19 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 	makeImageHandle(handle, "./asset/image/goldfish_open.png", "./asset/image/goldfish_close.png");
 
 	std::vector<int> button_handle{};
-	makeImageHandle(button_handle, "./asset/image/button2.png", "./asset/image/button1.png");
+	makeImageHandle(button_handle, "./asset/image/uncheck.png", "./asset/image/checked.png");
 
 	std::vector<int> poi_handle{};
 	makeImageHandle(poi_handle, "./asset/image/poi.png");
 
 	int px, py;
 	int click_event, button_type, cx, cy, log_type;	
-	Button button1(400, 240, false, button_handle);
-	Button next_panel(800, 600, false, button_handle);
+	Button button_start(100, 200, false, button_handle);	//STARTボタン
+	StringObj start_obj(150, 250, "START", GetColor(120, 120, 120), font);
+	Button button_result(200, 350, false, button_handle);	//設定ボタン
+	StringObj result_obj(250, 400, "result", GetColor(120, 120, 120), font);
+	Button button_gotosyateki(1000, 600, false, button_handle);	//射的ゲームへ行くボタン
+	StringObj gotosyateki_obj(1025, 650, "SYATEKI", GetColor(120, 120, 120), font);
 
 	Goldfish *fish1=new Goldfish(300, 300, 0, true, handle); //金魚
 	Goldfish fish2(100, 0, DX_PI * 3.0 / 4.0, true, handle);
@@ -67,14 +71,22 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 			SetMainWindowText("金魚すくい(タイトル)");	//windowテキスト
 			
 			DrawStringToHandle(500, 120, "金魚ゲーム", GetColor(120,120,120), font);
-			button1.draw();	//ゲームスタート
-			button1.next(px, py);
-			next_panel.draw();	//射的ゲームへ
-			next_panel.next(px, py);
-			if (button1.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
-				windowFlag = 1;	//ボタン用
+			button_start.draw();	//ゲームスタート
+			button_start.next(px, py);
+			start_obj.draw();
+			button_result.draw();	//結果画面
+			button_result.next(px, py);
+			result_obj.draw();
+			button_gotosyateki.draw();		//射的ゲームへ
+			button_gotosyateki.next(px, py);
+			gotosyateki_obj.draw();
+			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+				windowFlag = 1;	//金魚すくいスタート
 			}
-			if (next_panel.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+			if (button_result.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+				windowFlag = 2;	//結果表示
+			}
+			if (button_gotosyateki.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				windowFlag = 10;	//射的ゲームへ遷移
 			}
 		}
@@ -115,6 +127,9 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 				DrawFormatString(1200, 0, GetColor(120, 120, 120), "残り%d秒", timer() / 60, font);
 			}
 			timer.update();
+		}
+		else if (windowFlag == 2) {
+			SetMainWindowText("結果");	//windowテキスト
 		}
 		else if(windowFlag==10) {  // ゲームの終了
 			syatekimain(font, bgm, effect,calling_check);
