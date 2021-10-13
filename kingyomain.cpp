@@ -15,14 +15,22 @@ void kingyomain(int font,int bgm,int effect) {
 	makeImageHandle(handle, "./asset/image/goldfish_open.png", "./asset/image/goldfish_close.png");
 
 	std::vector<int> button_handle{};
-	makeImageHandle(button_handle, "./asset/image/button2.png", "./asset/image/button1.png");
+	makeImageHandle(button_handle, "./asset/image/uncheck.png", "./asset/image/checked.png");
 
 	std::vector<int> poi_handle{};
 	makeImageHandle(poi_handle, "./asset/image/poi.png");
 
 	int px, py;
 	int click_event, button_type, cx, cy, log_type;	
-	Button button1(400, 240, false, button_handle);
+	Button button_start(100, 200, false, button_handle);	//STARTボタン
+	StringObj start_obj(150, 250, "START", GetColor(120, 120, 120), font);
+	Button button_config(200, 350, false, button_handle);	//設定ボタン
+	StringObj button_obj(250, 400, "config", GetColor(120, 120, 120), font);
+	Button button_result(300, 500, false, button_handle);	//結果画面ボタン
+	StringObj result_obj(350, 550, "result", GetColor(120, 120, 120), font);
+	Button button_gotosyateki(1000, 600, false, button_handle);	//射的ゲームへ行くボタン
+	StringObj gotosyateki_obj(1025, 650, "SYATEKI", GetColor(120, 120, 120), font);
+
 	Goldfish *fish1=new Goldfish(300, 300, 0, true, handle); //金魚
 	Goldfish fish2(100, 0, DX_PI * 3.0 / 4.0, true, handle);
 	Poi first(500, 500, true, poi_handle);//ポイ
@@ -63,10 +71,19 @@ void kingyomain(int font,int bgm,int effect) {
 			SetMainWindowText("金魚すくい(タイトル)");	//windowテキスト
 			
 			DrawStringToHandle(500, 120, "金魚ゲーム", GetColor(120,120,120), font);
-			button1.draw();	//ゲームスタート
-			button1.next(px, py);
-
-			if (button1.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+			button_start.draw();	//ゲームスタート
+			button_start.next(px, py);
+			start_obj.draw();
+			button_config.draw();	//設定画面
+			button_config.next(px, py);
+			button_obj.draw();
+			button_result.draw();	//結果画面
+			button_result.next(px, py);
+			result_obj.draw();
+			button_gotosyateki.draw();		//射的ゲームへ
+			button_gotosyateki.next(px, py);
+			gotosyateki_obj.draw();
+			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				windowFlag = 1;	//ボタン用
 			}
 		}
