@@ -11,9 +11,11 @@ private:
 	std::fstream iofs;
 	std::string file_path;
 	unsigned int column_num = 0;
-	std::list<std::string> detail;
-	std::list<std::string>::iterator itr;
 	unsigned int location = 0;
+
+protected:
+	std::list<std::string> detail;
+	std::list<std::string>::iterator alocitr;
 
 public:
 	//コンストラクタ
@@ -21,7 +23,7 @@ public:
 	): iofs(), 
 		file_path{fpath}, 
 		detail{},
-		itr{detail.begin()}
+		alocitr{detail.begin()}
 	{
 		if(!file_exists(fpath))
 		{
@@ -31,8 +33,10 @@ public:
 	}
 
 	csvManager(const csvManager&) = delete;
-
 	csvManager(csvManager&&)noexcept = default;
+
+	csvManager& operator=(const csvManager&) = delete;
+	csvManager& operator=(csvManager&&) = default;
 
 	//デストラクタ
 	~csvManager()
@@ -55,7 +59,7 @@ public:
 		}
 		iofs.clear();
 		iofs.seekg(std::ios::beg);
-		itr = detail.begin();
+		alocitr = detail.begin();
 		location = 0;
 	}
 
@@ -64,11 +68,11 @@ public:
 	{
 		for (; location < index; ++location)
 		{
-			iofs.seekg((long long)(*(itr++)).length() + 2ll, std::ios::cur);
+			iofs.seekg((long long)(*(alocitr++)).length() + 2ll, std::ios::cur);
 		}
 		for (; location > index; --location)
 		{
-			iofs.seekg(-(long long)(*(--itr)).length() - 2ll, std::ios::cur);
+			iofs.seekg(-(long long)(*(--alocitr)).length() - 2ll, std::ios::cur);
 		}
 	}
 
@@ -76,7 +80,7 @@ public:
 	std::vector<std::string> readAt(unsigned int index)
 	{
 		locate(index);
-		std::stringstream strstr(*itr);
+		std::stringstream strstr(*alocitr);
 		std::string tmp;
 		std::vector<std::string> v;
 		while (std::getline(strstr, tmp, ','))
@@ -86,6 +90,21 @@ public:
 		iofs.clear();
 		return v;
 	}
+
+protected:
+
+	void write_string_insert(const std::string& wstr)
+	{
+		alocitr = detail.insert(alocitr, wstr);
+		for (; alocitr != detail.end(); ++alocitr)
+		{
+			iofs << *alocitr << std::endl;
+			++location;
+		}
+		iofs.clear();
+	}
+
+public:
 
 	//指定の行に挿入
 	template<class... cArgs>
@@ -97,12 +116,7 @@ public:
 			insstr += strtmp + ",";
 		}
 		locate(index);
-		itr = detail.insert(itr, insstr);
-		for (; itr != detail.end(); ++itr)
-		{
-			iofs << *itr << std::endl;
-			++location;
-		}
+		write_string_insert(insstr);
 	}
 
 	//指定の行を差し替え
@@ -116,10 +130,10 @@ public:
 		}
 		locate(index);
 		iofs << "\0";
-		*itr = insstr;
-		for (; itr != detail.end(); ++itr)
+		*alocitr = insstr;
+		for (; alocitr != detail.end(); ++alocitr)
 		{
-			iofs << *itr << std::endl;
+			iofs << *alocitr << std::endl;
 			++location;
 		}
 		iofs.clear();
@@ -130,8 +144,8 @@ public:
 	{
 		iofs.close();
 		iofs.open(file_path, std::ios::in | std::ios::out | std::ios::trunc);
-		itr = std::next(detail.begin(), index);
-		detail.erase(itr);
+		alocitr = std::next(detail.begin(), index);
+		detail.erase(alocitr);
 		for (auto& tmp : detail)
 		{
 			iofs << tmp << std::endl;
@@ -141,7 +155,7 @@ public:
 		iofs.clear();
 		iofs.seekg(std::ios::beg);
 		location = 0;
-		itr = detail.begin();
+		alocitr = detail.begin();
 	}
 
 	//指定の範囲の行を削除
@@ -154,8 +168,8 @@ public:
 		}
 		iofs.close();
 		iofs.open(file_path, std::ios::in | std::ios::out | std::ios::trunc);
-		itr = std::next(detail.begin(), a);
-		detail.erase(itr, std::next(itr, static_cast<ULL>(b) - static_cast<ULL>(a) + 1));
+		alocitr = std::next(detail.begin(), a);
+		detail.erase(alocitr, std::next(alocitr, static_cast<ULL>(b) - static_cast<ULL>(a) + 1));
 		for (auto& tmp : detail)
 		{
 			iofs << tmp << std::endl;
@@ -165,7 +179,7 @@ public:
 		iofs.clear();
 		iofs.seekg(std::ios::beg);
 		location = 0;
-		itr = detail.begin();
+		alocitr = detail.begin();
 	}
 };
 
@@ -173,5 +187,28 @@ public:
 //次に作る
 class Ranking :public csvManager
 {
+private:
+	std::list<int> scoreList;
+public:
 
+	Ranking(std::string fpath) : csvManager(fpath){}
+
+	Ranking(const Ranking&) = delete;
+	Ranking(Ranking&&) = default;
+
+	//挿入
+	void insert(const std::string& username, int score)
+	{
+		std::list<int>::iterator itr{};
+		unsigned int cnt = 0;
+		for (itr = scoreList.begin(); itr != scoreList.end(); ++itr)
+		{
+			if (score >= *itr)break;
+			++cnt;
+		}
+		locate(cnt);
+		scoreList.insert(itr, score);
+		std::string insstr = username + "," + std::to_string(score) + ",";
+		write_string_insert(insstr);
+	}
 };
