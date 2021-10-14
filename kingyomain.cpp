@@ -54,7 +54,7 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 	}
 	prevtime = GetNowHiPerformanceCount();
 	int clock = GetNowCount();	//現在時刻の取得
-	Timer timer(3600);
+	Timer timer(1800);
 	Timer timer2(2400);
 	//bgmを読み込む
 	if (calling_check == 0) {
@@ -62,6 +62,7 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 	}
 
 	int back_img = LoadGraph("./asset/image/background.png");
+	int count_Font = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 	/* ゲームループ */
 	while (1) {
 		SetDrawScreen(DX_SCREEN_BACK);  // 表示画面を裏に
@@ -131,7 +132,7 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 				timer2.update();
 			}
 			else {
-				DrawFormatString(1200, 0, GetColor(120, 120, 120), "残り%d秒", timer() / 60, font);
+				DrawFormatStringToHandle(1050, 0, GetColor(120, 120, 120), count_Font, "残り%d秒", timer() / 60);
 			}
 			timer.update();
 		}

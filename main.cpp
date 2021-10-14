@@ -22,9 +22,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
     }
     int bgm = LoadSoundMem("./asset/bgm/maou_minzoku9.ogg");	//魔王魂民族09
     int effect = LoadSoundMem("./asset/effect/system49.ogg");	//システム音
-    int FontHandle = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);    //フォントハンドルを作成する
-
     AddFontResourceEx("./asset/font/fonts/otf/Mplus1-Regular.otf", FR_PRIVATE, NULL);	//フォントを読み込む
+    int FontHandle = CreateFontToHandle("Mplus1-Regular", 30, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);    //フォントハンドルを作成する
+
     //ディスプレイの1280x720以下の時
     if (dispx <= 1280 || dispy <= 720) {
         MessageBox(NULL, "解像度が低いよ\n新しいモニタ買ってね", "Error Info", MB_ICONHAND);
