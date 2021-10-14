@@ -64,16 +64,16 @@ public:
 	void Next()
 	{
 		if (x > 1080) {
-			x = 1080;
-		}
-		else if (x < 100) {
 			x = 100;
 		}
+		else if (x < 100) {
+			x = 1080;
+		}
 		else if (y > 500) {
-			y = 500;
+			y = 100;
 		}
 		else if (y < 100) {
-			y = 100;
+			y = 500;
 		}
 		double delx = speed * std::cos(angle + ANGLE0) + xerr;
 		double dely = speed * std::sin(angle + ANGLE0) + yerr;

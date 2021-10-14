@@ -39,6 +39,11 @@ public:
         *  ボタンの上にマウスがあるか調べ, stateを更新
         */
         if (isContain(px, py)) {
+            // マウス形状の取得
+            HCURSOR hand = GetCursor();
+            // マウス形状の設定
+            hand = LoadCursor(NULL, IDC_HAND);  //カーソルをハンドにする
+            SetCursor(hand);
             state = 1;
         }
         else {

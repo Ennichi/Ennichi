@@ -38,6 +38,7 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 
 	fish1->setDifficulty(10);
 	fish1->animsp = 30;
+
 	KeyInput input(KEY_INPUT_Z);
 
 	fish1->setSpeed(0.5, 1.0);//スピード設定
@@ -48,14 +49,18 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 	{
 		fish4[i].angle -= (double)i * 0.2;
 	}
+	for (int i = 0; i < 10; ++i) {
+		fish1->angle += (double)i * 0.1;
+	}
 	prevtime = GetNowHiPerformanceCount();
 	int clock = GetNowCount();	//現在時刻の取得
 	Timer timer(3600);
 	Timer timer2(2400);
 	//bgmを読み込む
 	if (calling_check == 0) {
-		PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
+		//PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
 	}
+
 	int back_img = LoadGraph("./asset/image/background.png");
 	/* ゲームループ */
 	while (1) {
@@ -100,6 +105,8 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 				fish1->Next();
 				fish1->draw();
 			}
+			fish1->Next();
+			fish1->draw();
 			fish3.Next();
 			fish3.draw();
 			fish4.Next();
@@ -130,8 +137,9 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 		}
 		else if (windowFlag == 2) {
 			SetMainWindowText("結果");	//windowテキスト
+
 		}
-		else if(windowFlag==10) {  // ゲームの終了
+		else if(windowFlag==10) {	//射的ゲームへ
 			syatekimain(font, bgm, effect,calling_check);
 		}
 		else {
