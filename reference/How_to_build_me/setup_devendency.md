@@ -1,3 +1,10 @@
+---
+title: "プロジェクトのビルド方法"
+tags: "build","Visual Studio","DXLib"
+categories: [ ビルド方法 ]
+
+---
+
 # はじめに
 ここでは本プログラムをビルドするために必要になるソフトウェアのセットアップについて解説します。
 ## Visual Studioについて

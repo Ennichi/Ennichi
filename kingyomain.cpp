@@ -58,7 +58,7 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 	Timer timer2(2400);
 	//bgmを読み込む
 	if (calling_check == 0) {
-		//PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
+		PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
 	}
 
 	int back_img = LoadGraph("./asset/image/background.png");
