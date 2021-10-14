@@ -1,31 +1,31 @@
-#pragma once
+ï»¿#pragma once
 #include "stdafx.h"
 
 class KeyInput
 {
 	using uchar = unsigned char;
 private:
-	/* ŠO•”QÆ•s‰Â */
+	/* å¤–éƒ¨å‚ç…§ä¸å¯ */
 	std::vector<uchar> Pressed;
 	std::vector<uchar> prev_Pressed;
 	std::vector<uchar> Target_key;
 	char* __KeyState;
 public:
-	/* ŠO•”QÆ‰Â */
+	/* å¤–éƒ¨å‚ç…§å¯ */
 
-	//ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^(ƒL[w’è–³‚µ)
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿(ã‚­ãƒ¼æŒ‡å®šç„¡ã—)
 	KeyInput() : Pressed{}, prev_Pressed{}, Target_key{}
 	{
 		__KeyState = new char[256];
 	}
 
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^(ƒL[ˆê‚Âw’è)
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿(ã‚­ãƒ¼ä¸€ã¤æŒ‡å®š)
 	KeyInput(uchar target) : Pressed{}, prev_Pressed{}, Target_key(1, target)
 	{
 		__KeyState = new char[256];
 	}
 
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^(ƒCƒjƒVƒƒƒ‰ƒCƒU[ƒŠƒXƒg)
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿(ã‚¤ãƒ‹ã‚·ãƒ£ãƒ©ã‚¤ã‚¶ãƒ¼ãƒªã‚¹ãƒˆ)
 	KeyInput(std::initializer_list<uchar> target
 	) : Pressed{}, prev_Pressed{}, Target_key{}
 	{
@@ -36,7 +36,7 @@ public:
 		}
 	}
 
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^(vector‚Å“n‚·)(‚Ù‚Úg‚í‚È‚¢)
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿(vectorã§æ¸¡ã™)(ã»ã¼ä½¿ã‚ãªã„)
 	KeyInput(const std::vector<uchar>& target) : Pressed{}, Target_key{target}
 	{
 		__KeyState = new char[256];
@@ -47,13 +47,13 @@ public:
 		delete[] __KeyState;
 	}
 
-	//‘ÎÛƒL[‚ğ’Ç‰Á
+	//å¯¾è±¡ã‚­ãƒ¼ã‚’è¿½åŠ 
 	void add(uchar KeyCode)
 	{
 		Target_key.push_back(KeyCode);
 	}
 
-	//ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©
+	//ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹
 	bool GetKey(uchar KeyCode)const&
 	{
 		for (auto __key : Pressed)
@@ -63,7 +63,7 @@ public:
 		return false;
 	}
 
-	//ƒL[‚ª‰Ÿ‚³‚ê‚½‚©
+	//ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‹
 	bool GetKeyDown(uchar KeyCode)const&
 	{
 		for (auto __key : Pressed)
@@ -80,7 +80,7 @@ public:
 		return false;
 	}
 
-	//ƒL[‚ª—£‚³‚ê‚½‚©
+	//ã‚­ãƒ¼ãŒé›¢ã•ã‚ŒãŸã‹
 	bool GetKeyUp(uchar KeyCode)const&
 	{
 		for (auto __key : Pressed)
@@ -100,11 +100,11 @@ public:
 		return false;
 	}
 
-	//ƒ‹[ƒv‚ÌÅ‰‚ÉÀs
+	//ãƒ«ãƒ¼ãƒ—ã®æœ€åˆã«å®Ÿè¡Œ
 	void operator()()
 	{
 		if (GetHitKeyStateAll(__KeyState) == -1)
-			throw new std::runtime_error("ƒL[‰Ÿ‰ºó‘Ôæ“¾¸”s");
+			throw new std::runtime_error("ã‚­ãƒ¼æŠ¼ä¸‹çŠ¶æ…‹å–å¾—å¤±æ•—");
 		prev_Pressed = Pressed;
 		Pressed.clear();
 		for (auto __target : Target_key)

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "stdafx.h"
 #include "Obj.h"
 
@@ -20,11 +20,11 @@ public:
 			y = 100;
 		}
 		int PADInput = GetJoypadInputState(DX_INPUT_KEY_PAD1); 
-		if ((PADInput & PAD_INPUT_DOWN) != 0) { //\š‰ºƒL[‚Ì“ü—Í
+		if ((PADInput & PAD_INPUT_DOWN) != 0) { //åå­—ä¸‹ã‚­ãƒ¼ã®å…¥åŠ›
 			y = y + 3;
 		}
 
-		if ((PADInput & PAD_INPUT_UP) != 0) { //\šãƒL[‚Ì“ü—Í
+		if ((PADInput & PAD_INPUT_UP) != 0) { //åå­—ä¸Šã‚­ãƒ¼ã®å…¥åŠ›
 			y = y - 3;
 		}
 	}

@@ -1,13 +1,13 @@
-#pragma once
+ï»¿#pragma once
 #include "stdafx.h"
 #include "Obj.h"
 
-//ƒ|ƒC‚ÌƒNƒ‰ƒX‚Ì’è‹`(Obj‚ÌŒp³)
+//ãƒã‚¤ã®ã‚¯ãƒ©ã‚¹ã®å®šç¾©(Objã®ç¶™æ‰¿)
 class Poi : public Obj {
 public:
 	Poi(int x, int	y, bool can_collision, const std::vector<int>& image_handle) : Obj(x, y, can_collision, image_handle) {};
-	//Obj‚ÌŠp“x‚È‚µƒRƒ“ƒXƒgƒ‰ƒNƒ^ŒÄ‚Ño‚µ
-	//‰æ‘œƒTƒCƒY‚ª400~400‚Ì‚Ì‚Æ‚«A¶ã‚É‘Î‚·‚é’†S‚ÌÀ•W‚Í(240,160)
+	//Objã®è§’åº¦ãªã—ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿å‘¼ã³å‡ºã—
+	//ç”»åƒã‚µã‚¤ã‚ºãŒ400Ã—400ã®æ™‚ã®ã¨ãã€å·¦ä¸Šã«å¯¾ã™ã‚‹ä¸­å¿ƒã®åº§æ¨™ã¯(240,160)
 	inline std::vector<int> center()const&
 	{
 		std::vector<int> pos = {x + 58, y + 34};
@@ -15,7 +15,7 @@ public:
 	}
 
 	void point_change() {
-		int PADInput = GetJoypadInputState(DX_INPUT_KEY_PAD1); //—vŒŸ“¢(‹à‹›—p‚Æ‡‚í‚¹‚ÄˆêŠK‚ÌƒQ[ƒ€ƒ‹[ƒv‚ÌÅ‰‚Åó‚¯æ‚Á‚Ä‚à‚¢‚¢‚©‚à)
+		int PADInput = GetJoypadInputState(DX_INPUT_KEY_PAD1); //è¦æ¤œè¨(é‡‘é­šç”¨ã¨åˆã‚ã›ã¦ä¸€éšã®ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ã®æœ€åˆã§å—ã‘å–ã£ã¦ã‚‚ã„ã„ã‹ã‚‚)
 		if (x > 1080) {
 			x = 1080;
 		}
@@ -28,19 +28,19 @@ public:
 		else if (y < 100) {
 			y = 100;
 		}
-		else if ((PADInput & PAD_INPUT_RIGHT) != 0) { //\š‰EƒL[‚Ì“ü—Í
+		else if ((PADInput & PAD_INPUT_RIGHT) != 0) { //åå­—å³ã‚­ãƒ¼ã®å…¥åŠ›
 			x = x + 3;
 		}
 
-		else if ((PADInput & PAD_INPUT_LEFT) != 0) { //\š¶ƒL[‚Ì“ü—Í
+		else if ((PADInput & PAD_INPUT_LEFT) != 0) { //åå­—å·¦ã‚­ãƒ¼ã®å…¥åŠ›
 			x = x - 3;
 		}
 
-		else if ((PADInput & PAD_INPUT_DOWN) != 0) { //\š‰ºƒL[‚Ì“ü—Í
+		else if ((PADInput & PAD_INPUT_DOWN) != 0) { //åå­—ä¸‹ã‚­ãƒ¼ã®å…¥åŠ›
 			y = y + 3;
 		}
 
-		else if ((PADInput & PAD_INPUT_UP) != 0) { //\šãƒL[‚Ì“ü—Í
+		else if ((PADInput & PAD_INPUT_UP) != 0) { //åå­—ä¸Šã‚­ãƒ¼ã®å…¥åŠ›
 			y = y - 3;
 		}
 	}

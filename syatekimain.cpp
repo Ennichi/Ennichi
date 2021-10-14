@@ -1,13 +1,13 @@
-#include "main.h"
+ï»¿#include "main.h"
 #include "stdafx.h"
 
 void syatekimain(int font, int bgm, int effect, int calling_check) {
-	int windowFlag = 0;  // Œ»İ‚ÌƒEƒBƒ“ƒhƒE‚ğŠÇ—‚·‚éƒtƒ‰ƒO
+	int windowFlag = 0;  // ç¾åœ¨ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ç®¡ç†ã™ã‚‹ãƒ•ãƒ©ã‚°
 	int FramePerSecond = 60;//fps
-	int score = 0;	//ƒQ[ƒ€‚ÌƒXƒRƒA
-	LONGLONG nowtime, prevtime;//Œ»İŠÔ
+	int score = 0;	//ã‚²ãƒ¼ãƒ ã®ã‚¹ã‚³ã‚¢
+	LONGLONG nowtime, prevtime;//ç¾åœ¨æ™‚é–“
 
-	std::random_device seed;//—”¶¬Ší
+	std::random_device seed;//ä¹±æ•°ç”Ÿæˆå™¨
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice(1, 1000);
 
@@ -15,72 +15,72 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	makeImageHandle(button_handle, "./asset/image/uncheck.png", "./asset/image/checked.png");
 
 	std::vector<int> gun_handle{};
-	makeImageHandle(gun_handle, "./asset/image/syateki.png");	//TODO:‰æ‘œ‚ğ’uŠ·‚·‚é
+	makeImageHandle(gun_handle, "./asset/image/syateki.png");	//TODO:ç”»åƒã‚’ç½®æ›ã™ã‚‹
 
 	int px, py;
 	int click_event, button_type, cx, cy, log_type;
-	Button button_start(100, 200, false, button_handle);	//STARTƒ{ƒ^ƒ“
-	StringObj start_obj(150, 250, "ƒXƒ^[ƒg", GetColor(120, 120, 120), font);
-	Button button_result(200, 350, false, button_handle);	//İ’èƒ{ƒ^ƒ“
-	StringObj result_obj(250, 400, "Œ‹‰Ê", GetColor(120, 120, 120), font);
-	Button button_gotokingyo(1000, 600, false, button_handle);	//Ë“IƒQ[ƒ€‚Ös‚­ƒ{ƒ^ƒ“
-	StringObj gotokingyo_obj(1025, 650, "‹à‹›‚·‚­‚¢", GetColor(120, 120, 120), font);
+	Button button_start(100, 200, false, button_handle);	//STARTãƒœã‚¿ãƒ³
+	StringObj start_obj(150, 250, "ã‚¹ã‚¿ãƒ¼ãƒˆ", GetColor(120, 120, 120), font);
+	Button button_result(200, 350, false, button_handle);	//è¨­å®šãƒœã‚¿ãƒ³
+	StringObj result_obj(250, 400, "çµæœ", GetColor(120, 120, 120), font);
+	Button button_gotokingyo(1000, 600, false, button_handle);	//å°„çš„ã‚²ãƒ¼ãƒ ã¸è¡Œããƒœã‚¿ãƒ³
+	StringObj gotokingyo_obj(1025, 650, "é‡‘é­šã™ãã„", GetColor(120, 120, 120), font);
 	Gun gun_syateki(100, 600, false, gun_handle);
 	KeyInput input(KEY_INPUT_Z);
 
 	prevtime = GetNowHiPerformanceCount();
-	int clock = GetNowCount();	//Œ»İ‚Ìæ“¾
+	int clock = GetNowCount();	//ç¾åœ¨æ™‚åˆ»ã®å–å¾—
 	Timer timer(3600);
 	Timer timer2(2400);
-	int back_img = LoadGraph("./asset/image/background.png");	//TODO:”wŒi‰æ‘œ‚ğË“I‚Ì‰®‘ä‚É‚·‚é
-	/* ƒQ[ƒ€ƒ‹[ƒv */
+	int back_img = LoadGraph("./asset/image/background.png");	//TODO:èƒŒæ™¯ç”»åƒã‚’å°„çš„ã®å±‹å°ã«ã™ã‚‹
+	/* ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ— */
 	while (1) {
-		SetDrawScreen(DX_SCREEN_BACK);  // •\¦‰æ–Ê‚ğ— ‚É
-		ClearDrawScreen();  // ‰æ–Ê‘S‘Ì‚ğƒNƒŠƒA
+		SetDrawScreen(DX_SCREEN_BACK);  // è¡¨ç¤ºç”»é¢ã‚’è£ã«
+		ClearDrawScreen();  // ç”»é¢å…¨ä½“ã‚’ã‚¯ãƒªã‚¢
 
 		GetMousePoint(&px, &py);
 		click_event = GetMouseInputLog2(&button_type, &cx, &cy, &log_type);
 
-		if (ProcessMessage() == -1) break;	//ƒGƒ‰[‚ª‹N‚«‚½‚çƒ‹[ƒv‚ğ‚Ê‚¯‚é
+		if (ProcessMessage() == -1) break;	//ã‚¨ãƒ©ãƒ¼ãŒèµ·ããŸã‚‰ãƒ«ãƒ¼ãƒ—ã‚’ã¬ã‘ã‚‹
 
-		if (windowFlag == 0) {  // ƒƒjƒ…[ƒEƒBƒ“ƒhƒE
-			SetMainWindowText("Ë“IƒQ[ƒ€(ƒ^ƒCƒgƒ‹)");	//windowƒeƒLƒXƒg
+		if (windowFlag == 0) {  // ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
+			SetMainWindowText("å°„çš„ã‚²ãƒ¼ãƒ (ã‚¿ã‚¤ãƒˆãƒ«)");	//windowãƒ†ã‚­ã‚¹ãƒˆ
 
-			DrawStringToHandle(500, 120, "Ë“IƒQ[ƒ€[WIP]", GetColor(120, 120, 120), font);
-			button_start.draw();	//ƒQ[ƒ€ƒXƒ^[ƒg
+			DrawStringToHandle(500, 120, "å°„çš„ã‚²ãƒ¼ãƒ [WIP]", GetColor(120, 120, 120), font);
+			button_start.draw();	//ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆ
 			button_start.next(px, py);
 			start_obj.draw();
-			button_result.draw();	//Œ‹‰Ê‰æ–Ê
+			button_result.draw();	//çµæœç”»é¢
 			button_result.next(px, py);
 			result_obj.draw();
-			button_gotokingyo.draw();		//Ë“IƒQ[ƒ€‚Ö
+			button_gotokingyo.draw();		//å°„çš„ã‚²ãƒ¼ãƒ ã¸
 			button_gotokingyo.next(px, py);
 			gotokingyo_obj.draw();
 			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
-				windowFlag = 1;	//‹à‹›‚·‚­‚¢ƒXƒ^[ƒg
+				windowFlag = 1;	//é‡‘é­šã™ãã„ã‚¹ã‚¿ãƒ¼ãƒˆ
 			}
 			if (button_result.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
-				windowFlag = 2;	//Œ‹‰Ê•\¦
+				windowFlag = 2;	//çµæœè¡¨ç¤º
 			}
 			if (button_gotokingyo.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
-				windowFlag = 10;	//‹à‹›‚·‚­‚¢ƒQ[ƒ€‚Ö‘JˆÚ
+				windowFlag = 10;	//é‡‘é­šã™ãã„ã‚²ãƒ¼ãƒ ã¸é·ç§»
 			}
 		}
-		else if (windowFlag == 1) { // ƒQ[ƒ€’†‚ÌƒEƒBƒ“ƒhƒE
-			SetMainWindowText("Ë“IƒQ[ƒ€(ƒQ[ƒ€’†)");	//windowƒeƒLƒXƒg
+		else if (windowFlag == 1) { // ã‚²ãƒ¼ãƒ ä¸­ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
+			SetMainWindowText("å°„çš„ã‚²ãƒ¼ãƒ (ã‚²ãƒ¼ãƒ ä¸­)");	//windowãƒ†ã‚­ã‚¹ãƒˆ
 			DrawGraph(0, 0, back_img, TRUE);
 
 			input();
 			gun_syateki.gunnt_change();
 			gun_syateki.draw();
-			//60•b‚½‚Á‚½‚çI—¹
+			//60ç§’ãŸã£ãŸã‚‰çµ‚äº†
 			if (timer() == 0) {
-				SetMainWindowText("ƒXƒRƒA•\¦");	//windowƒeƒLƒXƒg
+				SetMainWindowText("ã‚¹ã‚³ã‚¢è¡¨ç¤º");	//windowãƒ†ã‚­ã‚¹ãƒˆ
 				if (score > 0) {
-					DrawFormatString(500, 200, GetColor(120, 120, 120), "%d‘Å‚¿”²‚¯‚Ü‚µ‚½!", score, font);
+					DrawFormatString(500, 200, GetColor(120, 120, 120), "%dæ‰“ã¡æŠœã‘ã¾ã—ãŸ!", score, font);
 				}
 				else {
-					DrawFormatString(500, 200, GetColor(120, 120, 120), "c”O!",font);
+					DrawFormatString(500, 200, GetColor(120, 120, 120), "æ®‹å¿µ!",font);
 				}
 				if (timer2() == 0) {
 					windowFlag = 0;
@@ -88,14 +88,14 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 				timer2.update();
 			}
 			else {
-				DrawFormatString(1200, 0, GetColor(120, 120, 120), "c‚è%d•b", timer() / 60, font);
+				DrawFormatString(1200, 0, GetColor(120, 120, 120), "æ®‹ã‚Š%dç§’", timer() / 60, font);
 			}
 			timer.update();
 		}
 		else if (windowFlag == 3) {
-			SetMainWindowText("Œ‹‰Ê");	//windowƒeƒLƒXƒg
+			SetMainWindowText("çµæœ");	//windowãƒ†ã‚­ã‚¹ãƒˆ
 		}
-		else if (windowFlag == 10) {  // ƒQ[ƒ€‚ÌI—¹
+		else if (windowFlag == 10) {  // ã‚²ãƒ¼ãƒ ã®çµ‚äº†
 			calling_check=1;
 			kingyomain(font, bgm, effect,calling_check);
 		}
@@ -104,7 +104,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 		}
 		ScreenFlip();
 
-		/* ƒtƒŒ[ƒ€ƒŒ[ƒg‚Ìˆ— */
+		/* ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã®å‡¦ç† */
 		nowtime = GetNowHiPerformanceCount();
 		while (nowtime - prevtime < 1000000 / FramePerSecond)
 		{
