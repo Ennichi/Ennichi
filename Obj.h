@@ -123,7 +123,7 @@ public:
 
 	void addcpy(T& object, ...)
 	{
-		for (T& tmp: std::initializer_list<T>{ object... })
+		for (T& tmp: std::initializer_list<T>{ object })
 		{
 			objects.push_back(tmp);
 		}
