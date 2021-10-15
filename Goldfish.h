@@ -4,9 +4,8 @@
 #include "functions.h"
 #define ANGLE0 (0)
 
-
 //金魚の動き方
-enum class MOV_OPTION
+enum class MOV_OPTION : char
 {
 	LINEAR = 0,
 	CIRCLE,
@@ -139,6 +138,9 @@ public:
 
 	Goldfish(const Goldfish&) = default;
 	Goldfish(Goldfish&&) = default;
+
+	Goldfish& operator=(const Goldfish&) = default;
+	Goldfish& operator=(Goldfish&&) = default;
 
 	//スピードを決める
 	double setSpeed(double spmin, double spmax)

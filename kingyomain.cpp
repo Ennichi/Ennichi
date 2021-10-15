@@ -43,15 +43,13 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 
 	fish1->setSpeed(0.5, 1.0);//スピード設定
 
-	fish4.addcpy(*fish1, 10);
-
-	for (int i = 0; i < 10; ++i)
+	//fish4.addcpy(*fish1, 10);
+	fish4.addcpy(*fish1, *fish1, *fish1);
+	for (int i = 0; i < 3; ++i)
 	{
 		fish4[i].angle -= (double)i * 0.2;
 	}
-	for (int i = 0; i < 10; ++i) {
-		fish1->angle += (double)i * 0.1;
-	}
+	fish4.destroy(1);
 	prevtime = GetNowHiPerformanceCount();
 	int clock = GetNowCount();	//現在時刻の取得
 	Timer timer(1800);

@@ -59,6 +59,9 @@ public:
 	//ムーブコンストラクタ自動生成
 	Obj(Obj&&) = default;
 
+	Obj& operator=(const Obj&) = default;
+	Obj& operator=(Obj&&) = default;
+
 	virtual ~Obj() {
 
 	}
@@ -84,6 +87,7 @@ public:
 	virtual void Next()
 	{
 	}
+
 	virtual bool isCollision(Obj& other) {
 		if (!(can_collision && other.can_collision)) return false; // どちらかが衝突不可
 		int dx = x - other.x, dy = y - other.y;//*thisの座標に対するotherの相対座標
@@ -121,9 +125,10 @@ public:
 	ObjGroup(): objects{}
 	{}
 
-	void addcpy(T& object, ...)
+	template<typename... objArgs>
+	void addcpy(objArgs&... object)
 	{
-		for (T& tmp: std::initializer_list<T>{ object })
+		for (const T& tmp: std::initializer_list<T>{ object... })
 		{
 			objects.push_back(tmp);
 		}
@@ -155,7 +160,7 @@ public:
 
 	void destroy(std::size_t index)
 	{
-		objects[index] = objects.pop_back();
+		objects.erase(objects.begin() + index);
 	}
 
 	T& operator[](std::size_t index)&
