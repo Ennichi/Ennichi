@@ -12,7 +12,10 @@ void kingyomain(int font,int bgm,int effect) {
 	std::uniform_int_distribution<> dice(1, 1000);
 
 	std::vector<int> handle{};
-	makeImageHandle(handle, "./asset/image/goldfish_open.png", "./asset/image/goldfish_close.png");
+	makeImageHandle(handle, "./asset/image/kingyo.png", "./asset/image/kingyo_left.png","./asset/image/kingyo_right.png");
+
+	std::vector<int> telescope_handle{};
+	makeImageHandle(telescope_handle, "./asset/image/Telescope.png", "./asset/image/Telescope_left.png", "./asset/image/Telescope_right.png");
 
 	std::vector<int> button_handle{};
 	makeImageHandle(button_handle, "./asset/image/button2.png", "./asset/image/button1.png");
@@ -27,6 +30,9 @@ void kingyomain(int font,int bgm,int effect) {
 	Goldfish fish2(100, 0, DX_PI * 3.0 / 4.0, true, handle);
 	Poi first(500, 500, true, poi_handle);//ポイ
 	Goldfish fish3 = *fish1;
+
+	Goldfish* telescope_fish1 = new Goldfish(400, 500, 0, true, telescope_handle); //出目金
+	Goldfish telescope_fish3 = *telescope_fish1;
 
 	ObjGroup<Goldfish> fish4;
 
@@ -48,7 +54,7 @@ void kingyomain(int font,int bgm,int effect) {
 	Timer timer(3600);
 	Timer timer2(2400);
 	//bgmを読み込む
-	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
+	//PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
 	int back_img = LoadGraph("./asset/image/background.png");
 	/* ゲームループ */
 	while (1) {
@@ -81,6 +87,8 @@ void kingyomain(int font,int bgm,int effect) {
 				fish1->Next();
 				fish1->draw();
 			}
+			telescope_fish3.Next();
+			telescope_fish3.draw();
 			fish3.Next();
 			fish3.draw();
 			fish4.Next();
