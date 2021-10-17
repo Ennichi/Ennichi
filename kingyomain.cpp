@@ -18,7 +18,7 @@ void kingyomain(int font,int bgm,int effect) {
 	makeImageHandle(telescope_handle, "./asset/image/Telescope.png", "./asset/image/Telescope_left.png", "./asset/image/Telescope_right.png");
 
 	std::vector<int> button_handle{};
-	makeImageHandle(button_handle, "./asset/image/button2.png", "./asset/image/button1.png");
+	makeImageHandle(button_handle, "./asset/image/start.png", "./asset/image/start.png");
 
 	std::vector<int> poi_handle{};
 	makeImageHandle(poi_handle, "./asset/image/poi.png");
@@ -54,8 +54,9 @@ void kingyomain(int font,int bgm,int effect) {
 	Timer timer(3600);
 	Timer timer2(2400);
 	//bgmを読み込む
-	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
+	//PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
 	int back_img = LoadGraph("./asset/image/background.png");
+	int title_img = LoadGraph("./asset/image/title.png");
 	/* ゲームループ */
 	while (1) {
 		SetDrawScreen(DX_SCREEN_BACK);  // 表示画面を裏に
@@ -68,8 +69,8 @@ void kingyomain(int font,int bgm,int effect) {
 
 		if (windowFlag == 0) {  // メニューウィンドウ
 			SetMainWindowText("金魚すくい(タイトル)");	//windowテキスト
-			
-			DrawStringToHandle(500, 120, "金魚ゲーム", GetColor(120,120,120), font);
+			DrawGraph(0, 0, title_img, TRUE);
+
 			button1.draw();	//ゲームスタート
 			button1.next(px, py);
 
