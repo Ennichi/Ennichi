@@ -51,10 +51,12 @@ void kingyomain(int font,int bgm,int effect) {
 	fish4.destroy(1);
 	prevtime = GetNowHiPerformanceCount();
 	int clock = GetNowCount();	//現在時刻の取得
-	Timer timer(3600);
+	Timer timer(1800);
 	Timer timer2(2400);
+	int count_Font = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+
 	//bgmを読み込む
-	//PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
+	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
 	int back_img = LoadGraph("./asset/image/background.png");
 	int title_img = LoadGraph("./asset/image/title.png");
 	/* ゲームループ */
@@ -114,7 +116,7 @@ void kingyomain(int font,int bgm,int effect) {
 				timer2.update();
 			}
 			else {
-				DrawFormatString(1200, 0, GetColor(120, 120, 120), "残り%d秒", timer() / 60, font);
+				DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), count_Font, "残り%d秒", timer() / 60);
 			}
 			timer.update();
 		}
