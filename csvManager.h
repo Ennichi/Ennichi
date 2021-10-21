@@ -15,7 +15,7 @@ private:
 
 protected:
 	std::list<std::string> detail;
-	std::list<std::string>::iterator alocitr;
+	std::list<std::string>::iterator allocitr;
 
 public:
 	//コンストラクタ
@@ -23,7 +23,7 @@ public:
 	): iofs(), 
 		file_path{fpath}, 
 		detail{},
-		alocitr{detail.begin()}
+		allocitr{detail.begin()}
 	{
 		if(!file_exists(fpath))
 		{
@@ -59,7 +59,7 @@ public:
 		}
 		iofs.clear();
 		iofs.seekg(std::ios::beg);
-		alocitr = detail.begin();
+		allocitr = detail.begin();
 		location = 0;
 	}
 
@@ -68,11 +68,11 @@ public:
 	{
 		for (; location < index; ++location)
 		{
-			iofs.seekg((long long)(*(alocitr++)).length() + 2ll, std::ios::cur);
+			iofs.seekg((long long)(*(allocitr++)).length() + 2ll, std::ios::cur);
 		}
 		for (; location > index; --location)
 		{
-			iofs.seekg(-(long long)(*(--alocitr)).length() - 2ll, std::ios::cur);
+			iofs.seekg(-(long long)(*(--allocitr)).length() - 2ll, std::ios::cur);
 		}
 	}
 
@@ -80,7 +80,7 @@ public:
 	std::vector<std::string> readAt(unsigned int index)
 	{
 		locate(index);
-		std::stringstream strstr(*alocitr);
+		std::stringstream strstr(*allocitr);
 		std::string tmp;
 		std::vector<std::string> v;
 		while (std::getline(strstr, tmp, ','))
@@ -95,15 +95,32 @@ protected:
 
 	void write_string_insert(const std::string& wstr)
 	{
-		alocitr = detail.insert(alocitr, wstr);
-		for (; alocitr != detail.end(); ++alocitr)
+		allocitr = detail.insert(allocitr, wstr);
+		for (; allocitr != detail.end(); ++allocitr)
 		{
-			iofs << *alocitr << std::endl;
+			iofs << *allocitr << std::endl;
 			++location;
 		}
 		iofs.clear();
 	}
 
+	void del_base(unsigned int index)
+	{
+		iofs.close();
+		iofs.open(file_path, std::ios::in | std::ios::out | std::ios::trunc);
+		allocitr = std::next(detail.begin(), index);
+		detail.erase(allocitr);
+		for (auto& tmp : detail)
+		{
+			iofs << tmp << std::endl;
+		}
+		iofs.close();
+		iofs.open(file_path, CSVMODE);
+		iofs.clear();
+		iofs.seekg(std::ios::beg);
+		location = 0;
+		allocitr = detail.begin();
+	}
 public:
 
 	//指定の行に挿入
@@ -130,36 +147,23 @@ public:
 		}
 		locate(index);
 		iofs << "\0";
-		*alocitr = insstr;
-		for (; alocitr != detail.end(); ++alocitr)
+		*allocitr = insstr;
+		for (; allocitr != detail.end(); ++allocitr)
 		{
-			iofs << *alocitr << std::endl;
+			iofs << *allocitr << std::endl;
 			++location;
 		}
 		iofs.clear();
 	}
 
 	//指定の行を削除
-	void del(unsigned int index)
+	virtual void del(unsigned int index)
 	{
-		iofs.close();
-		iofs.open(file_path, std::ios::in | std::ios::out | std::ios::trunc);
-		alocitr = std::next(detail.begin(), index);
-		detail.erase(alocitr);
-		for (auto& tmp : detail)
-		{
-			iofs << tmp << std::endl;
-		}
-		iofs.close();
-		iofs.open(file_path, CSVMODE);
-		iofs.clear();
-		iofs.seekg(std::ios::beg);
-		location = 0;
-		alocitr = detail.begin();
+		this->del_base(index);
 	}
 
 	//指定の範囲の行を削除
-	void del(unsigned int a, unsigned int b)
+	virtual void del(unsigned int a, unsigned int b)
 	{
 		{
 			unsigned int tmp = a;
@@ -168,8 +172,8 @@ public:
 		}
 		iofs.close();
 		iofs.open(file_path, std::ios::in | std::ios::out | std::ios::trunc);
-		alocitr = std::next(detail.begin(), a);
-		detail.erase(alocitr, std::next(alocitr, static_cast<ULL>(b) - static_cast<ULL>(a) + 1));
+		allocitr = std::next(detail.begin(), a);
+		detail.erase(allocitr, std::next(allocitr, static_cast<ULL>(b) - static_cast<ULL>(a) + 1));
 		for (auto& tmp : detail)
 		{
 			iofs << tmp << std::endl;
@@ -179,7 +183,7 @@ public:
 		iofs.clear();
 		iofs.seekg(std::ios::beg);
 		location = 0;
-		alocitr = detail.begin();
+		allocitr = detail.begin();
 	}
 };
 
@@ -196,6 +200,9 @@ public:
 	Ranking(const Ranking&) = delete;
 	Ranking(Ranking&&) = default;
 
+	Ranking& operator=(const Ranking&) = delete;
+	Ranking& operator=(Ranking&&) = default;
+
 	//挿入
 	void insert(const std::string& username, int score)
 	{
@@ -210,5 +217,17 @@ public:
 		scoreList.insert(itr, score);
 		std::string insstr = username + "," + std::to_string(score) + ",";
 		write_string_insert(insstr);
+	}
+
+	//削除
+	void del(unsigned int index)override
+	{
+		scoreList.erase(std::next(scoreList.begin(), index));
+		del_base(index);
+	}
+
+	int at(unsigned int index)
+	{
+		return stoi(readAt(index).at(1));
 	}
 };

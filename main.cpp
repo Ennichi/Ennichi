@@ -1,44 +1,44 @@
-#include "main.h"    
+ï»¿#include "main.h"    
 #include "stdafx.h"
 
 //https://docs.microsoft.com/ja-jp/cpp/code-quality/annotating-function-parameters-and-return-values?view=msvc-160&viewFallbackFrom=vs-2019
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd){
-    int dispx = GetSystemMetrics(SM_CXSCREEN);  //ƒEƒBƒ“ƒhƒE‚ÌXÀ•W‚Ìæ“¾
-    int dispy = GetSystemMetrics(SM_CYSCREEN);  //ƒEƒBƒ“ƒhƒE‚ÌYÀ•W‚Ìæ“¾
+    int dispx = GetSystemMetrics(SM_CXSCREEN);  //ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®Xåº§æ¨™ã®å–å¾—
+    int dispy = GetSystemMetrics(SM_CYSCREEN);  //ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®Yåº§æ¨™ã®å–å¾—
 
-    //ƒfƒoƒbƒO‚Í‚±‚ê‚ğTRUE‚É‚·‚é‚±‚Æ
-    SetOutApplicationLogValidFlag(FALSE);   //ƒƒOƒtƒ@ƒCƒ‹‚Ìo—Í‚ğ‚â‚ß‚é
-    SetAlwaysRunFlag(TRUE); //ƒtƒH[ƒJƒX‚ªŠO‚ê‚½‚à“®ì‚ğ‘±‚¯‚é
-    SetDoubleStartValidFlag(TRUE);  //DXƒ‰ƒCƒuƒ‰ƒŠ‚Ì‘½d‹N“®‚ğ‹–‰Â‚·‚é
-    ChangeWindowMode(TRUE); //ƒEƒBƒ“ƒhƒEƒ‚[ƒh‚É‚·‚é
-    SetWindowIconID(333);	//ƒAƒCƒRƒ“•\¦
-    SetGraphMode(1280, 720, 32);    //‰æ–ÊƒTƒCƒY‚ğ1280x720,32bitƒJƒ‰[‚É‚·‚é
-    SetBackgroundColor(255, 255, 255);  //”wŒi‚ğ”’F‚É‚·‚é
+    //ãƒ‡ãƒãƒƒã‚°æ™‚ã¯ã“ã‚Œã‚’TRUEã«ã™ã‚‹ã“ã¨
+    SetOutApplicationLogValidFlag(FALSE);   //ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã®å‡ºåŠ›ã‚’ã‚„ã‚ã‚‹
+    SetAlwaysRunFlag(TRUE); //ãƒ•ã‚©ãƒ¼ã‚«ã‚¹ãŒå¤–ã‚ŒãŸæ™‚ã‚‚å‹•ä½œã‚’ç¶šã‘ã‚‹
+    SetDoubleStartValidFlag(TRUE);  //DXãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®å¤šé‡èµ·å‹•ã‚’è¨±å¯ã™ã‚‹
+    ChangeWindowMode(TRUE); //ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã«ã™ã‚‹
+    SetWindowIconID(333);	//ã‚¢ã‚¤ã‚³ãƒ³è¡¨ç¤º
+    SetGraphMode(1280, 720, 32);    //ç”»é¢ã‚µã‚¤ã‚ºã‚’1280x720,32bitã‚«ãƒ©ãƒ¼ã«ã™ã‚‹
+    SetBackgroundColor(255, 255, 255);  //èƒŒæ™¯ã‚’ç™½è‰²ã«ã™ã‚‹
     SetWindowStyleMode(6);
-    SetWindowSizeChangeEnableFlag(TRUE);    //ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚ğ•ÏX‚Å‚«‚é‚æ‚¤‚É‚·‚é
-    //ƒGƒ‰[‚ªo‚½‚çI—¹
+    SetWindowSizeChangeEnableFlag(TRUE);    //ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºã‚’å¤‰æ›´ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
+    //ã‚¨ãƒ©ãƒ¼ãŒå‡ºãŸã‚‰çµ‚äº†
     if (DxLib_Init() == -1) {
         return -1;
     }
-    int bgm = LoadSoundMem("./asset/bgm/maou_minzoku9.ogg");	//–‚‰¤°–¯‘°09
-    int effect = LoadSoundMem("./asset/effect/system49.ogg");	//ƒVƒXƒeƒ€‰¹
-    AddFontResourceEx("./asset/font/fonts/otf/Mplus1-Regular.otf", FR_PRIVATE, NULL);	//ƒtƒHƒ“ƒg‚ğ“Ç‚İ‚Ş
-    int FontHandle = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);    //ƒtƒHƒ“ƒgƒnƒ“ƒhƒ‹‚ğì¬‚·‚é
+    int bgm = LoadSoundMem("./asset/bgm/maou_minzoku9.ogg");	//é­”ç‹é­‚æ°‘æ—09
+    int effect = LoadSoundMem("./asset/effect/system49.ogg");	//ã‚·ã‚¹ãƒ†ãƒ éŸ³
+    AddFontResourceEx("./asset/font/fonts/otf/Mplus1-Regular.otf", FR_PRIVATE, NULL);	//ãƒ•ã‚©ãƒ³ãƒˆã‚’èª­ã¿è¾¼ã‚€
+    int FontHandle = CreateFontToHandle("Mplus1-Regular", 30, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);    //ãƒ•ã‚©ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ«ã‚’ä½œæˆã™ã‚‹
 
-    //ƒfƒBƒXƒvƒŒƒC‚Ì1280x720ˆÈ‰º‚Ì
+    //ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã®1280x720ä»¥ä¸‹ã®æ™‚
     if (dispx <= 1280 || dispy <= 720) {
-        MessageBox(NULL, "‰ğ‘œ“x‚ª’á‚¢‚æ\nV‚µ‚¢ƒ‚ƒjƒ^”ƒ‚Á‚Ä‚Ë", "Error Info", MB_ICONHAND);
+        MessageBox(NULL, "è§£åƒåº¦ãŒä½ã„ã‚ˆ\næ–°ã—ã„ãƒ¢ãƒ‹ã‚¿è²·ã£ã¦ã­", "Error Info", MB_ICONHAND);
         exit(1);
     }
     if (std::filesystem::exists("./asset") == 0) {
-        MessageBox(NULL, "‘fŞƒtƒHƒ‹ƒ_‚ªŒ©‚Â‚©‚ç‚È‚¢‚æ\n‘fŞ‚ğGithub‚ÌƒŠƒŠ[ƒX‚©‚çƒ_ƒEƒ“ƒ[ƒh‚µ‚Ä‚Ë", "Error Info", MB_ICONHAND);
+        MessageBox(NULL, "ç´ æãƒ•ã‚©ãƒ«ãƒ€ãŒè¦‹ã¤ã‹ã‚‰ãªã„ã‚ˆ\nç´ æã‚’Githubã®ãƒªãƒªãƒ¼ã‚¹ã‹ã‚‰ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¦ã­", "Error Info", MB_ICONHAND);
         ShellExecute(NULL, "open", "https://github.com/Ennichi/Ennichi", NULL, NULL, SW_SHOW);
         exit(1);
     }
- 
-    //bgm‚ğ“Ç‚İ‚Ş
-    kingyomain(FontHandle, bgm, effect);
-    //I‚í‚è
+    int calling_check = 0;
+    //bgmã‚’èª­ã¿è¾¼ã‚€
+    kingyomain(FontHandle, bgm, effect,calling_check);
+    //çµ‚ã‚ã‚Š
     DxLib_End();
     return 0;
 }

@@ -1,15 +1,15 @@
-#include "main.h"
+ï»¿#include "main.h"
 #include "stdafx.h"
 
  void game_temp() {
 
-	/* ‰Šú‰» */
+	/* åˆæœŸåŒ– */
 	unsigned long long frames = 0;
-	int windowFlag = 0;  // Œ»İ‚ÌƒEƒBƒ“ƒhƒE‚ğŠÇ—‚·‚éƒtƒ‰ƒO
+	int windowFlag = 0;  // ç¾åœ¨ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ç®¡ç†ã™ã‚‹ãƒ•ãƒ©ã‚°
 	int px, py;
 	int click_event, button_type, cx, cy, log_type;
 
-	std::random_device seed;//—”¶¬Ší
+	std::random_device seed;//ä¹±æ•°ç”Ÿæˆå™¨
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice(1, 1000);
 
@@ -17,15 +17,15 @@
 	std::vector<const char*> button_path = { "./asset/image/button2.png", "./asset/image/button1.png" };
 	std::vector<const char*> poi_path = { "./asset/image/poi.png" };
 
-	/* —vŒŸ“¢ */
-	//“¯‚¶‘‚«•û‚ğ‰½“x‚à‚µ‚Ä‚¢‚é
+	/* è¦æ¤œè¨ */
+	//åŒã˜æ›¸ãæ–¹ã‚’ä½•åº¦ã‚‚ã—ã¦ã„ã‚‹
 	std::vector<int> handle{};
 	for (auto image_path : path)
 	{
 		handle.push_back(LoadGraph(image_path));
 		if (*(handle.end() - 1) == -1)
 		{
-			MessageBox(NULL, "‰æ‘œ“Ç‚İ‚İƒGƒ‰[", "Error Info", MB_ICONHAND);
+			MessageBox(NULL, "ç”»åƒèª­ã¿è¾¼ã¿æ™‚ã‚¨ãƒ©ãƒ¼", "Error Info", MB_ICONHAND);
 			exit(1);
 		}
 	}
@@ -36,7 +36,7 @@
 		button_handle.push_back(LoadGraph(image_path));
 		if (*(button_handle.end() - 1) == -1)
 		{
-			MessageBox(NULL, "‰æ‘œ“Ç‚İ‚İƒGƒ‰[", "Error Info", MB_ICONHAND);
+			MessageBox(NULL, "ç”»åƒèª­ã¿è¾¼ã¿æ™‚ã‚¨ãƒ©ãƒ¼", "Error Info", MB_ICONHAND);
 			exit(1);
 		}
 	}
@@ -47,7 +47,7 @@
 		poi_handle.push_back(LoadGraph(image_path));
 		if (*(poi_handle.end() - 1) == -1)
 		{
-			MessageBox(NULL, "‰æ‘œ“Ç‚İ‚İƒGƒ‰[", "Error Info", MB_ICONHAND);
+			MessageBox(NULL, "ç”»åƒèª­ã¿è¾¼ã¿æ™‚ã‚¨ãƒ©ãƒ¼", "Error Info", MB_ICONHAND);
 			exit(1);
 		}
 	}
@@ -63,16 +63,16 @@
 	Timer timer(3000);
 	KeyInput input = { KEY_INPUT_0, KEY_INPUT_1,KEY_INPUT_Z };
 
-	/* ƒQ[ƒ€ƒ‹[ƒv */
+	/* ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ— */
 	while (1) {
 		input();
 
-	 	SetDrawScreen(DX_SCREEN_BACK);  // •\¦‰æ–Ê‚ğ— ‚É
-		ClearDrawScreen();  // ‰æ–Ê‘S‘Ì‚ğƒNƒŠƒA
+	 	SetDrawScreen(DX_SCREEN_BACK);  // è¡¨ç¤ºç”»é¢ã‚’è£ã«
+		ClearDrawScreen();  // ç”»é¢å…¨ä½“ã‚’ã‚¯ãƒªã‚¢
 		GetMousePoint(&px, &py);
 		click_event = GetMouseInputLog2(&button_type, &cx, &cy, &log_type);
-		if (ProcessMessage() == -1) break;	//ƒGƒ‰[‚ª‹N‚«‚½‚çƒ‹[ƒv‚ğ‚Ê‚¯‚é
-		if (windowFlag == 0) {  // ƒƒjƒ…[ƒEƒBƒ“ƒhƒE
+		if (ProcessMessage() == -1) break;	//ã‚¨ãƒ©ãƒ¼ãŒèµ·ããŸã‚‰ãƒ«ãƒ¼ãƒ—ã‚’ã¬ã‘ã‚‹
+		if (windowFlag == 0) {  // ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
 
 			if (timer() == 0)
 			{
@@ -83,7 +83,7 @@
 			fish2.Next();
 			first.point_change();
 
-			if (input.GetKeyDown(KEY_INPUT_Z) == 1 && fish2.isCought(first, mt, dice))printfDx("•ß‚Ü‚Á‚½");
+			if (input.GetKeyDown(KEY_INPUT_Z) == 1 && fish2.isCought(first, mt, dice))printfDx("æ•ã¾ã£ãŸ");
 			if (button.isPushedLeft(click_event, button_type, cx, cy, log_type)) {
 				windowFlag = 1;
 			}
@@ -103,14 +103,14 @@
 			button.draw();
 			timer.update();
 		}
-		else if (windowFlag == 1) { // ƒQ[ƒ€’†‚ÌƒEƒBƒ“ƒhƒE
+		else if (windowFlag == 1) { // ã‚²ãƒ¼ãƒ ä¸­ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
 			button.draw();
 			button.next(px, py);
 			if (button.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				windowFlag = 0;
 			}
 		}
-		else {  // ƒQ[ƒ€‚ÌI—¹
+		else {  // ã‚²ãƒ¼ãƒ ã®çµ‚äº†
 			return;
 		}
 		frames++;

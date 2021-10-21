@@ -1,14 +1,14 @@
-#pragma once
+ï»¿#pragma once
 class StringObj
 {
 public:
-	// ƒƒ“ƒo•Ï”
-	int x = 0, y = 0; // ¶ã‚ÌÀ•W
-	const char* label = NULL; // •\¦‚·‚é•¶š—ñ
+	// ãƒ¡ãƒ³ãƒå¤‰æ•°
+	int x = 0, y = 0; // å·¦ä¸Šã®åº§æ¨™
+	const char* label = NULL; // è¡¨ç¤ºã™ã‚‹æ–‡å­—åˆ—
 	unsigned int color = 0x000000;
 	int font = 0;
 
-	// ƒƒ“ƒoŠÖ”
+	// ãƒ¡ãƒ³ãƒé–¢æ•°
 	StringObj(
 		int x,
 		int y,

@@ -1,4 +1,4 @@
-#include <DxLib.h>
+﻿#include <DxLib.h>
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
@@ -11,3 +11,4 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <list>

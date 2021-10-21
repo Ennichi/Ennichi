@@ -1,27 +1,27 @@
-#pragma once
+ï»¿#pragma once
 #include "stdafx.h"
 
-/* ”Ä—pŠÖ”‚È‚Ç‚Ü‚Æ‚ß */
+/* æ±ç”¨é–¢æ•°ãªã©ã¾ã¨ã‚ */
 
-/*ƒxƒNƒgƒ‹\‘¢‘Ì
-* g‚í‚È‚©‚Á‚½‚çÁ‚µ‚Ü‚·
+/*ãƒ™ã‚¯ãƒˆãƒ«æ§‹é€ ä½“
+* ä½¿ã‚ãªã‹ã£ãŸã‚‰æ¶ˆã—ã¾ã™
 */
 struct Vector2
 {
 	double x = 0.0;
 	double y = 0.0;
 
-	//Šî’ê‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//åŸºåº•ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Vector2()
 	{}
 
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Vector2(double x0, double y0) : x{x0}, y{y0}
 	{}
 
 	/*
-	* ƒRƒ“ƒXƒgƒ‰ƒNƒ^(ƒCƒjƒVƒƒƒ‰ƒCƒU[ƒŠƒXƒg)
-	* g‚¢•û
+	* ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿(ã‚¤ãƒ‹ã‚·ãƒ£ãƒ©ã‚¤ã‚¶ãƒ¼ãƒªã‚¹ãƒˆ)
+	* ä½¿ã„æ–¹
 	* Vector2 a = {2.0, 3.0};
 	*/
 	Vector2(std::initializer_list<double> list
@@ -29,8 +29,8 @@ struct Vector2
 	{}
 
 	/*
-	* ‘ã“ü‰‰Zq’è‹`(ƒCƒjƒVƒƒƒ‰ƒCƒU[ƒŠƒXƒg)
-	* g‚¢•û
+	* ä»£å…¥æ¼”ç®—å­å®šç¾©(ã‚¤ãƒ‹ã‚·ãƒ£ãƒ©ã‚¤ã‚¶ãƒ¼ãƒªã‚¹ãƒˆ)
+	* ä½¿ã„æ–¹
 	* Vector2 a;
 	* a = {3.0, 2.5}
 	*/
@@ -69,7 +69,7 @@ void makeImageHandle(std::vector<int>& vHandle, const strArgs... pathArgs)
 			*itr = LoadGraph(tmp);
 			if (*itr == -1)
 			{
-				throw new std::runtime_error("‰æ‘œƒtƒ@ƒCƒ‹" + static_cast<std::string>(tmp) + "‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ‚Å‚µ‚½");
+				throw new std::runtime_error("ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«" + static_cast<std::string>(tmp) + "ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“ã§ã—ãŸ");
 			}
 			++itr;
 		}
@@ -78,7 +78,7 @@ void makeImageHandle(std::vector<int>& vHandle, const strArgs... pathArgs)
 			vHandle.push_back(LoadGraph(tmp));
 			if (*(vHandle.end() - 1) == -1)
 			{
-				throw new std::runtime_error("‰æ‘œƒtƒ@ƒCƒ‹" + static_cast<std::string>(tmp) + "‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ‚Å‚µ‚½");
+				throw new std::runtime_error("ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«" + static_cast<std::string>(tmp) + "ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“ã§ã—ãŸ");
 			}
 		}
 	}

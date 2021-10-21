@@ -1,29 +1,29 @@
-#pragma once
+ï»¿#pragma once
 #define max(a, b) (((a) > (b)) ? (a) : (b))
 #include "stdafx.h"
 
-//”ñ“¯Šú®ƒ^ƒCƒ}[
+//éåŒæœŸå¼ã‚¿ã‚¤ãƒãƒ¼
 class nSyncTimer
 {
 	using LL = long long;
 
 private:
-	/* ŠO•”QÆ•s‰Â */
+	/* å¤–éƒ¨å‚ç…§ä¸å¯ */
 	unsigned short fps = 60;
 	LL configured_time = 0;
 	LL start_time = 0;
 	bool isSet = false;
 
 public:
-	/* ŠO•”QÆ‰Â */
+	/* å¤–éƒ¨å‚ç…§å¯ */
 
-	//ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	nSyncTimer(){}
 
-	//fpsİ’èƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//fpsè¨­å®šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	nSyncTimer(unsigned short FramePerSecond) : fps{FramePerSecond} {}
 
-	//’PˆÊƒtƒŒ[ƒ€‚Åƒ^ƒCƒ}[ƒZƒbƒg
+	//å˜ä½ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã‚¿ã‚¤ãƒãƒ¼ã‚»ãƒƒãƒˆ
 	void setf(unsigned int frames)
 	{
 		if (isSet)return;
@@ -32,7 +32,7 @@ public:
 		isSet = true;
 	}
 
-	//’PˆÊƒ~ƒŠ•b‚Åƒ^ƒCƒ}[ƒZƒbƒg
+	//å˜ä½ãƒŸãƒªç§’ã§ã‚¿ã‚¤ãƒãƒ¼ã‚»ãƒƒãƒˆ
 	void setms(unsigned int ms)
 	{
 		if (isSet)return;
@@ -41,7 +41,7 @@ public:
 		isSet = true;
 	}
 
-	//’PˆÊ•b‚Åƒ^ƒCƒ}[ƒZƒbƒg
+	//å˜ä½ç§’ã§ã‚¿ã‚¤ãƒãƒ¼ã‚»ãƒƒãƒˆ
 	void sets(double seconds)
 	{
 		if (isSet)return;
@@ -50,7 +50,7 @@ public:
 		isSet = true;
 	}
 
-	//’PˆÊƒ}ƒCƒNƒ•b‚Åƒ^ƒCƒ}[ƒZƒbƒg
+	//å˜ä½ãƒã‚¤ã‚¯ãƒ­ç§’ã§ã‚¿ã‚¤ãƒãƒ¼ã‚»ãƒƒãƒˆ
 	void set(LL microseconds)
 	{
 		if (isSet)return;
@@ -59,7 +59,7 @@ public:
 		isSet = true;
 	}
 
-	//ˆê‰ñƒZƒbƒg‚µ‚½‚ç‚±‚ê‚ğÀs‚·‚é‚Ü‚Å‚à‚¤ˆê“xg‚¦‚È‚¢
+	//ä¸€å›ã‚»ãƒƒãƒˆã—ãŸã‚‰ã“ã‚Œã‚’å®Ÿè¡Œã™ã‚‹ã¾ã§ã‚‚ã†ä¸€åº¦ä½¿ãˆãªã„
 	void reset()
 	{
 		isSet = false;
@@ -67,7 +67,7 @@ public:
 		start_time = 0;
 	}
 
-	//ƒ^ƒCƒ}[‚Ì–¼‘O()‚Åc‚èŠÔ‚ğæ“¾(ƒ^ƒCƒ}[I—¹0)
+	//ã‚¿ã‚¤ãƒãƒ¼ã®åå‰()ã§æ®‹ã‚Šæ™‚é–“ã‚’å–å¾—(ã‚¿ã‚¤ãƒãƒ¼çµ‚äº†æ™‚0)
 	LL operator()()const&
 	{
 		LL temp = configured_time + start_time - GetNowHiPerformanceCount();
@@ -75,46 +75,46 @@ public:
 	}
 };
 
-//“¯Šú®ƒ^ƒCƒ}[
+//åŒæœŸå¼ã‚¿ã‚¤ãƒãƒ¼
 class Timer
 {
 	using uLL = unsigned long long;
 
 private:
-	/* ŠO•”QÆ•s‰Â */
+	/* å¤–éƒ¨å‚ç…§ä¸å¯ */
 
 	uLL __remaining = 0;
 	uLL __configured = 0;
 
 public:
 
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Timer()
 	{}
 
 	Timer(uLL frames):__configured{frames}, __remaining{frames}
 	{}
 
-	//ŠÔ‚ğİ’è(ƒtƒŒ[ƒ€)
+	//æ™‚é–“ã‚’è¨­å®š(ãƒ•ãƒ¬ãƒ¼ãƒ )
 	void set(uLL frames)
 	{
 		__configured = frames;
 	}
 
-	//ŠÔ‚ğİ’è(•b)
+	//æ™‚é–“ã‚’è¨­å®š(ç§’)
 	void sets(uLL sec)
 	{
 		__configured = sec * 60;
 	}
 
-	//ƒ^ƒCƒ}[‚ğƒŠƒZƒbƒg‚·‚é
+	//ã‚¿ã‚¤ãƒãƒ¼ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
 	void reset()
 	{
 		__remaining = __configured;
 	}
 
-	//–ˆƒtƒŒ[ƒ€Às
-	//‚±‚ê‚ğÀs‚µ‚Ä‚¢‚éŠÔƒ^ƒCƒ}[‚ªì“®‚·‚é
+	//æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å®Ÿè¡Œ
+	//ã“ã‚Œã‚’å®Ÿè¡Œã—ã¦ã„ã‚‹é–“ã‚¿ã‚¤ãƒãƒ¼ãŒä½œå‹•ã™ã‚‹
 	void update()
 	{
 		if (__remaining != 0)
@@ -123,7 +123,7 @@ public:
 		}
 	}
 
-	//c‚èƒtƒŒ[ƒ€
+	//æ®‹ã‚Šãƒ•ãƒ¬ãƒ¼ãƒ 
 	uLL operator()()
 	{
 		return __remaining;
