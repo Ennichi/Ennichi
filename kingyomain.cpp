@@ -1,13 +1,13 @@
-#include "main.h"
+ï»¿#include "main.h"
 #include "stdafx.h"
 
-void kingyomain(int font,int bgm,int effect) {
-	int windowFlag = 0;  // Œ»İ‚ÌƒEƒBƒ“ƒhƒE‚ğŠÇ—‚·‚éƒtƒ‰ƒO
+void kingyomain(int font,int bgm,int effect, int calling_check) {
+	int windowFlag = 0;  // ç¾åœ¨ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ç®¡ç†ã™ã‚‹ãƒ•ãƒ©ã‚°
 	int FramePerSecond = 60;//fps
-	int score = 0;	//ƒQ[ƒ€‚ÌƒXƒRƒA
-	LONGLONG nowtime, prevtime;//Œ»İŠÔ
+	int score = 0;	//ã‚²ãƒ¼ãƒ ã®ã‚¹ã‚³ã‚¢
+	LONGLONG nowtime, prevtime;//ç¾åœ¨æ™‚é–“
 
-	std::random_device seed;//—”¶¬Ší
+	std::random_device seed;//ä¹±æ•°ç”Ÿæˆå™¨
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice(1, 1000);
 
@@ -15,26 +15,33 @@ void kingyomain(int font,int bgm,int effect) {
 	makeImageHandle(handle, "./asset/image/goldfish_open.png", "./asset/image/goldfish_close.png");
 
 	std::vector<int> button_handle{};
-	makeImageHandle(button_handle, "./asset/image/button2.png", "./asset/image/button1.png");
+	makeImageHandle(button_handle, "./asset/image/uncheck.png", "./asset/image/checked.png");
 
 	std::vector<int> poi_handle{};
 	makeImageHandle(poi_handle, "./asset/image/poi.png");
 
 	int px, py;
 	int click_event, button_type, cx, cy, log_type;	
-	Button button1(400, 240, false, button_handle);
-	Goldfish *fish1=new Goldfish(300, 300, 0, true, handle); //‹à‹›
+	Button button_start(100, 200, false, button_handle);	//STARTãƒœã‚¿ãƒ³
+	StringObj start_obj(150, 250, "START", GetColor(120, 120, 120), font);
+	Button button_result(200, 350, false, button_handle);	//çµæœãƒœã‚¿ãƒ³
+	StringObj result_obj(250, 400, "result", GetColor(120, 120, 120), font);
+	Button button_gotosyateki(1000, 600, false, button_handle);	//å°„çš„ã‚²ãƒ¼ãƒ ã¸è¡Œããƒœã‚¿ãƒ³
+	StringObj gotosyateki_obj(1025, 650, "SYATEKI", GetColor(120, 120, 120), font);
+
+	Goldfish *fish1=new Goldfish(300, 300, 0, true, handle); //é‡‘é­š
 	Goldfish fish2(100, 0, DX_PI * 3.0 / 4.0, true, handle);
-	Poi first(500, 500, true, poi_handle);//ƒ|ƒC
+	Poi first(500, 500, true, poi_handle);//ãƒã‚¤
 	Goldfish fish3 = *fish1;
 
 	ObjGroup<Goldfish> fish4;
 
 	fish1->setDifficulty(10);
 	fish1->animsp = 30;
+
 	KeyInput input(KEY_INPUT_Z);
 
-	fish1->setSpeed(0.5, 1.0);//ƒXƒs[ƒhİ’è
+	fish1->setSpeed(0.5, 1.0);//ã‚¹ãƒ”ãƒ¼ãƒ‰è¨­å®š
 
 	//fish4.addcpy(*fish1, 10);
 	fish4.addcpy(*fish1, *fish1, *fish1);
@@ -44,35 +51,51 @@ void kingyomain(int font,int bgm,int effect) {
 	}
 	fish4.destroy(1);
 	prevtime = GetNowHiPerformanceCount();
-	int clock = GetNowCount();	//Œ»İ‚Ìæ“¾
-	Timer timer(3600);
+	int clock = GetNowCount();	//ç¾åœ¨æ™‚åˆ»ã®å–å¾—
+	Timer timer(1800);
 	Timer timer2(2400);
-	//bgm‚ğ“Ç‚İ‚Ş
-	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
+	//bgmã‚’èª­ã¿è¾¼ã‚€
+	if (calling_check == 0) {
+		PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
+	}
+
 	int back_img = LoadGraph("./asset/image/background.png");
-	/* ƒQ[ƒ€ƒ‹[ƒv */
+	int count_Font = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	/* ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ— */
 	while (1) {
-		SetDrawScreen(DX_SCREEN_BACK);  // •\¦‰æ–Ê‚ğ— ‚É
-		ClearDrawScreen();  // ‰æ–Ê‘S‘Ì‚ğƒNƒŠƒA
+		SetDrawScreen(DX_SCREEN_BACK);  // è¡¨ç¤ºç”»é¢ã‚’è£ã«
+		ClearDrawScreen();  // ç”»é¢å…¨ä½“ã‚’ã‚¯ãƒªã‚¢
 
 		GetMousePoint(&px, &py);
 		click_event = GetMouseInputLog2(&button_type, &cx, &cy, &log_type);
 
-		if (ProcessMessage() == -1) break;	//ƒGƒ‰[‚ª‹N‚«‚½‚çƒ‹[ƒv‚ğ‚Ê‚¯‚é
+		if (ProcessMessage() == -1) break;	//ã‚¨ãƒ©ãƒ¼ãŒèµ·ããŸã‚‰ãƒ«ãƒ¼ãƒ—ã‚’ã¬ã‘ã‚‹
 
-		if (windowFlag == 0) {  // ƒƒjƒ…[ƒEƒBƒ“ƒhƒE
-			SetMainWindowText("‹à‹›‚·‚­‚¢(ƒ^ƒCƒgƒ‹)");	//windowƒeƒLƒXƒg
+		if (windowFlag == 0) {  // ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
+			SetMainWindowText("é‡‘é­šã™ãã„(ã‚¿ã‚¤ãƒˆãƒ«)");	//windowãƒ†ã‚­ã‚¹ãƒˆ
 			
-			DrawStringToHandle(500, 120, "‹à‹›ƒQ[ƒ€", GetColor(120,120,120), font);
-			button1.draw();	//ƒQ[ƒ€ƒXƒ^[ƒg
-			button1.next(px, py);
-
-			if (button1.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
-				windowFlag = 1;	//ƒ{ƒ^ƒ“—p
+			DrawStringToHandle(500, 120, "é‡‘é­šã‚²ãƒ¼ãƒ ", GetColor(120,120,120), font);
+			button_start.draw();	//ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆ
+			button_start.next(px, py);
+			start_obj.draw();
+			button_result.draw();	//çµæœç”»é¢
+			button_result.next(px, py);
+			result_obj.draw();
+			button_gotosyateki.draw();		//å°„çš„ã‚²ãƒ¼ãƒ ã¸
+			button_gotosyateki.next(px, py);
+			gotosyateki_obj.draw();
+			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+				windowFlag = 1;	//é‡‘é­šã™ãã„ã‚¹ã‚¿ãƒ¼ãƒˆ
+			}
+			if (button_result.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+				windowFlag = 2;	//çµæœè¡¨ç¤º
+			}
+			if (button_gotosyateki.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+				windowFlag = 10;	//å°„çš„ã‚²ãƒ¼ãƒ ã¸é·ç§»
 			}
 		}
-		else if (windowFlag == 1) { // ƒQ[ƒ€’†‚ÌƒEƒBƒ“ƒhƒE
-			SetMainWindowText("‹à‹›‚·‚­‚¢(ƒQ[ƒ€’†)");	//windowƒeƒLƒXƒg
+		else if (windowFlag == 1) { // ã‚²ãƒ¼ãƒ ä¸­ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
+			SetMainWindowText("é‡‘é­šã™ãã„(ã‚²ãƒ¼ãƒ ä¸­)");	//windowãƒ†ã‚­ã‚¹ãƒˆ
 			DrawGraph(0, 0, back_img, TRUE);
 			input();
 
@@ -81,6 +104,8 @@ void kingyomain(int font,int bgm,int effect) {
 				fish1->Next();
 				fish1->draw();
 			}
+			fish1->Next();
+			fish1->draw();
 			fish3.Next();
 			fish3.draw();
 			fish4.Next();
@@ -89,32 +114,39 @@ void kingyomain(int font,int bgm,int effect) {
 			first.draw();
 			if (fish1 != NULL && input.GetKeyDown(KEY_INPUT_Z) == 1 && fish1->isCought(first, mt, dice))
 			{
-				printfDx("•ß‚Ü‚Á‚½");
+				printfDx("æ•ã¾ã£ãŸ");
 				delete fish1;
 				fish1 = NULL;
 				score++;
 			}
 
-			//60•b‚½‚Á‚½‚çI—¹
+			//60ç§’ãŸã£ãŸã‚‰çµ‚äº†
 			if (timer() == 0) {
-				SetMainWindowText("ƒXƒRƒA•\¦");	//windowƒeƒLƒXƒg
-				DrawFormatString(500, 200, GetColor(120, 120, 120), "ƒXƒRƒA‚Í%d‚Å‚·", score, font);
+				SetMainWindowText("ã‚¹ã‚³ã‚¢è¡¨ç¤º");	//windowãƒ†ã‚­ã‚¹ãƒˆ
+				DrawFormatString(500, 200, GetColor(120, 120, 120), "ã‚¹ã‚³ã‚¢ã¯%dã§ã™", score, font);
 				if (timer2() == 0) {
 					windowFlag = 0;
 				}
 				timer2.update();
 			}
 			else {
-				DrawFormatString(1200, 0, GetColor(120, 120, 120), "c‚è%d•b", timer() / 60, font);
+				DrawFormatStringToHandle(1050, 0, GetColor(120, 120, 120), count_Font, "æ®‹ã‚Š%dç§’", timer() / 60);
 			}
 			timer.update();
 		}
-		else {  // ƒQ[ƒ€‚ÌI—¹
+		else if (windowFlag == 2) {
+			SetMainWindowText("çµæœ");	//windowãƒ†ã‚­ã‚¹ãƒˆ
+
+		}
+		else if(windowFlag==10) {	//å°„çš„ã‚²ãƒ¼ãƒ ã¸
+			syatekimain(font, bgm, effect,calling_check);
+		}
+		else {
 			return;
 		}
 		ScreenFlip();
 
-		/* ƒtƒŒ[ƒ€ƒŒ[ƒg‚Ìˆ— */
+		/* ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã®å‡¦ç† */
 		nowtime = GetNowHiPerformanceCount();
 		while (nowtime - prevtime < 1000000 / FramePerSecond)
 		{

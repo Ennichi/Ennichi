@@ -16,6 +16,9 @@
     <ClCompile Include="functions.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
+    <ClCompile Include="syatekimain.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Goldfish.h">
@@ -53,6 +56,9 @@
     </ClInclude>
     <ClInclude Include="csvManager.h">
       <Filter>ヘッダーファイル\汎用クラス</Filter>
+    </ClInclude>
+    <ClInclude Include="gun.h">
+      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -195,12 +195,14 @@ IF %ERRORLEVEL% LSS 8 EXIT 0
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="syatekimain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="csvManager.h" />
     <ClInclude Include="functions.h" />
     <ClInclude Include="Goldfish.h" />
+    <ClInclude Include="gun.h" />
     <ClInclude Include="KeyInput.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Obj.h" />

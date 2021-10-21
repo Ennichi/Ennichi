@@ -1,31 +1,31 @@
-#pragma once
+ï»¿#pragma once
 #include "stdafx.h"
 
 
 class Obj
 {
 protected:
-	/* ”h¶ƒNƒ‰ƒX‚Ì‚İƒAƒNƒZƒX‰Â”\ */
+	/* æ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã®ã¿ã‚¢ã‚¯ã‚»ã‚¹å¯èƒ½ */
 	unsigned int __frames = 0;
 
 public:
-	/* ƒƒ“ƒo•Ï” */
-	int x, y; // ƒIƒuƒWƒFƒNƒg‚ÌÀ•W
-	int xlength=0, ylength=0; // x, y•ûŒü‚Ì’·‚³
-	int state = 0; // •`‰æ‚·‚é‰æ‘œ‚ÌAimage‚É‚¨‚¯‚é“Y‚¦š
+	/* ãƒ¡ãƒ³ãƒå¤‰æ•° */
+	int x, y; // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åº§æ¨™
+	int xlength=0, ylength=0; // x, yæ–¹å‘ã®é•·ã•
+	int state = 0; // æç”»ã™ã‚‹ç”»åƒã®ã€imageã«ãŠã‘ã‚‹æ·»ãˆå­—
 
-	unsigned int animsp = 0;//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒRƒ}‘—‚è‚Ì‘¬“x(‰½ƒtƒŒ[ƒ€‚Éˆê‰ñ‚Ì‘¬“x‚©)(0‚È‚ç’â~)
+	unsigned int animsp = 0;//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚³ãƒé€ã‚Šã®é€Ÿåº¦(ä½•ãƒ•ãƒ¬ãƒ¼ãƒ ã«ä¸€å›ã®é€Ÿåº¦ã‹)(0ãªã‚‰åœæ­¢)
 
-	double angle = 0.0; // ‰æ‘œ‚Ì‰ñ“]
+	double angle = 0.0; // ç”»åƒã®å›è»¢
 
-	bool can_collision; // ‘¼‚ÌƒIƒuƒWƒFƒNƒg‚ÆÕ“Ë‚·‚é‚©‚Ç‚¤‚©
+	bool can_collision; // ä»–ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨è¡çªã™ã‚‹ã‹ã©ã†ã‹
 
-	std::vector<int> images; // ƒ[ƒh‚µ‚½‰æ‘œ(ƒnƒ“ƒhƒ‹)‚ÌƒŠƒXƒg
+	std::vector<int> images; // ãƒ­ãƒ¼ãƒ‰ã—ãŸç”»åƒ(ãƒãƒ³ãƒ‰ãƒ«)ã®ãƒªã‚¹ãƒˆ
 
 
 	
-	/* ƒƒ“ƒoŠÖ” */
-	Obj( // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	/* ãƒ¡ãƒ³ãƒé–¢æ•° */
+	Obj( // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		int x,
 		int	y,
 		bool can_collision,
@@ -35,7 +35,7 @@ public:
 		if(!images.empty())GetGraphSize(images[0], &xlength, &ylength);
 	}
 
-	Obj( // ƒRƒ“ƒXƒgƒ‰ƒNƒ^(Šp“xw’è‚ ‚è)
+	Obj( // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿(è§’åº¦æŒ‡å®šã‚ã‚Š)
 		int x,
 		int	y,
 		double angle,
@@ -46,17 +46,17 @@ public:
 		if(!images.empty())GetGraphSize(images[0], &xlength, &ylength);
 	}
 
-	//‰æ‘œ–³‚µƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ç”»åƒç„¡ã—ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Obj(
 		int x,
 		int y
 	) : x(x), y(y), can_collision(false), images()
 	{}
 
-	//ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^©“®¶¬
+	//ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿è‡ªå‹•ç”Ÿæˆ
 	Obj(const Obj&) = default;
 
-	//ƒ€[ƒuƒRƒ“ƒXƒgƒ‰ƒNƒ^©“®¶¬
+	//ãƒ ãƒ¼ãƒ–ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿è‡ªå‹•ç”Ÿæˆ
 	Obj(Obj&&) = default;
 
 	Obj& operator=(const Obj&) = default;
@@ -68,9 +68,9 @@ public:
 
 	virtual void draw()
 	{
-		/* ƒIƒuƒWƒFƒNƒg‚ğ‰æ–Ê‚É”½‰f‚·‚é */
+		/* ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”»é¢ã«åæ˜ ã™ã‚‹ */
 		if (DrawRotaGraph(x + xlength / 2, y + ylength / 2, 1.0, angle, images[state], 1) == -1) {
-			throw new std::runtime_error("•`‰æ¸”s");
+			throw new std::runtime_error("æç”»å¤±æ•—");
 			exit(1);
 		}
 		if (animsp != 0)
@@ -89,8 +89,8 @@ public:
 	}
 
 	virtual bool isCollision(Obj& other) {
-		if (!(can_collision && other.can_collision)) return false; // ‚Ç‚¿‚ç‚©‚ªÕ“Ë•s‰Â
-		int dx = x - other.x, dy = y - other.y;//*this‚ÌÀ•W‚É‘Î‚·‚éother‚Ì‘Š‘ÎÀ•W
+		if (!(can_collision && other.can_collision)) return false; // ã©ã¡ã‚‰ã‹ãŒè¡çªä¸å¯
+		int dx = x - other.x, dy = y - other.y;//*thisã®åº§æ¨™ã«å¯¾ã™ã‚‹otherã®ç›¸å¯¾åº§æ¨™
 		if ((dx < xlength && dx > -other.xlength) && (dy < ylength && dy > -other.ylength))return true;
 		return false;
 	}
