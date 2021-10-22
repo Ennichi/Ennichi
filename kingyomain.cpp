@@ -1,75 +1,61 @@
 ﻿#include "main.h"
 #include "stdafx.h"
+#define pi 3.14159265358979
 
 void kingyomain(int font,int bgm,int effect, int calling_check) {
+	/* ゲーム全体を管理する変数 */
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60;//fps
-	int score = 0;	//ゲームのスコア
-	LONGLONG nowtime, prevtime;//現在時間
-
+	LONGLONG nowtime, prevtime = GetNowHiPerformanceCount();
+	int score = 0; //ゲームのスコア
+	unsigned int kingyo_num = 5;// 金魚数指定用変数(Objgroup.addcopy用)
+	unsigned int telescope_num = 1;//出目金数指定用変数(Objgroup.addcopy用)
 	std::random_device seed;//乱数生成器
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice(1, 1000);
+	int px, py; // マウスポインタの座標
+	int click_event, button_type, cx, cy, log_type;	// マウスポインタのイベント管理用変数
+	KeyInput z_push(KEY_INPUT_Z); // zキーが押されたかどうかを管理する変数
+	Timer timer60sec(1800); // ゲームの制限時間
+	Timer timer80sec(2400); // 結果 -> タイトルまでに使うタイマー
 
-	std::vector<int> handle{};
-	makeImageHandle(handle, "./asset/image/kingyo.png", "./asset/image/kingyo_left.png","./asset/image/kingyo_right.png");
-
-	std::vector<int> telescope_handle{};
-	makeImageHandle(telescope_handle, "./asset/image/Telescope.png", "./asset/image/Telescope_left.png", "./asset/image/Telescope_right.png");
-
-	std::vector<int> button_handle{};
+	/* ゲーム用データの読み込み */
+	int count_Font = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	int back_img = LoadGraph("./asset/image/background.png"); // 背景画像
+	int title_img = LoadGraph("./asset/image/title.png");
+	std::vector<int> button_handle{}; /* ボタンのデータ */
+	std::vector<int> kingyo_handle{}; /* 金魚の画像データ */
+	std::vector<int> telescope_handle{}; /* 出目金の画像データ */
+	std::vector<int> poi_handle{}; /* ポイの画像データ */
 	makeImageHandle(button_handle, "./asset/image/start.png", "./asset/image/start.png");
-
-	std::vector<int> poi_handle{};
+	makeImageHandle(kingyo_handle, "./asset/image/kingyo.png", "./asset/image/kingyo_left.png","./asset/image/kingyo_right.png");
+	makeImageHandle(telescope_handle, "./asset/image/Telescope.png", "./asset/image/Telescope_left.png", "./asset/image/Telescope_right.png");
 	makeImageHandle(poi_handle, "./asset/image/poi.png");
 
-	int px, py;
-	int click_event, button_type, cx, cy, log_type;	
-	Button button_start(400, 300, false, button_handle);	//STARTボタン
+	Goldfish kingyo(500, 500, pi/2,true, kingyo_handle); //最初のコピー元金魚
+	kingyo.SetMovement(MOV_OPTION::WAVE, 100.0, 10.0);
+	Goldfish telescope(500, 400, true, telescope_handle); //最初のコピー元出目金
 
-	Goldfish *fish1=new Goldfish(300, 300, 0, true, handle); //金魚
-	Goldfish fish2(100, 0, DX_PI * 3.0 / 4.0, true, handle);
-	Poi first(500, 500, true, poi_handle);//ポイ
-	Goldfish fish3 = *fish1;
+	Button button_start(400, 300, false, button_handle);	//金魚掬いのSTARTボタン
+	Poi poi(100, 100, true, poi_handle);//ポイの宣言
+	ObjGroup<Goldfish> kingyo_group;
+	ObjGroup<Goldfish> telescope_group;
+	kingyo_group.addcpy(kingyo, kingyo_num);
+	telescope_group.addcpy(telescope, 1);
 
-	Goldfish* telescope_fish1 = new Goldfish(400, 500, 0, true, telescope_handle); //�o�ڋ�
-	Goldfish telescope_fish3 = *telescope_fish1;
-
-	ObjGroup<Goldfish> fish4;
-
-	fish1->setDifficulty(10);
-	fish1->animsp = 30;
-
-	KeyInput input(KEY_INPUT_Z);
-
-	fish1->setSpeed(0.5, 1.0);//スピード設定
-
-	//fish4.addcpy(*fish1, 10);
-	fish4.addcpy(*fish1, *fish1, *fish1);
-	for (int i = 0; i < 3; ++i)
-	{
-		fish4[i].angle -= (double)i * 0.2;
-	}
-	fish4.destroy(1);
-	prevtime = GetNowHiPerformanceCount();
-	int clock = GetNowCount();	//現在時刻の取得
-	Timer timer(1800);
-	Timer timer2(2400);
 	//bgmを読み込む
 	if (calling_check == 0) {
 		PlaySoundMem(bgm, DX_PLAYTYPE_LOOP);
 	}
 
-	int back_img = LoadGraph("./asset/image/background.png");
-	int title_img = LoadGraph("./asset/image/title.png");
-
-	int count_Font = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 	/* ゲームループ */
 	while (1) {
 		SetDrawScreen(DX_SCREEN_BACK);  // 表示画面を裏に
 		ClearDrawScreen();  // 画面全体をクリア
 
-		GetMousePoint(&px, &py);
+		z_push(); //zキーが押されたかどうか(捕獲)
+
+		GetMousePoint(&px, &py);//マウスポインタ(ポイ)の位置ゲット
 		click_event = GetMouseInputLog2(&button_type, &cx, &cy, &log_type);
 
 		if (ProcessMessage() == -1) break;	//エラーが起きたらループをぬける
@@ -87,46 +73,28 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 		else if (windowFlag == 1) { // ゲーム中のウィンドウ
 			SetMainWindowText("金魚すくい(ゲーム中)");	//windowテキスト
 			DrawGraph(0, 0, back_img, TRUE);
-			input();
 
-			if (fish1 != NULL)
-			{
-				fish1->Next();
-				fish1->draw();
-			}
-			telescope_fish3.Next();
-			telescope_fish3.draw();
-			fish3.Next();
-			fish3.draw();
-			fish4.Next();
-			fish4.draw();
-			first.point_change();
-			first.draw();
-			if (fish1 != NULL && input.GetKeyDown(KEY_INPUT_Z) == 1 && fish1->isCought(first, mt, dice))
-			{
-				printfDx("捕まった");
-				delete fish1;
-				fish1 = NULL;
-				score++;
-			}
-
+			kingyo_group.draw();
+			kingyo_group.Next();
+			telescope_group.draw();
+			telescope_group.Next();
+			
 			//60秒たったら終了
-			if (timer() == 0) {
+			if (timer60sec() == 0) {
 				SetMainWindowText("スコア表示");	//windowテキスト
 				DrawFormatString(500, 200, GetColor(120, 120, 120), "スコアは%dです", score, font);
-				if (timer2() == 0) {
+				if (timer80sec() == 0) {
 					windowFlag = 0;
 				}
-				timer2.update();
+				timer80sec.update();
 			}
 			else {
-				DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), count_Font, "のこり%d秒", timer() / 60);
+				DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), count_Font, "のこり%d秒", timer60sec() / 60);
 			}
-			timer.update();
+			timer60sec.update();
 		}
 		else if (windowFlag == 2) {
 			SetMainWindowText("結果");	//windowテキスト
-
 		}
 		else if(windowFlag==10) {	//射的ゲームへ
 			syatekimain(font, bgm, effect,calling_check);
