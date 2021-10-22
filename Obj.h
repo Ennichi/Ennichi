@@ -90,7 +90,7 @@ public:
 	{
 	}
 
-	virtual bool isCollision(Obj& other) {
+	virtual bool isCollision(const Obj& other)const& {
 		if (!(can_collision && other.can_collision)) return false; // どちらかが衝突不可
 		int dx = x - other.x, dy = y - other.y;//*thisの座標に対するotherの相対座標
 		if ((dx < xlength && dx > -other.xlength) && (dy < ylength && dy > -other.ylength))return true;
