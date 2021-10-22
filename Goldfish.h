@@ -123,8 +123,9 @@ public:
 		int x,
 		int	y,
 		bool can_collision,
-		const std::vector<int>& image_handle
-	) : Obj(x, y, can_collision, image_handle)
+		const std::vector<int>& image_handle,
+		unsigned int anim = 0
+	) : Obj(x, y, can_collision, image_handle, anim)
 	{}
 
 	//コンストラクタ
@@ -133,8 +134,9 @@ public:
 		int	y,
 		double angle,
 		bool can_collision,
-		const std::vector<int>& image_handle
-	) : Obj(x, y, angle, can_collision, image_handle)
+		const std::vector<int>& image_handle,
+		unsigned int anim = 0
+	) : Obj(x, y, angle, can_collision, image_handle, anim)
 	{}
 
 	Goldfish(const Goldfish&) = default;
