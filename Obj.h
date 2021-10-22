@@ -29,8 +29,9 @@ public:
 		int x,
 		int	y,
 		bool can_collision,
-		const std::vector<int>& image_handle
-	) : x(x), y(y), can_collision(can_collision),images(image_handle)
+		const std::vector<int>& image_handle,
+		unsigned int anim = 0
+	) : x(x), y(y), can_collision(can_collision),images(image_handle), animsp(anim)
 	{
 		if(!images.empty())GetGraphSize(images[0], &xlength, &ylength);
 	}
@@ -40,8 +41,9 @@ public:
 		int	y,
 		double angle,
 		bool can_collision,
-		const std::vector<int>& image_handle
-	) : x(x), y(y), angle(angle), can_collision(can_collision),images(image_handle)
+		const std::vector<int>& image_handle,
+		unsigned int anim = 0
+	) : x(x), y(y), angle(angle), can_collision(can_collision),images(image_handle), animsp(anim)
 	{
 		if(!images.empty())GetGraphSize(images[0], &xlength, &ylength);
 	}

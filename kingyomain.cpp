@@ -13,9 +13,11 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 
 	std::vector<int> handle{};
 	makeImageHandle(handle, "./asset/image/kingyo.png", "./asset/image/kingyo_left.png","./asset/image/kingyo_right.png");
+	handle.insert(std::next(handle.begin(), 2), handle.at(0));
 
 	std::vector<int> telescope_handle{};
 	makeImageHandle(telescope_handle, "./asset/image/Telescope.png", "./asset/image/Telescope_left.png", "./asset/image/Telescope_right.png");
+	telescope_handle.insert(std::next(telescope_handle.begin(), 2), telescope_handle.at(0));
 
 	std::vector<int> button_handle{};
 	makeImageHandle(button_handle, "./asset/image/start.png", "./asset/image/start.png");
@@ -129,7 +131,7 @@ void kingyomain(int font,int bgm,int effect, int calling_check) {
 
 		}
 		else if(windowFlag==10) {	//射的ゲームへ
-			syatekimain(font, bgm, effect,calling_check);
+			syatekimain(font, bgm, effect, calling_check);
 		}
 		else {
 			return;
