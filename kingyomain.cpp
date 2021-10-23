@@ -32,73 +32,90 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	makeImageHandle(kingyo_handle, "./asset/image/kingyo.png", "./asset/image/kingyo_left.png","./asset/image/kingyo_right.png");
 	makeImageHandle(telescope_handle, "./asset/image/Telescope.png", "./asset/image/Telescope_left.png", "./asset/image/Telescope_right.png");
 	makeImageHandle(poi_handle, "./asset/image/poi.png");
+	Goldfish kingyo(500, 500, pi/2,true, kingyo_handle); // コピー元金魚
+	Goldfish telescope(500, 400, true, telescope_handle); // コピー元出目金
 
-	Goldfish kingyo(500, 500, pi/2,true, kingyo_handle); //最初のコピー元金魚
-	Goldfish telescope(500, 400, true, telescope_handle); //最初のコピー元出目金
-
-	Button button_start(400, 300, false, button_handle); //金魚掬いのSTARTボタン
-	Poi poi(100, 100, true, poi_handle); //ポイの宣言
+	Button button_start(400, 300, false, button_handle); // 金魚掬いのSTARTボタン
+	Poi poi(100, 100, true, poi_handle); // ポイ
 	ObjGroup<Goldfish> kingyo_group; // 金魚のグループ
 	ObjGroup<Goldfish> telescope_group; // 出目金のグループ
-	kingyo_group.addcpy(kingyo, kingyo_num);
-	telescope_group.addcpy(telescope, 1);
+	kingyo_group.addcpy(kingyo, kingyo_num); // グループ初期化
+	telescope_group.addcpy(telescope, telescope_num);
 
 	/* ゲーム開始前の初期化処理 */
 	if (calling_check == 0) PlaySoundMem(bgm, DX_PLAYTYPE_LOOP); // bgmを読み込む
+	for (int i = 0; i < kingyo_num; i++) {
+		/* 金魚グループに関する初期化 */
+		kingyo_group[i].setSpeed(1.0, 3.0); // 金魚のスピードを設定
+		kingyo_group[i].animsp = 30; // アニメーションの設定
+	}
+	for (int i = 0; i < telescope_num; i++) {
+		/* 出目金グループに関する初期化 */
+		telescope_group[i].setSpeed(1.0, 3.0); // 出目金のスピードを設定
+		kingyo_group[i].animsp = 30; // アニメーションの設定
+	}
 
 	/* ゲームループ */
 	while (1) {
 		/* ゲームループ毎の初期化処理 */
-		SetDrawScreen(DX_SCREEN_BACK);  // 表示画面を裏に
-		ClearDrawScreen();  // 画面全体をクリア
+		SetDrawScreen(DX_SCREEN_BACK); // 表示画面を裏に
+		ClearDrawScreen(); // 画面全体をクリア
+		z_push(); // zキーが押されたかどうか(捕獲)
+		GetMousePoint(&px, &py); // マウスポインタ(ポイ)の位置ゲット
+		click_event = GetMouseInputLog2(&button_type, &cx, &cy, &log_type); // マウスのクリックがあったか
 
-		z_push(); //zキーが押されたかどうか(捕獲)
+		if (ProcessMessage() == -1) break; //エラーが起きたらループをぬける
 
-		GetMousePoint(&px, &py);//マウスポインタ(ポイ)の位置ゲット
-		click_event = GetMouseInputLog2(&button_type, &cx, &cy, &log_type);
-
-		if (ProcessMessage() == -1) break;	//エラーが起きたらループをぬける
-
-		if (windowFlag == 0) {  // メニューウィンドウ
-			SetMainWindowText("金魚すくい(タイトル)");	//windowテキスト
+		if (windowFlag == 0) {
+			/* タイトル画面の処理 */
+			/* 画面表示 */
+			SetMainWindowText("金魚すくい(タイトル)"); //windowテキスト
 			DrawGraph(0, 0, title_img, TRUE);
+			button_start.draw(); // スタートボタンの表示
 
-			button_start.draw();	//ゲームスタート
-			button_start.next(px, py);
+			/* 次状態の管理 */
 			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				PlaySoundMem(effect, DX_PLAYTYPE_BACK);
 				windowFlag = 1;	//金魚すくいスタート
 			}
+			button_start.next(px, py);
 		}
-		else if (windowFlag == 1) { // ゲーム中のウィンドウ
+		else if (windowFlag == 1) {
+			/* ゲーム中の処理 */
+			/* 画面の描画 */
 			SetMainWindowText("金魚すくい(ゲーム中)");	//windowテキスト
-			DrawGraph(0, 0, back_img, TRUE);
-
+			DrawGraph(0, 0, back_img, TRUE); // 背景表示
+			poi.draw();
 			kingyo_group.draw();
-			kingyo_group.Next();
 			telescope_group.draw();
-			telescope_group.Next();
-			
-			//60秒たったら終了
-			if (timer60sec() == 0) {
-				SetMainWindowText("スコア表示");	//windowテキスト
-				DrawFormatString(500, 200, GetColor(120, 120, 120), "スコアは%dです", score, font);
-				if (timer80sec() == 0) {
-					windowFlag = 0;
-					timer60sec.reset();
-					timer80sec.reset();
-					count_play++;
-					PlaySoundMem(effect, DX_PLAYTYPE_BACK);
 
-				}
-				timer80sec.update();
-			}
-			else {
-				DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), count_Font, "のこり%d秒", timer60sec() / 60);
-			}
-			timer60sec.update();
+			/* 次状態の管理 */
+			if (timer60sec() == 0) windowFlag = 2; // 60秒たったら終了しスコア表示へ
+			else DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), count_Font, "のこり%d秒", timer60sec() / 60); // 残り時間表示
+			poi.point_change();
+			kingyo_group.Next(); // オブジェクトの見た目の遷移
+			telescope_group.Next();
+			timer60sec.update(); // タイマー更新
 		}
 		else if (windowFlag == 2) {
+			/* スコア表示 */
+			/* 画面の描画 */
+			SetMainWindowText("スコア表示");	//windowテキスト
+			DrawGraph(0, 0, back_img, TRUE);
+			DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), count_Font, "のこり%d秒", timer60sec() / 60); // 残り時間表示
+			DrawFormatString(500, 200, GetColor(120, 120, 120), "スコアは%dです", score, font);
+			
+			/* 次状態の管理 */
+			if (timer80sec() == 0) { // スコア表示時間を過ぎたら
+				windowFlag = 0; // タイトル画面へ
+				timer60sec.reset(); // タイマーのリセット
+				timer80sec.reset();
+				count_play++; // プレイ回数を増やす
+				PlaySoundMem(effect, DX_PLAYTYPE_BACK); // 効果音
+			}
+			timer80sec.update(); // タイマーの更新
+		}
+		else if (windowFlag == 3) {
 			SetMainWindowText("結果");	//windowテキスト
 		}
 		else if (windowFlag == 10) {	//射的ゲームへ
