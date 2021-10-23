@@ -45,12 +45,12 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 
 	/* ゲーム開始前の初期化処理 */
 	if (calling_check == 0) PlaySoundMem(bgm, DX_PLAYTYPE_LOOP); // bgmを読み込む
-	for (int i = 0; i < kingyo_num; i++) {
+	for (unsigned int i = 0; i < kingyo_num; i++) {
 		/* 金魚グループに関する初期化 */
 		kingyo_group[i].setSpeed(1.0, 3.0); // 金魚のスピードを設定
 		kingyo_group[i].animsp = 30; // アニメーションの設定
 	}
-	for (int i = 0; i < telescope_num; i++) {
+	for (unsigned int i = 0; i < telescope_num; i++) {
 		/* 出目金グループに関する初期化 */
 		telescope_group[i].setSpeed(1.0, 3.0); // 出目金のスピードを設定
 		kingyo_group[i].animsp = 30; // アニメーションの設定
