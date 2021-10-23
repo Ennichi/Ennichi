@@ -11,19 +11,14 @@ protected:
 public:
 	/* メンバ変数 */
 	int x, y; // オブジェクトの座標
-	int xlength=0, ylength=0; // x, y方向の長さ
-	int state = 0; // 描画する画像の、imageにおける添え字
-
-	unsigned int animsp = 0;//アニメーションのコマ送りの速度(何フレームに一回の速度か)(0なら停止)
-
 	double angle = 0.0; // 画像の回転
 
 	bool can_collision; // 他のオブジェクトと衝突するかどうか
-
 	std::vector<int> images; // ロードした画像(ハンドル)のリスト
+	unsigned int animsp = 0;//アニメーションのコマ送りの速度(何フレームに一回の速度か)(0なら停止)
 
-
-	
+	int xlength=0, ylength=0; // x, y方向の長さ
+	int state = 0; // 描画する画像の、imageにおける添え字
 	/* メンバ関数 */
 	Obj( // コンストラクタ
 		int x,

@@ -9,11 +9,11 @@ private:
 	/* 外部アクセス不可 */
 	char* __textptr;
 	int inputHandle = 0;
-	int fontHandle;
-	unsigned int maxlen;
 	bool CancelValidFlag;
 	bool SingleCharOnlyFlag;
 	bool NumCharOnlyFlag;
+	unsigned int maxlen;
+	int fontHandle;
 
 public:
 	/* アクセス可能 */

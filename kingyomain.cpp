@@ -36,7 +36,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	Goldfish kingyo(500, 500, pi/2,true, kingyo_handle); // コピー元金魚
 	Goldfish telescope(500, 400, true, telescope_handle); // コピー元出目金
 
-	Button button_start(400, 300, false, button_handle); // 金魚掬いのSTARTボタン
+	Button button_start(400, 300,button_handle); // 金魚掬いのSTARTボタン
 	Poi poi(100, 100, true, poi_handle); // ポイ
 	ObjGroup<Goldfish> kingyo_group; // 金魚のグループ
 	ObjGroup<Goldfish> telescope_group; // 出目金のグループ

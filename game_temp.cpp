@@ -55,7 +55,7 @@
 	Goldfish fish1(0, 0, 0.0, true, handle);
 	Goldfish fish2(100, 0, DX_PI *3.0/4.0, true, handle);
 	Poi first(500, 500, true, poi_handle);
-	Button button(300, 300, false, button_handle);
+	Button button(300, 300, button_handle);
 
 	fish1.setSpeed(1.0, 2.0);
 	fish2.setSpeed(1.0, 10.0);

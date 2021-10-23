@@ -2,10 +2,9 @@
 #include "stdafx.h"
 
 //https://docs.microsoft.com/ja-jp/cpp/code-quality/annotating-function-parameters-and-return-values?view=msvc-160&viewFallbackFrom=vs-2019
-int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd){
+int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _In_opt_  HINSTANCE hPrevInstance, [[maybe_unused]] _In_ LPSTR lpCmdLine, [[maybe_unused]] _In_ int nShowCmd){
     int dispx = GetSystemMetrics(SM_CXSCREEN);  //ウィンドウのX座標の取得
     int dispy = GetSystemMetrics(SM_CYSCREEN);  //ウィンドウのY座標の取得
-
     //デバッグ時はこれをTRUEにすること
     SetOutApplicationLogValidFlag(FALSE);   //ログファイルの出力をやめる
     SetAlwaysRunFlag(TRUE); //フォーカスが外れた時も動作を続ける
@@ -14,7 +13,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
     SetWindowIconID(333);	//アイコン表示
     SetGraphMode(1280, 720, 32);    //画面サイズを1280x720,32bitカラーにする
     SetBackgroundColor(255, 255, 255);  //背景を白色にする
-    SetWindowStyleMode(6);
+    SetWindowStyleMode(7);
     SetWindowSizeChangeEnableFlag(TRUE);    //ウィンドウのサイズを変更できるようにする
     //エラーが出たら終了
     if (DxLib_Init() == -1) {
