@@ -29,8 +29,9 @@ public:
 		int x,
 		int	y,
 		bool can_collision,
-		const std::vector<int>& image_handle
-	) : x(x), y(y), can_collision(can_collision),images(image_handle)
+		const std::vector<int>& image_handle,
+		unsigned int anim = 0
+	) : x(x), y(y), can_collision(can_collision),images(image_handle), animsp(anim)
 	{
 		if(!images.empty())GetGraphSize(images[0], &xlength, &ylength);
 	}
@@ -40,8 +41,9 @@ public:
 		int	y,
 		double angle,
 		bool can_collision,
-		const std::vector<int>& image_handle
-	) : x(x), y(y), angle(angle), can_collision(can_collision),images(image_handle)
+		const std::vector<int>& image_handle,
+		unsigned int anim = 0
+	) : x(x), y(y), angle(angle), can_collision(can_collision),images(image_handle), animsp(anim)
 	{
 		if(!images.empty())GetGraphSize(images[0], &xlength, &ylength);
 	}
@@ -88,7 +90,7 @@ public:
 	{
 	}
 
-	virtual bool isCollision(Obj& other) {
+	virtual bool isCollision(const Obj& other)const& {
 		if (!(can_collision && other.can_collision)) return false; // どちらかが衝突不可
 		int dx = x - other.x, dy = y - other.y;//*thisの座標に対するotherの相対座標
 		if ((dx < xlength && dx > -other.xlength) && (dy < ylength && dy > -other.ylength))return true;

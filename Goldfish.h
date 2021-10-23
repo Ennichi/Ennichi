@@ -2,7 +2,8 @@
 #include "stdafx.h"
 #include "Poi.h"
 #include "functions.h"
-#define ANGLE0 (0)
+//金魚の正面はここで合わせる
+#define ANGLE0 (- DX_PI / 2.0)
 
 //金魚の動き方
 enum class MOV_OPTION : char
@@ -100,7 +101,7 @@ public:
 
 	/*金魚の動きを設定(未完成)
 	*
-	**** Next()の前に実行してください(一回のみ実行) ****
+	**** 一回のみ実行 ****
 	* MOV_OPTION::CIRCLE
 	* | 円弧に沿って動く
 	* | p1...半径, p2...1.0ならangle+90の方向に中心、-1.0ならangle-90の方向に中心
@@ -117,23 +118,25 @@ public:
 		move_paramater2 = p2;
 	}
 
-	//コンストラクタ(検討中)
+	//コンストラクタ
 	Goldfish(
 		int x,
 		int	y,
 		bool can_collision,
-		const std::vector<int>& image_handle
-	) : Obj(x, y, can_collision, image_handle)
+		const std::vector<int>& image_handle,
+		unsigned int anim = 0
+	) : Obj(x, y, can_collision, image_handle, anim)
 	{}
 
-	//コンストラクタ(検討中)
+	//コンストラクタ
 	Goldfish(
 		int x,
 		int	y,
 		double angle,
 		bool can_collision,
-		const std::vector<int>& image_handle
-	) : Obj(x, y, angle, can_collision, image_handle)
+		const std::vector<int>& image_handle,
+		unsigned int anim = 0
+	) : Obj(x, y, angle, can_collision, image_handle, anim)
 	{}
 
 	Goldfish(const Goldfish&) = default;
@@ -154,12 +157,6 @@ public:
 		return speed;
 	}
 
-
-	//描画関数オーバーライド(検討中)
-	void draw() override
-	{
-		Obj::draw();
-	}
 
 	//インスタンスから実行しない関数
 	//金魚の中心を返すマクロ
