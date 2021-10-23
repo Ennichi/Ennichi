@@ -7,7 +7,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	int windowFlag = 0; // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60; //fps
 	LONGLONG nowtime, prevtime = GetNowHiPerformanceCount(); // fps管理用変数
-	int count_play = 0; // プレイヤーカウンタ
+	int count_play = 1; // プレイヤーカウンタ
 	int score = 0; // ゲームのスコア
 	std::random_device seed; // 乱数生成器
 	std::mt19937_64 mt(seed());
@@ -18,7 +18,8 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	Timer timer60sec(1800); // ゲームの制限時間
 	Timer timer80sec(2400); // 結果 -> タイトルまでに使うタイマー
 	unsigned int kingyo_num = 5; // 金魚の数
-	unsigned int telescope_num = 1; //出目金の数
+	const std::string buff1 = "金魚すくい! あなたは";
+	const std::string buff2 = "人目のプレーヤーです";unsigned int telescope_num = 1; //出目金の数
 
 	/* ゲームで使用するデータの読み込み */
 	int count_Font = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8); // フォントデータ
@@ -83,7 +84,8 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 		else if (windowFlag == 1) {
 			/* ゲーム中の処理 */
 			/* 画面の描画 */
-			SetMainWindowText("金魚すくい(ゲーム中)");	//windowテキスト
+			std::string buff3 = buff1 + std::to_string(count_play) + buff2;
+			SetMainWindowText(buff3.c_str());	//windowテキスト
 			DrawGraph(0, 0, back_img, TRUE); // 背景表示
 			poi.draw();
 			kingyo_group.draw();
@@ -102,8 +104,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			/* 画面の描画 */
 			SetMainWindowText("スコア表示");	//windowテキスト
 			DrawGraph(0, 0, back_img, TRUE);
-			DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), count_Font, "のこり%d秒", timer60sec() / 60); // 残り時間表示
-			DrawFormatString(500, 200, GetColor(120, 120, 120), "スコアは%dです", score, font);
+			DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), font, "%d匹捕まえたよ", score);
 			
 			/* 次状態の管理 */
 			if (timer80sec() == 0) { // スコア表示時間を過ぎたら
