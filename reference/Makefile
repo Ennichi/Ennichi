@@ -1,3 +1,4 @@
+.SUFFIXES:	#サフィックス無効
 CC:=g++ #g++でビルドする
 
 CFLAGS:= -g3 #デバッグ情報最大化
@@ -10,7 +11,7 @@ CFLAGS+= -DDX_NON_INLINE_ASM
 TARGET = Ennichi #実行ファイルの名前
 SRCS = ../*.cpp
 #ICON = icon.res #アイコンファイルの場所
-INC_DIR := -I ./7_3_0 #インクルードするディレクトリ
+INC_DIR := -isystem ./7_3_0 #インクルードするディレクトリ
 LIB_DIR := -L ./7_3_0 #ライブラリディレクトリ
 
 #リンク時のフラグ
