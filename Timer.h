@@ -82,9 +82,8 @@ class Timer
 
 private:
 	/* 外部参照不可 */
-
-	uLL __remaining = 0;
 	uLL __configured = 0;
+	uLL __remaining = 0;
 
 public:
 

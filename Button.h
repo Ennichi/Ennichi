@@ -14,18 +14,16 @@ public:
     Button(
         int x,
         int y,
-        bool is_collision,
         const std::vector<int>& image_handle
-    ) : Obj(x, y, can_collision, image_handle) {}
+    ) : Obj(x, y,FALSE, image_handle) {}
     Button(
         int x,
         int y,
-        bool is_collision,
         const std::vector<int>& image_handle,
         const char* str,
         unsigned int color,
         int font
-    ) : Obj(x, y, can_collision, image_handle) {
+    ) : Obj(x, y, FALSE,image_handle) {
         label = new StringObj(x, y, str, color, font);
     }
     bool isContain(int px, int py) {

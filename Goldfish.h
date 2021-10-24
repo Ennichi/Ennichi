@@ -90,11 +90,15 @@ public:
 			break;
 
 			//正弦波の軌道で動く
-		case MOV_OPTION::WAVE:
+		case MOV_OPTION::WAVE: {
 			if (__wave_info_x == 0.0)__wave_info_angle = angle;
-			double slope = - move_paramater1 * (2.0 * DX_PI / move_paramater2) * std::sin((2.0 * DX_PI / move_paramater2) * __wave_info_x);
+			double slope = -move_paramater1 * (2.0 * DX_PI / move_paramater2) * std::sin((2.0 * DX_PI / move_paramater2) * __wave_info_x);
 			__wave_info_x += speed / (std::sqrt(slope * slope + 1));
 			angle = __wave_info_angle + std::atan(slope);
+			break;
+		}
+			//直線だとbreak(-Wswitch)
+		case MOV_OPTION::LINEAR:
 			break;
 		}
 	}
