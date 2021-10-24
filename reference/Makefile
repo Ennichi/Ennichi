@@ -4,6 +4,8 @@ CC:=g++ #g++でビルドする
 CFLAGS:= -g3 #デバッグ情報最大化
 CFLAGS+= -Wall #エラーを全部出す
 CFLAGS+= -Wextra #追加の警告オプション
+CFLAGS+= -finput-charset=utf-8 
+CFLAGS+= -fexec-charset=CP932
 CFLAGS+= -std=gnu++20 #C++20でビルドする
 CFLAGS+= -DDX_GCC_COMPILE
 CFLAGS+= -DDX_NON_INLINE_ASM
