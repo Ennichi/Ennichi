@@ -9,6 +9,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	LONGLONG nowtime, prevtime = GetNowHiPerformanceCount(); // fps管理用変数
 	int count_play = 1; // プレイヤーカウンタ
 	int score = 0; // ゲームのスコア
+	int poi_num = 3;	//ポイの枚数
 	std::random_device seed; // 乱数生成器
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice(1, 1000);
@@ -16,14 +17,15 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	int click_event, button_type, cx, cy, log_type;	// マウスポインタのイベント管理用変数
 	KeyInput z_push(KEY_INPUT_Z); // zキーが押されたかどうかを管理する変数
 	Timer timer60sec(1800); // ゲームの制限時間
-	Timer timer80sec(2400); // 結果 -> タイトルまでに使うタイマー
+	Timer timer4sec(240); // 結果 -> タイトルまでに使うタイマー
+	Timer invinciblesec(5);	//無敵時間
 	size_t kingyo_num = 5; // 金魚の数
 	size_t telescope_num = 1; //出目金の数
 	int kingyo_score = 2; // 金魚一匹捕まえたときのスコア
 	int telescope_score = 3; // 出目金一匹捕まえたときのスコア
 	const std::string buff1 = "金魚すくい! あなたは";
 	const std::string buff2 = "人目のプレーヤーです";
-	
+	const std::string poicount = "枚あります";
 	/* ゲームで使用するデータの読み込み */
 	int count_Font = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8); // フォントデータ
 	int back_img = LoadGraph("./asset/image/background.png"); // 背景画像
@@ -88,12 +90,15 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 		else if (windowFlag == 1) {
 			/* ゲーム中の処理 */
 			/* 画面の描画 */
-			std::string buff3 = buff1 + std::to_string(count_play) + buff2;
+			std::string buff3 = buff1 + std::to_string(count_play) + buff2+ std::to_string(poi_num)+poicount;
 			SetMainWindowText(buff3.c_str());	//windowテキスト
 			DrawGraph(0, 0, back_img, TRUE); // 背景表示
 			poi.draw();
 			kingyo_group.draw();
 			telescope_group.draw();
+			if (poi_num <= 0) {	//ポイが0枚になったら結果画面へ遷移する
+				windowFlag=2;
+			}
 
 			/* 次状態の管理 */
 			if (timer60sec() == 0) windowFlag = 2; // 60秒たったら終了しスコア表示へ
@@ -104,6 +109,14 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 				for (int i = 0; i < (int)kingyo_num; i++) {
 					if (kingyo_group[i].isCought(poi, mt, dice)) {
 						index_management.push_back(i);
+					}
+					else {//金魚を捕まえるのに失敗したらポイを破る
+						PlaySoundMem(effect, DX_PLAYTYPE_BACK); // 効果音
+						invinciblesec.update();
+						if (invinciblesec() == 0) {
+							poi_num--;
+							invinciblesec.reset();
+						}
 					}
 				}
 				for (int i = (int)index_management.size() - 1; i >= 0; i--) {
@@ -125,14 +138,15 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), font, "%d匹捕まえたよ", score);
 			
 			/* 次状態の管理 */
-			if (timer80sec() == 0) { // スコア表示時間を過ぎたら
+			if (timer4sec() == 0) { // スコア表示時間を過ぎたら
 				windowFlag = 0; // タイトル画面へ
 				timer60sec.reset(); // タイマーのリセット
-				timer80sec.reset();
+				timer4sec.reset();
 				count_play++; // プレイ回数を増やす
+				poi_num = 3;
 				PlaySoundMem(effect, DX_PLAYTYPE_BACK); // 効果音
 			}
-			timer80sec.update(); // タイマーの更新
+			timer4sec.update(); // タイマーの更新
 		}
 		else if (windowFlag == 3) {
 			SetMainWindowText("結果");	//windowテキスト
