@@ -115,11 +115,11 @@ public:
 	*/
 	void SetMovement(MOV_OPTION option, double p1, double p2)
 	{
-		if (option == MOV_OPTION::CIRCLE && !(move_paramater2 == 1.0 || move_paramater2 == -1.0))
-			throw new std::out_of_range("円形移動のときはp2を1.0か-1.0にしてください");
+		constexpr double EPS = 0.000001;
+		if (option == MOV_OPTION::CIRCLE && abs(p2) < EPS)throw new std::out_of_range("二つ目のパラメータの値が小さすぎます");
 		moveOption = option;
 		move_paramater1 = p1;
-		move_paramater2 = p2;
+		move_paramater2 = p2 > 0.0 ? 1.0 : -1.0;
 	}
 
 	//コンストラクタ
@@ -154,9 +154,9 @@ public:
 	{
 		if (spmin > spmax || spmin < 0)
 			throw new std::out_of_range("spminとspmaxはともに正で後者の方が大きくなければならない");
-		std::random_device seed;
-		std::mt19937_64 mt(seed());
-		std::uniform_real_distribution<> randsp(spmin, spmax);
+		static std::random_device seed;
+		static std::mt19937_64 mt(seed());
+		static std::uniform_real_distribution<> randsp(spmin, spmax);
 		speed = randsp(mt);//乱数
 		return speed;
 	}
@@ -250,6 +250,15 @@ public:
 	)const&
 	{
 		if (dice.a() != 1 || dice.b() != 1000)throw new std::invalid_argument("乱数の範囲を1から1000に設定してください");
+		return can_collision && (triggeredLevel(poi) >= dice(mt));
+	}
+
+	//乱数生成器を引数から取り払ったバージョン
+	bool isCought(const Poi& poi)const&
+	{
+		static std::random_device seed;
+		static std::mt19937_64 mt(seed());
+		static std::uniform_int_distribution<> dice(1, 1000);
 		return can_collision && (triggeredLevel(poi) >= dice(mt));
 	}
 };
