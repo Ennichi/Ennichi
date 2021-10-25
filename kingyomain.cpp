@@ -33,8 +33,8 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	std::vector<int> telescope_handle{}; // 出目金の画像データ
 	std::vector<int> poi_handle{}; // ポイの画像データ
 	makeImageHandle(button_handle, "./asset/image/start.png", "./asset/image/start.png"); // ハンドルの読み込み
-	makeImageHandle(kingyo_handle, "./asset/image/kingyo.png", "./asset/image/kingyo_left.png","./asset/image/kingyo_right.png");
-	makeImageHandle(telescope_handle, "./asset/image/Telescope.png", "./asset/image/Telescope_left.png", "./asset/image/Telescope_right.png");
+	makeImageHandle(kingyo_handle, "./asset/image/kingyo.png", "./asset/image/kingyo_left.png", "./asset/image/kingyo.png", "./asset/image/kingyo_right.png");
+	makeImageHandle(telescope_handle, "./asset/image/Telescope.png", "./asset/image/Telescope_left.png", "./asset/image/Telescope.png", "./asset/image/Telescope_right.png");
 	makeImageHandle(poi_handle, "./asset/image/poi.png", "./asset/image/Telescope.png");
 	Goldfish kingyo(500, 500, pi/2,true, kingyo_handle); // コピー元金魚
 	Goldfish telescope(500, 400, true, telescope_handle); // コピー元出目金
@@ -57,7 +57,8 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	for (unsigned int i = 0; i < telescope_num; i++) {
 		/* 出目金グループに関する初期化 */
 		telescope_group[i].setSpeed(1.0, 3.0); // 出目金のスピードを設定
-		kingyo_group[i].animsp = 30; // アニメーションの設定
+		telescope_group[i].setDifficulty(1);
+		telescope_group[i].animsp = 30; // アニメーションの設定
 	}
 
 	/* ゲームループ */
@@ -111,6 +112,17 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 					score += kingyo_score;
 				}
 				kingyo_num -= index_management.size();
+				index_management.resize(0);
+				for (int i = 0; i < (int)telescope_num; i++) {
+					if (telescope_group[i].isCought(poi, mt, dice)) {
+						index_management.push_back(i);
+					}
+				}
+				for (int i = (int)index_management.size() - 1; i >= 0; i--) {
+					telescope_group.destroy(index_management[i]);
+					score += telescope_score;
+				}
+				telescope_num -= index_management.size();
 			}
 			poi.point_change();
 			kingyo_group.Next(); // オブジェクトの見た目の遷移
