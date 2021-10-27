@@ -59,7 +59,7 @@ public:
 		return difficulty;
 	}
 
-	void sporn_position(int random_x, int random_y) {//スポーン位置を乱数でもらって、書き換え
+	void spawn_position(int random_x, int random_y) {//スポーン位置を乱数でもらって、書き換え
 		x = random_x;
 		y = random_y;
 		return;
@@ -125,7 +125,10 @@ public:
 		if (option == MOV_OPTION::CIRCLE && abs(p2) < EPS)throw new std::out_of_range("二つ目のパラメータの値が小さすぎます");
 		moveOption = option;
 		move_paramater1 = p1;
-		move_paramater2 = p2 > 0.0 ? 1.0 : -1.0;
+		if (option == MOV_OPTION::CIRCLE)
+			move_paramater2 = p2 > 0.0 ? 1.0 : -1.0;
+		else
+			move_paramater2 = p2;
 	}
 
 	//コンストラクタ
