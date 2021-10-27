@@ -11,7 +11,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	int score = 0; // ゲームのスコア
 	std::random_device seed; // 乱数生成器
 	std::mt19937_64 mt(seed());
-	std::uniform_int_distribution<> dice(1, 1000);
+	std::uniform_int_distribution<> dice(100, 500);//スポーン位置が範囲に内に収まるようにする
 	int px, py; // マウスポインタの座標
 	int click_event, button_type, cx, cy, log_type;	// マウスポインタのイベント管理用変数
 	KeyInput z_push(KEY_INPUT_Z); // zキーが押されたかどうかを管理する変数
