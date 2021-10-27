@@ -52,6 +52,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	if (calling_check == 0) PlaySoundMem(bgm, DX_PLAYTYPE_LOOP); // bgmを読み込む
 	for (unsigned int i = 0; i < kingyo_num; i++) {
 		/* 金魚グループに関する初期化 */
+		kingyo_group[i].sporn_positon(dice(mt), dice(mt)); //金魚の位置のランダム化
 		kingyo_group[i].setSpeed(1.0, 3.0); // 金魚のスピードを設定
 		kingyo_group[i].setDifficulty(1);
 		kingyo_group[i].animsp = 30; // アニメーションの設定

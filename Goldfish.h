@@ -59,6 +59,12 @@ public:
 		return difficulty;
 	}
 
+	void sporn_positon(int x_random,int y_random){
+		x = x_random;
+		y = y_random;
+		return;
+	}
+
 	//次のフレームに更新(検討中)
 	//金魚が向いてる向きに(x,y)を進める
 	void Next()
