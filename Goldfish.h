@@ -125,7 +125,10 @@ public:
 		if (option == MOV_OPTION::CIRCLE && abs(p2) < EPS)throw new std::out_of_range("二つ目のパラメータの値が小さすぎます");
 		moveOption = option;
 		move_paramater1 = p1;
-		move_paramater2 = p2 > 0.0 ? 1.0 : -1.0;
+		if (option == MOV_OPTION::CIRCLE)
+			move_paramater2 = p2 > 0.0 ? 1.0 : -1.0;
+		else
+			move_paramater2 = p2;
 	}
 
 	//コンストラクタ
