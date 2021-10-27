@@ -53,6 +53,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 		kingyo_group[i].setSpeed(1.0, 3.0); // 金魚のスピードを設定
 		kingyo_group[i].setDifficulty(1);
 		kingyo_group[i].animsp = 30; // アニメーションの設定
+		kingyo_group[i].sporn_position(dice(mt)%980 +100, dice(mt)%400 + 100);//範囲内に収まるように補正
 	}
 	for (unsigned int i = 0; i < telescope_num; i++) {
 		/* 出目金グループに関する初期化 */
