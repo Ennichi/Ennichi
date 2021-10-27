@@ -11,7 +11,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	int score = 0; // ゲームのスコア
 	std::random_device seed; // 乱数生成器
 	std::mt19937_64 mt(seed());
-	std::uniform_int_distribution<> dice(100, 500);//スポーン位置が範囲に内に収まるようにする
+	std::uniform_int_distribution<> dice(1, 10000);
 	int px, py; // マウスポインタの座標
 	int click_event, button_type, cx, cy, log_type;	// マウスポインタのイベント管理用変数
 	KeyInput z_push(KEY_INPUT_Z); // zキーが押されたかどうかを管理する変数
@@ -53,7 +53,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 		kingyo_group[i].setSpeed(1.0, 3.0); // 金魚のスピードを設定
 		kingyo_group[i].setDifficulty(1);
 		kingyo_group[i].animsp = 30; // アニメーションの設定
-		kingyo_group[i].sporn_position(dice(mt), dice(mt));
+		kingyo_group[i].sporn_position(dice(mt)%1080 +100, dice(mt)%500 + 100);//範囲内に収まるように補正
 	}
 	for (unsigned int i = 0; i < telescope_num; i++) {
 		/* 出目金グループに関する初期化 */

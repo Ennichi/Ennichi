@@ -59,7 +59,7 @@ public:
 		return difficulty;
 	}
 
-	void sporn_position(int random_x, int random_y) {
+	void sporn_position(int random_x, int random_y) {//スポーン位置を乱数でもらって、書き換え
 		x = random_x;
 		y = random_y;
 		return;
