@@ -6,7 +6,7 @@ int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _
     int dispx = GetSystemMetrics(SM_CXSCREEN);  //ウィンドウのX座標の取得
     int dispy = GetSystemMetrics(SM_CYSCREEN);  //ウィンドウのY座標の取得
     //デバッグ時はこれをTRUEにすること
-    SetOutApplicationLogValidFlag(FALSE);   //ログファイルの出力をやめる
+    SetOutApplicationLogValidFlag(TRUE);   //ログファイルの出力をやめる
     SetAlwaysRunFlag(TRUE); //フォーカスが外れた時も動作を続ける
     SetDoubleStartValidFlag(TRUE);  //DXライブラリの多重起動を許可する
     ChangeWindowMode(TRUE); //ウィンドウモードにする
