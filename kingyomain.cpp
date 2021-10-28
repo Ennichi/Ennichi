@@ -134,10 +134,13 @@ void kingyomain(int font, int bgm, int effect, int calling_check)
 					{
 						index_management.push_back(i);
 					}
-					else
-					{											//金魚を捕まえるのに失敗したらポイを破る
+					else {//金魚を捕まえるのに失敗したらポイを破る
 						PlaySoundMem(effect, DX_PLAYTYPE_BACK); // 効果音
 						invinciblesec.update();
+						if (invinciblesec() == 0) {
+							poi_num--;
+							invinciblesec.reset();
+						}
 					}
 				}
 				for (int i = (int)index_management.size() - 1; i >= 0; i--)
@@ -181,17 +184,15 @@ void kingyomain(int font, int bgm, int effect, int calling_check)
 			DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), font, "%d匹捕まえたよ", score);
 
 			/* 次状態の管理 */
-			if (timer4sec() == 0)
-			{							// スコア表示時間を過ぎたら
-				{						// スコア表示時間を過ぎたら
-					windowFlag = 0;		// タイトル画面へ
-					timer60sec.reset(); // タイマーのリセット
-					timer4sec.reset();
-					count_play++;							// プレイ回数を増やす
-					PlaySoundMem(effect, DX_PLAYTYPE_BACK); // 効果音
-				}
-				timer4sec.update(); // タイマーの更新
+			if (timer4sec() == 0) { // スコア表示時間を過ぎたら
+				windowFlag = 0; // タイトル画面へ
+				timer60sec.reset(); // タイマーのリセット
+				timer4sec.reset();
+				count_play++; // プレイ回数を増やす
+				poi_num = 3;
+				PlaySoundMem(effect, DX_PLAYTYPE_BACK); // 効果音
 			}
+			timer4sec.update(); // タイマーの更新
 		}
 		else if (windowFlag == 3)
 		{
