@@ -132,6 +132,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 			}
 			else {
 				DrawFormatStringToHandle(500, 50, GetColor(120, 120, 120), count_Font, "残り%d秒", timer() / 60);
+				DrawFormatStringToHandle(1100, 550, GetColor(120, 120, 120), count_Font, "%d", score);
 			}
 			timer.update();
 		}
