@@ -19,9 +19,9 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	std::vector<int> keihin_handle{};//
 	makeImageHandle(keihin_handle, "./asset/image/mato.png");
 
-	unsigned int keihin_num = 10;
+	unsigned int keihin_num = 10; //景品の数
 	Goldfish keihin(900, 400, true, keihin_handle);
-	Aim gun(900, 400, true, gun_handle);
+	Aim gun(900, 380, true, gun_handle);
 	ObjGroup<Goldfish> keihin_group; //景品
 	keihin_group.addcpy(keihin, keihin_num);
 	for (unsigned int i = 0; i < keihin_num; i++) {
@@ -35,7 +35,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 		}
 	}
 
-	//タイトル画面の表示
+	//タイトル画面のボタンの配置
 	int px, py;
 	int click_event, button_type, cx, cy, log_type;
 	Button button_start(300, 500,button_handle);	//STARTボタン
@@ -49,7 +49,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	KeyInput input(KEY_INPUT_Z);
 
 	prevtime = GetNowHiPerformanceCount();
-	Timer timer(180);
+	Timer timer(900);
 	Timer timer2(240);
 	int back_img = LoadGraph("./asset/image/syateki_back.jpg");	//ゲーム中の背景
 	int count_Font = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
@@ -99,7 +99,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 
 			if (input.GetKeyDown(KEY_INPUT_Z)) {
 				/* zキーが押された */
-				DrawFormatString(500, 200, GetColor(120, 120, 120), "押された", font);
+				SetMainWindowText("射的ゲーム(タイトル)");	//windowテキスト
 				std::vector<int> index_management;
 				for (int i = 0; i < (int)keihin_num; i++) {
 					if (keihin_group[i].isCought(gun, mt, dice)) {
