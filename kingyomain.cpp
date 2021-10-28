@@ -4,7 +4,7 @@
 
 void kingyomain(int font, int bgm, int effect, int calling_check) {
 	/* ゲームの基本データ */
-	int windowFlag = 2; // 現在のウィンドウを管理するフラグ
+	int windowFlag = 0; // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60; //fps
 	LONGLONG nowtime, prevtime = GetNowHiPerformanceCount(); // fps管理用変数
 	int count_play = 1; // プレイヤーカウンタ
