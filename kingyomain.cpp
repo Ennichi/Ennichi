@@ -4,6 +4,8 @@
 
 void kingyomain(int font, int bgm, int effect, int calling_check) {
 	/* ゲームの基本データ */
+	IPDATA Ip;			// 送信用ＩＰアドレスデータ
+	int NetUDPHandle;	// ネットワークハンドル
 	int windowFlag = 0; // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60; //fps
 	LONGLONG nowtime, prevtime = GetNowHiPerformanceCount(); // fps管理用変数
@@ -23,7 +25,8 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	int telescope_score = 3; // 出目金一匹捕まえたときのスコア
 	const std::string buff1 = "金魚すくい! あなたは";
 	const std::string buff2 = "人目のプレーヤーです";
-	
+	// ＵＤＰ通信用のソケットハンドルを作成
+	NetUDPHandle = MakeUDPSocket(-1);
 	/* ゲームで使用するデータの読み込み */
 	int count_Font = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8); // フォントデータ
 	int back_img = LoadGraph("./asset/image/background.png"); // 背景画像
@@ -45,7 +48,11 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	ObjGroup<Goldfish> telescope_group; // 出目金のグループ
 	kingyo_group.addcpy(kingyo, (unsigned int)kingyo_num); // グループ初期化
 	telescope_group.addcpy(telescope, (unsigned int)telescope_num);
-
+	// ローカルホスト
+	Ip.d1 = 127;
+	Ip.d2 = 0;
+	Ip.d3 = 0;
+	Ip.d4 = 1;
 	/* ゲーム開始前の初期化処理 */
 	if (calling_check == 0) PlaySoundMem(bgm, DX_PLAYTYPE_LOOP); // bgmを読み込む
 	for (unsigned int i = 0; i < kingyo_num; i++) {
@@ -55,7 +62,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 		kingyo_group[i].animsp = 30; // アニメーションの設定
 		kingyo_group[i].spawn_position(dice(mt)%980 +100, dice(mt)%400 + 100);//範囲内に収まるように補正
 		if (i % 2 == 0) kingyo_group[i].SetMovement(MOV_OPTION::CIRCLE, 300, 1.0);
-		 if(i % 3 == 0)kingyo_group[i].SetMovement(MOV_OPTION::WAVE, 100, 100);
+		if(i % 3 == 0)kingyo_group[i].SetMovement(MOV_OPTION::WAVE, 100, 100);
 	}
 	for (unsigned int i = 0; i < telescope_num; i++) {
 		/* 出目金グループに関する初期化 */
@@ -131,6 +138,8 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			kingyo_group.Next(); // オブジェクトの見た目の遷移
 			telescope_group.Next();
 			timer60sec.update(); // タイマー更新
+			std::string send_score = std::to_string(score);
+			NetWorkSendUDP(NetUDPHandle, Ip, 9850, send_score.c_str(), 15);
 		}
 		else if (windowFlag == 2) {
 			/* スコア表示 */

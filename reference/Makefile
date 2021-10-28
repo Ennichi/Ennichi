@@ -7,6 +7,8 @@ CFLAGS+= -Wextra #追加の警告オプション
 CFLAGS+= -std=gnu++20 #C++20でビルドする
 CFLAGS+= -DDX_GCC_COMPILE
 CFLAGS+= -DDX_NON_INLINE_ASM
+CFLAGS+= -finput-charset=utf-8 
+CFLAGS+= -fexec-charset=CP932
 
 TARGET = Ennichi #実行ファイルの名前
 SRCS = ../*.cpp
