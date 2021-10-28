@@ -8,7 +8,8 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	int FramePerSecond = 60; //fps
 	LONGLONG nowtime, prevtime = GetNowHiPerformanceCount(); // fps管理用変数
 	int count_play = 1; // プレイヤーカウンタ
-	int score = 0; // ゲームのスコア
+	int cought_kingyo = 0; // 捕まえた金魚の数
+	int cought_telescope = 0; // 捕まえた出目金の数
 	std::random_device seed; // 乱数生成器
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice(1, 1000);
@@ -18,7 +19,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	Timer timer60sec(1800); // ゲームの制限時間
 	Timer timer80sec(2400); // 結果 -> タイトルまでに使うタイマー
 	size_t kingyo_num = 5; // 金魚の数
-	size_t telescope_num = 1; //出目金の数
+	size_t telescope_num = 100; //出目金の数
 	int kingyo_score = 2; // 金魚一匹捕まえたときのスコア
 	int telescope_score = 3; // 出目金一匹捕まえたときのスコア
 	const std::string buff1 = "金魚すくい! あなたは";
@@ -29,10 +30,12 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	int back_img = LoadGraph("./asset/image/background.png"); // 背景画像
 	int title_img = LoadGraph("./asset/image/title.png"); // タイトル画面
 	std::vector<int> button_handle{}; // ボタンのデータ
+	std::vector<int> button_back_handle{}; // 戻るボタン
 	std::vector<int> kingyo_handle{}; // 金魚の画像データ
 	std::vector<int> telescope_handle{}; // 出目金の画像データ
 	std::vector<int> poi_handle{}; // ポイの画像データ
 	makeImageHandle(button_handle, "./asset/image/start.png", "./asset/image/start.png"); // ハンドルの読み込み
+	makeImageHandle(button_back_handle, "./asset/image/back.png", "./asset/image/back.png"); // 戻るボタン
 	makeImageHandle(kingyo_handle, "./asset/image/kingyo.png", "./asset/image/kingyo_left.png", "./asset/image/kingyo.png", "./asset/image/kingyo_right.png");
 	makeImageHandle(telescope_handle, "./asset/image/Telescope.png", "./asset/image/Telescope_left.png", "./asset/image/Telescope.png", "./asset/image/Telescope_right.png");
 	makeImageHandle(poi_handle, "./asset/image/poi.png", "./asset/image/Telescope.png");
@@ -40,6 +43,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	Goldfish telescope(500, 400, true, telescope_handle); // コピー元出目金
 
 	Button button_start(400, 300, button_handle); // 金魚掬いのSTARTボタン
+	Button button_back(520, 400, button_back_handle); // 戻るボタン
 	Poi poi(100, 100, true, poi_handle); // ポイ
 	ObjGroup<Goldfish> kingyo_group; // 金魚のグループ
 	ObjGroup<Goldfish> telescope_group; // 出目金のグループ
@@ -88,6 +92,10 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				PlaySoundMem(effect, DX_PLAYTYPE_BACK);
 				windowFlag = 1;	//金魚すくいスタート
+				timer60sec.reset();
+				cought_kingyo = 0;
+				cought_telescope = 0;
+				count_play++;
 			}
 			button_start.next(px, py);
 		}
@@ -114,7 +122,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 				}
 				for (int i = (int)index_management.size() - 1; i >= 0; i--) {
 					kingyo_group[index_management[i]].spawn_position(1080, dice(mt) % 400 + 100); //捕獲されたら、削除する代わりに、端っこから再登場
-					score += kingyo_score;
+					cought_kingyo++;
 				}
 				index_management.resize(0);
 				for (int i = 0; i < (int)telescope_num; i++) {
@@ -124,7 +132,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 				}
 				for (int i = (int)index_management.size() - 1; i >= 0; i--) {
 					telescope_group[index_management[i]].spawn_position(150, dice(mt) % 400 + 100); //縦で線形移動だとポイの移動制限で取れないので若干余白あり
-					score += telescope_score;
+					cought_telescope++;
 				}
 			}
 			poi.point_change();
@@ -137,9 +145,19 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			/* 画面の描画 */
 			SetMainWindowText("スコア表示");	//windowテキスト
 			DrawGraph(0, 0, back_img, TRUE);
-			DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), font, "%d匹捕まえたよ", score);
+			DrawBoxAA(320, 180, 320 * 3, 180 * 3, GetColor(218, 165, 32), true);
+			button_back.draw();
+			DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), font, "%d匹捕まえたよ", cought_kingyo + cought_telescope);
+			DrawFormatStringToHandle(520, 200, GetColor(120, 120, 120), font, "金魚 × %d匹", cought_kingyo);
+			DrawFormatStringToHandle(520, 250, GetColor(120, 120, 120), font, "出目金 × %d匹", cought_telescope);
+			DrawFormatStringToHandle(520, 300, GetColor(120, 120, 120), font, "スコア： %d", cought_kingyo * kingyo_score + cought_telescope * telescope_score);
+			DrawFormatStringToHandle(590, 425, GetColor(120, 120, 120), font, "戻る");
 			
 			/* 次状態の管理 */
+			if (button_back.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+				PlaySoundMem(effect, DX_PLAYTYPE_BACK);
+				windowFlag = 0; // スタート画面へ戻る
+			}
 			if (timer80sec() == 0) { // スコア表示時間を過ぎたら
 				windowFlag = 0; // タイトル画面へ
 				timer60sec.reset(); // タイマーのリセット
@@ -147,6 +165,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 				count_play++; // プレイ回数を増やす
 				PlaySoundMem(effect, DX_PLAYTYPE_BACK); // 効果音
 			}
+			button_back.next(px, py);
 			timer80sec.update(); // タイマーの更新
 		}
 		else if (windowFlag == 3) {
