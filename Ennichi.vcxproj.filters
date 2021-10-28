@@ -60,6 +60,9 @@
     <ClInclude Include="gun.h">
       <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
     </ClInclude>
+    <ClInclude Include="Aim.h">
+      <Filter>ソースファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">

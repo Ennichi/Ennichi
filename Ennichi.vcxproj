@@ -198,6 +198,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0
     <ClCompile Include="syatekimain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Aim.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="csvManager.h" />
     <ClInclude Include="functions.h" />

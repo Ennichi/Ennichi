@@ -4,6 +4,7 @@
 #include "Goldfish.h"
 #include "KeyInput.h"
 #include "Poi.h"
+#include "Aim.h"
 #include "Timer.h"
 #include "Text.h"
 #include "csvManager.h"
