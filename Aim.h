@@ -4,7 +4,6 @@
 
 class Aim : public Poi {
 public:
-	double scale = 1.0;
 	Aim(int x,
 		int	y,
 		bool can_collision,

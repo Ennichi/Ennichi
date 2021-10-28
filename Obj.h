@@ -7,6 +7,7 @@ class Obj
 protected:
 	/* 派生クラスのみアクセス可能 */
 	unsigned int __frames = 0;
+	double scale = 1.0; // 画像の表示倍率
 
 public:
 	/* メンバ変数 */
@@ -19,6 +20,7 @@ public:
 
 	int xlength=0, ylength=0; // x, y方向の長さ
 	int state = 0; // 描画する画像の、imageにおける添え字
+
 	/* メンバ関数 */
 	Obj( // コンストラクタ
 		int x,
@@ -63,10 +65,17 @@ public:
 
 	}
 
+	void setScale(double scale0)
+	{
+		scale = scale0;
+		xlength = (int)(xlength * scale);
+		ylength = (int)(ylength * scale);
+	}
+
 	virtual void draw()
 	{
 		/* オブジェクトを画面に反映する */
-		if (DrawRotaGraph(x + xlength / 2, y + ylength / 2, 1.0, angle, images[state], 1) == -1) {
+		if (DrawRotaGraph(x + xlength / 2, y + ylength / 2, scale, angle, images[state], 1) == -1) {
 			throw new std::runtime_error("描画失敗");
 			exit(1);
 		}
@@ -153,6 +162,11 @@ public:
 		{
 			tmp.Next();
 		}
+	}
+
+	unsigned int size()noexcept
+	{
+		return (unsigned int)(objects.size());
 	}
 
 	void destroy(std::size_t index)

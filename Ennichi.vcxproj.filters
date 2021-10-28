@@ -61,7 +61,7 @@
       <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
     </ClInclude>
     <ClInclude Include="Aim.h">
-      <Filter>ソースファイル</Filter>
+      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
