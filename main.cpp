@@ -21,6 +21,7 @@ int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _
     }
     int bgm = LoadSoundMem("./asset/bgm/maou_minzoku9.ogg");	//魔王魂民族09
     int effect = LoadSoundMem("./asset/effect/system49.ogg");	//システム音
+
     AddFontResourceEx("./asset/font/fonts/otf/Mplus1-Regular.otf", FR_PRIVATE, NULL);	//フォントを読み込む
     int FontHandle = CreateFontToHandle("Mplus1-Regular", 30, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);    //フォントハンドルを作成する
 
@@ -36,7 +37,7 @@ int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _
     }
     int calling_check = 0;
     //bgmを読み込む
-    kingyomain(FontHandle, bgm, effect,calling_check);
+    syatekimain(FontHandle, bgm, effect,calling_check);
     //終わり
     DxLib_End();
     return 0;

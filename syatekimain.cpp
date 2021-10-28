@@ -19,19 +19,19 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 
 	int px, py;
 	int click_event, button_type, cx, cy, log_type;
-	Button button_start(100, 200,button_handle);	//STARTボタン
-	StringObj start_obj(150, 250, "スタート", GetColor(120, 120, 120), font);
-	Button button_result(200, 350,button_handle);	//設定ボタン
-	StringObj result_obj(250, 400, "結果", GetColor(120, 120, 120), font);
-	Button button_gotokingyo(1000, 600,button_handle);	//射的ゲームへ行くボタン
-	StringObj gotokingyo_obj(1025, 650, "金魚すくい", GetColor(120, 120, 120), font);
+	Button button_start(300, 500,button_handle);	//STARTボタン
+	StringObj start_obj(350, 550, "スタート", GetColor(120, 120, 120), font);
+	Button button_result(500, 500,button_handle);	//設定ボタン
+	StringObj result_obj(550, 550, "結果", GetColor(120, 120, 120), font);
+	Button button_gotokingyo(700, 500,button_handle);	//射的ゲームへ行くボタン
+	StringObj gotokingyo_obj(700, 300, "金魚すくい", GetColor(120, 120, 120), font);
 	Gun gun_syateki(100, 600, false, gun_handle);
 	KeyInput input(KEY_INPUT_Z);
 
 	prevtime = GetNowHiPerformanceCount();
 	Timer timer(1800);
 	Timer timer2(2400);
-	int back_img = LoadGraph("./asset/image/background.png");	//TODO:背景画像を射的の屋台にする
+	int back_img = LoadGraph("./asset/image/syateki_back.jpg");	//TODO:背景画像を射的の屋台にする
 	int count_Font = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 
 	/* ゲームループ */
