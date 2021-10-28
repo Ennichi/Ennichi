@@ -109,10 +109,9 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 					}
 				}
 				for (int i = (int)index_management.size() - 1; i >= 0; i--) {
-					kingyo_group.destroy(index_management[i]);
+					kingyo_group[index_management[i]].spawn_position(1080, dice(mt) % 400 + 100); //捕獲されたら、削除する代わりに、端っこから再登場
 					score += kingyo_score;
 				}
-				kingyo_num -= index_management.size();
 				index_management.resize(0);
 				for (int i = 0; i < (int)telescope_num; i++) {
 					if (telescope_group[i].isCought(poi, mt, dice)) {
@@ -120,10 +119,9 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 					}
 				}
 				for (int i = (int)index_management.size() - 1; i >= 0; i--) {
-					telescope_group.destroy(index_management[i]);
+					telescope_group[index_management[i]].spawn_position(150, dice(mt) % 400 + 100); //縦で線形移動だとポイの移動制限で取れないので若干余白あり
 					score += telescope_score;
 				}
-				telescope_num -= index_management.size();
 			}
 			poi.point_change();
 			kingyo_group.Next(); // オブジェクトの見た目の遷移
