@@ -19,7 +19,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	Timer timer60sec(1800); // ゲームの制限時間
 	Timer timer80sec(2400); // 結果 -> タイトルまでに使うタイマー
 	size_t kingyo_num = 5; // 金魚の数
-	size_t telescope_num = 1; //出目金の数
+	size_t telescope_num = 100; //出目金の数
 	int kingyo_score = 2; // 金魚一匹捕まえたときのスコア
 	int telescope_score = 3; // 出目金一匹捕まえたときのスコア
 	const std::string buff1 = "金魚すくい! あなたは";
@@ -88,6 +88,10 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				PlaySoundMem(effect, DX_PLAYTYPE_BACK);
 				windowFlag = 1;	//金魚すくいスタート
+				timer60sec.reset();
+				cought_kingyo = 0;
+				cought_telescope = 0;
+				count_play++;
 			}
 			button_start.next(px, py);
 		}
