@@ -1,6 +1,7 @@
 ﻿#include "main.h"
 #include "stdafx.h"
 
+
 void syatekimain(int font, int bgm, int effect, int calling_check) {
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60;//fps
@@ -18,8 +19,21 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	std::vector<int> keihin_handle{};//
 	makeImageHandle(keihin_handle, "./asset/image/mato.png");
 
+	unsigned int keihin_num = 10;
 	Goldfish keihin(900, 400, true, keihin_handle);
 	Aim gun(900, 400, true, gun_handle);
+	ObjGroup<Goldfish> keihin_group; //景品
+	keihin_group.addcpy(keihin, keihin_num);
+	for (unsigned int i = 0; i < keihin_num; i++) {
+		if (i < 5) {//上段
+			keihin_group[i].x = 300 + 100 * i;
+			keihin_group[i].y = 400;
+		}
+		else {//下段
+			keihin_group[i].x = 300 + 100 * (i - 5);
+			keihin_group[i].y = 600;
+		}
+	}
 
 	//タイトル画面の表示
 	int px, py;
@@ -29,7 +43,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	Button button_result(500, 500,button_handle);	//設定ボタン
 	StringObj result_obj(550, 550, "結果", GetColor(120, 120, 120), font);
 	Button button_gotokingyo(700, 500,button_handle);	//射的ゲームへ行くボタン
-	StringObj gotokingyo_obj(700, 300, "金魚すくい", GetColor(120, 120, 120), font);
+	StringObj gotokingyo_obj(700, 550, "金魚すくい", GetColor(120, 120, 120), font);
 
 
 	KeyInput input(KEY_INPUT_Z);
@@ -81,7 +95,27 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 			gun.next();
 			
 			gun.draw();
-			keihin.draw();
+			keihin_group.draw();
+
+			if (input.GetKeyDown(KEY_INPUT_Z)) {
+				/* zキーが押された */
+				DrawFormatString(500, 200, GetColor(120, 120, 120), "押された", font);
+				std::vector<int> index_management;
+				for (int i = 0; i < (int)keihin_num; i++) {
+					if (keihin_group[i].isCought(gun, mt, dice)) {
+						index_management.push_back(i);
+					}
+				}
+				for (int i = (int)index_management.size() - 1; i >= 0; i--) {
+					keihin_group.destroy(index_management[i]);
+					keihin_num--;
+					score++;
+					
+				}
+				
+
+			}
+
 			//60秒たったら終了
 			if (timer() == 0) {
 				SetMainWindowText("スコア表示");	//windowテキスト
@@ -97,7 +131,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 				timer2.update();
 			}
 			else {
-				DrawFormatStringToHandle(1050, 0, GetColor(120, 120, 120), count_Font, "残り%d秒", timer() / 60);
+				DrawFormatStringToHandle(500, 50, GetColor(120, 120, 120), count_Font, "残り%d秒", timer() / 60);
 			}
 			timer.update();
 		}
