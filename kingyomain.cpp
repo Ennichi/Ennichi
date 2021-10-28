@@ -62,6 +62,11 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	/* ゲーム開始前の初期化処理 */
 	if (calling_check == 0) PlaySoundMem(bgm, DX_PLAYTYPE_LOOP); // bgmを読み込む
 
+	for (unsigned char i = 0; i < poi_num_remaining; ++i)
+	{
+		/* 残りポイ数表示用オブジェクトグループ */
+		remaining_poi[i].x -= 40 * i; // ポイの位置をずらす
+	}
 
 	/* ゲームループ */
 	while (1) {
@@ -104,11 +109,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 					if (i % 3 == 0) telescope_group[i].SetMovement(MOV_OPTION::WAVE, 100, 100);
 				}
 				poi_num_remaining = 5;
-				for (unsigned char i = 0; i < poi_num_remaining; ++i)
-				{
-					/* 残りポイ数表示用オブジェクトグループ */
-					remaining_poi[i].x -= 40 * i; // ポイの位置をずらす
-				}
+
 
 				timer60sec.reset();
 				cought_kingyo = 0;
