@@ -54,12 +54,16 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 		kingyo_group[i].setDifficulty(1);
 		kingyo_group[i].animsp = 30; // アニメーションの設定
 		kingyo_group[i].spawn_position(dice(mt)%980 +100, dice(mt)%400 + 100);//範囲内に収まるように補正
+		if (i % 2 == 0) kingyo_group[i].SetMovement(MOV_OPTION::CIRCLE, 300, 1.0);
+		 if(i % 3 == 0)kingyo_group[i].SetMovement(MOV_OPTION::WAVE, 100, 100);
 	}
 	for (unsigned int i = 0; i < telescope_num; i++) {
 		/* 出目金グループに関する初期化 */
 		telescope_group[i].setSpeed(1.0, 3.0); // 出目金のスピードを設定
 		telescope_group[i].setDifficulty(1);
 		telescope_group[i].animsp = 30; // アニメーションの設定
+		if (i %  2 == 0) telescope_group[i].SetMovement(MOV_OPTION::CIRCLE, 300, 1.0);
+		if (i %  3== 0) telescope_group[i].SetMovement(MOV_OPTION::WAVE, 100, 100);
 	}
 
 	/* ゲームループ */
