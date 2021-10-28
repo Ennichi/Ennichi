@@ -103,6 +103,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 					if (i % 2 == 0) telescope_group[i].SetMovement(MOV_OPTION::CIRCLE, 300, 1.0);
 					if (i % 3 == 0) telescope_group[i].SetMovement(MOV_OPTION::WAVE, 100, 100);
 				}
+				poi_num_remaining = 5;
 				for (unsigned char i = 0; i < poi_num_remaining; ++i)
 				{
 					/* 残りポイ数表示用オブジェクトグループ */
