@@ -136,7 +136,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 				/* zキーが押された */
 				poi_destroy = true;
 				for (int i = 0; i < (int)kingyo_group.size(); i++) {
-					if (kingyo_group[i].isCought(poi, mt, dice)) {
+					if (kingyo_group[i].isCought(poi)) {
 						switch (rand_four(mt))
 						{
 						case 0:
@@ -159,7 +159,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 					}
 				}
 				for (int i = 0; i < (int)telescope_group.size(); i++) {
-					if (telescope_group[i].isCought(poi, mt, dice)) {
+					if (telescope_group[i].isCought(poi)) {
 						switch (rand_four(mt))
 						{
 						case 0:
