@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "stdafx.h"
 #include "Poi.h"
+#include "Aim.h"
 #include "functions.h"
 //金魚の正面はここで合わせる
 #define ANGLE0 (- DX_PI / 2.0)
@@ -264,6 +265,24 @@ public:
 
 	//乱数生成器を引数から取り払ったバージョン
 	bool isCought(const Poi& poi)const&
+	{
+		static std::random_device seed;
+		static std::mt19937_64 mt(seed());
+		static std::uniform_int_distribution<> dice(1, 1000);
+		return can_collision && (triggeredLevel(poi) >= dice(mt));
+	}
+	// sytekimain.cpp
+	bool isCought(
+		const Aim& poi,
+		std::mt19937_64& mt,
+		std::uniform_int_distribution<int>& dice
+	)const&
+	{
+		if (dice.a() != 1 || dice.b() != 1000)throw new std::invalid_argument("乱数の範囲を1から1000に設定してください");
+		return can_collision && (triggeredLevel(poi) >= dice(mt));
+	}
+	//乱数生成器を引数から取り払ったバージョン
+	bool isCought(const Aim& poi)const&
 	{
 		static std::random_device seed;
 		static std::mt19937_64 mt(seed());

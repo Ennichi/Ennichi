@@ -8,7 +8,7 @@ public:
 	Poi(int x, int	y, bool can_collision, const std::vector<int>& image_handle) : Obj(x, y, can_collision, image_handle) {};
 	//Objの角度なしコンストラクタ呼び出し
 	//画像サイズが128x128の時のとき、左上に対する中心の座標は(62, 48)
-	inline std::vector<int> center()const&
+	virtual std::vector<int> center()const&
 	{
 		std::vector<int> pos = {x + 62, y + 48};
 		return pos;

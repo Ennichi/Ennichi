@@ -1,6 +1,6 @@
 ﻿#include "main.h"
 #include "stdafx.h"
-
+#define KINGYO
 //https://docs.microsoft.com/ja-jp/cpp/code-quality/annotating-function-parameters-and-return-values?view=msvc-160&viewFallbackFrom=vs-2019
 int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _In_opt_ HINSTANCE hPrevInstance, [[maybe_unused]] _In_ LPSTR lpCmdLine, [[maybe_unused]] _In_ int nShowCmd)
 {
@@ -44,7 +44,11 @@ int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _
 
     int calling_check = 0;
     //bgmを読み込む
+    #if KINGYO
     kingyomain(FontHandle, bgm, effect, calling_check);
+    #else
+    syatekimain(FontHandle, bgm, effect,calling_check);
+    #endif
     //終わり
     DxLib_End();
     return 0;
