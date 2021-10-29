@@ -1,6 +1,7 @@
 ﻿#include "main.h"
 #include "stdafx.h"
 
+
 void syatekimain(int font, int bgm, int effect, int calling_check) {
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60;//fps
@@ -11,12 +12,30 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice(1, 1000);
 
-	std::vector<int> button_handle{};
+	std::vector<int> button_handle{};//ボタン
 	makeImageHandle(button_handle, "./asset/image/uncheck.png", "./asset/image/checked.png");
+	std::vector<int> gun_handle{};//aim
+	makeImageHandle(gun_handle, "./asset/image/aim.png");	//TODO:画像を置換する
+	std::vector<int> keihin_handle{};//
+	makeImageHandle(keihin_handle, "./asset/image/mato.png");
 
-	std::vector<int> gun_handle{};
-	makeImageHandle(gun_handle, "./asset/image/syateki.png");	//TODO:画像を置換する
+	unsigned int keihin_num = 10; //景品の数
+	Goldfish keihin(900, 400, true, keihin_handle);
+	Aim gun(900, 380, true, gun_handle);
+	ObjGroup<Goldfish> keihin_group; //景品
+	keihin_group.addcpy(keihin, keihin_num);
+	for (unsigned int i = 0; i < keihin_num; i++) {
+		if (i < 5) {//上段
+			keihin_group[i].x = 300 + 100 * i;
+			keihin_group[i].y = 400;
+		}
+		else {//下段
+			keihin_group[i].x = 300 + 100 * (i - 5);
+			keihin_group[i].y = 600;
+		}
+	}
 
+	//タイトル画面のボタンの配置
 	int px, py;
 	int click_event, button_type, cx, cy, log_type;
 	Button button_start(300, 500,button_handle);	//STARTボタン
@@ -24,14 +43,15 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	Button button_result(500, 500,button_handle);	//設定ボタン
 	StringObj result_obj(550, 550, "結果", GetColor(120, 120, 120), font);
 	Button button_gotokingyo(700, 500,button_handle);	//射的ゲームへ行くボタン
-	StringObj gotokingyo_obj(700, 300, "金魚すくい", GetColor(120, 120, 120), font);
-	Gun gun_syateki(100, 600, false, gun_handle);
+	StringObj gotokingyo_obj(700, 550, "金魚すくい", GetColor(120, 120, 120), font);
+
+
 	KeyInput input(KEY_INPUT_Z);
 
 	prevtime = GetNowHiPerformanceCount();
-	Timer timer(1800);
-	Timer timer2(2400);
-	int back_img = LoadGraph("./asset/image/syateki_back.jpg");	//TODO:背景画像を射的の屋台にする
+	Timer timer(900);
+	Timer timer2(240);
+	int back_img = LoadGraph("./asset/image/syateki_back.jpg");	//ゲーム中の背景
 	int count_Font = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 
 	/* ゲームループ */
@@ -72,8 +92,30 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 			DrawGraph(0, 0, back_img, TRUE);
 
 			input();
-			gun_syateki.gunnt_change();
-			gun_syateki.draw();
+			gun.next();
+			
+			gun.draw();
+			keihin_group.draw();
+
+			if (input.GetKeyDown(KEY_INPUT_Z)) {
+				/* zキーが押された */
+				SetMainWindowText("射的ゲーム(タイトル)");	//windowテキスト
+				std::vector<int> index_management;
+				for (int i = 0; i < (int)keihin_num; i++) {
+					if (keihin_group[i].isCought(gun, mt, dice)) {
+						index_management.push_back(i);
+					}
+				}
+				for (int i = (int)index_management.size() - 1; i >= 0; i--) {
+					keihin_group.destroy(index_management[i]);
+					keihin_num--;
+					score++;
+					
+				}
+				
+
+			}
+
 			//60秒たったら終了
 			if (timer() == 0) {
 				SetMainWindowText("スコア表示");	//windowテキスト
@@ -89,7 +131,8 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 				timer2.update();
 			}
 			else {
-				DrawFormatStringToHandle(1050, 0, GetColor(120, 120, 120), count_Font, "残り%d秒", timer() / 60);
+				DrawFormatStringToHandle(500, 50, GetColor(120, 120, 120), count_Font, "残り%d秒", timer() / 60);
+				DrawFormatStringToHandle(1100, 550, GetColor(120, 120, 120), count_Font, "%d", score);
 			}
 			timer.update();
 		}
