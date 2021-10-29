@@ -125,6 +125,19 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 				windowFlag = 2;	//結果表示
 			}
 			if (button_gotokingyo.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+				DeleteFontToHandle(count_Font_big);
+				DeleteFontToHandle(count_Font_mid);
+				DeleteFontToHandle(count_Font_small);
+				DeleteSoundMem(shot);
+				DeleteSoundMem(error);
+				DeleteSoundMem(hazure);
+				DeleteGraph(back_img);
+				DeleteGraph(back_black);
+				DeleteGraph(title_img);
+				deleteImageHandle1(gun_handle);
+				deleteImageHandle1(keihin_handle);
+				deleteImageHandle1(button_handle);
+				deleteImageHandle1(button_back_handle);
 				return 0; //金魚すくいゲームへ遷移
 			}
 		}
