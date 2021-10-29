@@ -5,7 +5,7 @@
 int syatekimain(int font, int bgm, int effect, int calling_check) {
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60;//fps
-	int score = 0;	//ゲームのスコア
+	int score;	//ゲームのスコア
 	LONGLONG nowtime, prevtime;//現在時間
 	int hit_flag = 0;//景品を当てたフラグ
 
@@ -54,6 +54,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 	Timer timer2(240);
 	Timer taiki_timer(180);
 	Timer stan(60);
+	bool able_shoot = true;//リロード完了
 	int back_img = LoadGraph("./asset/image/syateki_back.jpg");	//ゲーム中の背景
 	int back_black = LoadGraph("./asset/image/black_toumei.png");
 	int title_img = LoadGraph("./asset/image/syateki_title.jpg");
@@ -106,8 +107,12 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 					keihin_frames[i] = 4;
 					keihin_group.Tag(i) = 0;
 				}
+				score = 0;
 				timer.reset();
 				timer2.reset();
+				taiki_timer.reset();
+				stan.end();
+				able_shoot = true;
 				windowFlag = 4;	//ユーザー名入力
 			}
 			if (button_result.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
@@ -137,7 +142,8 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 
 			if (input.GetKeyDown(KEY_INPUT_Z)) {
 				/* zキーが押された */
-				if (stan() == 60 || stan() == 0) {
+				if (able_shoot)
+				{
 					hit_flag = 0;
 					for (int i = 0; i < (int)keihin_num; i++) {
 						if (keihin_group[i].isCought(gun) && keihin_group[i].state < 3) {
@@ -146,17 +152,19 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 							score++;
 							hit_flag = 1;
 						}
-						if(stan()== 0)stan.reset();
-						stan.update();
 					}
-					if(!hit_flag) PlaySoundMem(hazure, DX_PLAYTYPE_BACK);
+					stan.reset();
+					able_shoot = false;
+					if (hit_flag) PlaySoundMem(shot, DX_PLAYTYPE_BACK);
+					else PlaySoundMem(hazure, DX_PLAYTYPE_BACK);
 				}
-				else {
+				else
+				{
 					PlaySoundMem(error, DX_PLAYTYPE_BACK);
 				}
-
 			}
 
+			if (stan() == 0)able_shoot = true;
 			//60秒たったら終了
 			if (timer() == 0) {
 
@@ -167,13 +175,13 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
         
 				DrawFormatStringToHandle(500, 50, GetColor(120, 120, 120), count_Font_small, "%d", timer() / 60);
 				DrawFormatStringToHandle(1100, 550, GetColor(120, 120, 120), count_Font_small, "%d", score);
-        if (stan() > 0 && stan() < 60) {
+				if (stan() > 0 && stan() <= 60) {
 					DrawStringToHandle(100, 200, "リロード", GetColor(0, 0, 255), count_Font_mid);
 
 				}
 			}
 			timer.update();
-			if(stan() != 60) stan.update();
+			stan.update();
 		}
 		else if (windowFlag == 2)
 		{
