@@ -81,7 +81,6 @@
 			fish1.Next();
 			fish2.SetMovement(MOV_OPTION::WAVE, 20.0, 300.0);
 			fish2.Next();
-			first.point_change();
 
 			if (input.GetKeyDown(KEY_INPUT_Z) == 1 && fish2.isCought(first, mt, dice))printfDx("捕まった");
 			if (button.isPushedLeft(click_event, button_type, cx, cy, log_type)) {
