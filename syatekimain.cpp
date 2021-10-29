@@ -137,22 +137,21 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 
 			if (input.GetKeyDown(KEY_INPUT_Z)) {
 				/* zキーが押された */
-
-				for (int i = 0; i < (int)keihin_num; i++) {
-					if (keihin_group[i].isCought(gun) && keihin_group[i].state < 3 &&(stan() == 60 || stan() == 0) ) {
-						PlaySoundMem(shot, DX_PLAYTYPE_BACK);
-						keihin_group[i].state = 3;
-						score++;
-            hit_flag = 1;
+				if (stan() == 60 || stan() == 0) {
+					hit_flag = 0;
+					for (int i = 0; i < (int)keihin_num; i++) {
+						if (keihin_group[i].isCought(gun) && keihin_group[i].state < 3) {
+							PlaySoundMem(shot, DX_PLAYTYPE_BACK);
+							keihin_group[i].state = 3;
+							score++;
+							hit_flag = 1;
+						}
+						if(stan()== 0)stan.reset();
+						stan.update();
 					}
-					if(stan()== 0)stan.reset();
-					stan.update();
-
 					if(!hit_flag) PlaySoundMem(hazure, DX_PLAYTYPE_BACK);
-
 				}
-				else{
-					
+				else {
 					PlaySoundMem(error, DX_PLAYTYPE_BACK);
 				}
 
