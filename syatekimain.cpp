@@ -102,14 +102,14 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			button_gotokingyo.next(px, py);
 			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				for (unsigned int i = 0; i < keihin_num; i++) {
-					keihin_group[i].setDifficulty(40);
+					keihin_group[i].setDifficulty(20 + 10*(i%3 + 1) );
 					if (i < keihin_num / 2) {//上段
-						keihin_group[i].state = dice(mt) % 3;
+						keihin_group[i].state = i % 3;
 						keihin_group[i].x = 300 + 120 * i;
 						keihin_group[i].y = 350;
 					}
 					else {//下段
-						keihin_group[i].state = dice(mt) % 3;
+						keihin_group[i].state = (i-5) % 3;
 						keihin_group[i].x = 300 + 120 * (i - 5);
 						keihin_group[i].y = 580;
 					}
