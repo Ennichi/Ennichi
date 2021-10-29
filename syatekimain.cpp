@@ -57,7 +57,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 	KeyInput input({ KEY_INPUT_Z, KEY_INPUT_RIGHT, KEY_INPUT_LEFT });
 
 	prevtime = GetNowHiPerformanceCount();
-	Timer timer(900);
+	Timer timer(1800);
 	Timer timer2(240);
 	Timer taiki_timer(180);
 	Timer stan(60);
@@ -102,6 +102,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			button_gotokingyo.next(px, py);
 			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				for (unsigned int i = 0; i < keihin_num; i++) {
+					keihin_group[i].setDifficulty(40);
 					if (i < keihin_num / 2) {//上段
 						keihin_group[i].state = dice(mt) % 3;
 						keihin_group[i].x = 300 + 120 * i;
