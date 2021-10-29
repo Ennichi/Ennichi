@@ -50,7 +50,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 	Goldfish telescope(500, 400, true, telescope_handle); // コピー元出目金
 	Obj poiFake(1200, 10, false, poi_handle);// 当たり判定の無いポイ
 	Obj kingyoFake(0, 0);//アニメーション用金魚
-	InputText input_username(500, 300, 40);// 文字入力オブジェクト
+	InputText input_username(500, 300, 40, font);// 文字入力オブジェクト
 	Ranking kingyo_ranking("./asset/result/kingyo_result.csv");
 	poiFake.setScale(0.5);
 
@@ -263,6 +263,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 			/* ユーザー名入力処理 */
 			DrawGraph(0, 0, title_img, TRUE);
 			DrawGraph(0, 0, back_black, TRUE);
+			DrawExtendStringToHandle(170, 100, 2.0, 2.0, "ニックネームを入力してください", GetColor(255, 255, 0), font);
 			input_username.draw();
 			if (input_username.entered())
 			{

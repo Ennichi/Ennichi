@@ -34,7 +34,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 	std::vector<int> keihin_frames(keihin_num); //景品の経過フレームに関する変数
 	keihin_group.addcpy(keihin, keihin_num);
 	std::string username;
-	InputText input_username(500, 300, 40);
+	InputText input_username(500, 300, 40, font);
 	Ranking shateki_ranking("./asset/result/shateki_result.csv");
 	Ranking kingyo_ranking("./asset/result/kingyo_result.csv");
 	std::vector<std::string> tmp;
@@ -245,6 +245,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			/* ユーザー名入力 */
 			DrawGraph(0, 0, title_img, TRUE);
 			DrawGraph(0, 0, back_black, TRUE);
+			DrawExtendStringToHandle(170, 100, 2.0, 2.0, "ニックネームを入力してください", GetColor(255, 255, 0), font);
 			input_username.draw();
 			if (input_username.entered())
 			{
