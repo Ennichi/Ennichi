@@ -165,8 +165,8 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			}
 			else {
         
-				DrawFormatStringToHandle(500, 50, GetColor(120, 120, 120), count_Font_small, "%d", timer() / 60);
-				DrawFormatStringToHandle(1100, 550, GetColor(120, 120, 120), count_Font_small, "%d", score);
+				DrawFormatStringToHandle(500, 0, GetColor(255,0,0), count_Font_mid, "%d", timer() / 60);
+				DrawFormatStringToHandle(1100, 400, GetColor(255,0,0), count_Font_mid, "%d", score);
         if (stan() > 0 && stan() < 60) {
 					DrawStringToHandle(100, 200, "リロード", GetColor(0, 0, 255), count_Font_mid);
 
@@ -258,7 +258,10 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			DrawGraph(0, 0, back_black, TRUE);
 
 
-			if (taiki_timer() == 0) windowFlag = 1; //ゲームへ行く
+			if (taiki_timer() == 0) {
+				taiki_timer.reset(); //2回目に備える
+				windowFlag = 1; //ゲームへ行く
+			}
 			if(taiki_timer() < 10)  DrawStringToHandle(200, 200, "Start!",GetColor(255, 0, 0),count_Font_big);
       
 			else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0), count_Font_big, "%d", taiki_timer() / 60 + 1);
@@ -269,10 +272,16 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 		}
 		else if (windowFlag == 10) {  // ゲームの終了
 			calling_check = 1;
+			DeleteFontToHandle(count_Font_big);
+			DeleteFontToHandle(count_Font_mid);
+			DeleteFontToHandle(count_Font_small);
+
+
+
 			return 1;
 		}
 		else {
-			return 1;
+			windowFlag = 10;
 		}
 		ScreenFlip();
 
