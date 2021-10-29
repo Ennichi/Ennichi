@@ -44,7 +44,7 @@ int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _
 
     int calling_check = 0;
     //bgmを読み込む
-    #if KINGYO
+    #ifdef KINGYO
     kingyomain(FontHandle, bgm, effect, calling_check);
     #else
     syatekimain(FontHandle, bgm, effect,calling_check);

@@ -146,7 +146,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			kingyo_group.Next(); // オブジェクトの見た目の遷移
 			telescope_group.Next();
 			timer60sec.update(); // タイマー更新
-			std::string send_score = std::to_string(score);
+			std::string send_score = std::to_string(cought_kingyo + cought_telescope);
 			NetWorkSendUDP(NetUDPHandle, Ip, 9850, send_score.c_str(), 15);
 		}
 		else if (windowFlag == 2) {
