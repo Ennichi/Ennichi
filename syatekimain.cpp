@@ -165,7 +165,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			}
 			else {
         
-				DrawFormatStringToHandle(500, 0, GetColor(255,0,0), count_Font_mid, "%d", timer() / 60);
+				DrawFormatStringToHandle(500, 0, GetColor(255,0,0), count_Font_mid, "%d", timer() / 60 + 1);
 				DrawFormatStringToHandle(1100, 400, GetColor(255,0,0), count_Font_mid, "%d", score);
         if (stan() > 0 && stan() < 60) {
 					DrawStringToHandle(100, 200, "リロード", GetColor(0, 0, 255), count_Font_mid);
