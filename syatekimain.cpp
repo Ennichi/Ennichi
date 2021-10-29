@@ -17,33 +17,37 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	std::vector<int> gun_handle{};//aim
 	makeImageHandle(gun_handle, "./asset/image/aim.png");	//TODO:画像を置換する
 	std::vector<int> keihin_handle{};//
-	makeImageHandle(keihin_handle, "./asset/image/mato.png");
+	makeImageHandle(keihin_handle, "./asset/image/mato1.png", "./asset/image/mato2.png", "./asset/image/mato3.png");
+
+
+
+
+
 
 	unsigned int keihin_num = 10; //景品の数
 	Goldfish keihin(900, 400, true, keihin_handle);
-	Aim gun(900, 380, true, gun_handle);
+	Aim gun(900, 320, true, gun_handle);
 	ObjGroup<Goldfish> keihin_group; //景品
 	keihin_group.addcpy(keihin, keihin_num);
 	for (unsigned int i = 0; i < keihin_num; i++) {
 		if (i < 5) {//上段
-			keihin_group[i].x = 300 + 100 * i;
-			keihin_group[i].y = 400;
+			keihin_group[i].state = 1;
+			keihin_group[i].x = 300 + 120 * i;
+			keihin_group[i].y = 350;
 		}
 		else {//下段
-			keihin_group[i].x = 300 + 100 * (i - 5);
-			keihin_group[i].y = 600;
+			keihin_group[i].state = 1;
+			keihin_group[i].x = 300 + 120 * (i - 5);
+			keihin_group[i].y = 580;
 		}
 	}
 
 	//タイトル画面のボタンの配置
 	int px, py;
 	int click_event, button_type, cx, cy, log_type;
-	Button button_start(300, 500,button_handle);	//STARTボタン
-	StringObj start_obj(350, 550, "スタート", GetColor(120, 120, 120), font);
-	Button button_result(500, 500,button_handle);	//設定ボタン
-	StringObj result_obj(550, 550, "結果", GetColor(120, 120, 120), font);
-	Button button_gotokingyo(700, 500,button_handle);	//射的ゲームへ行くボタン
-	StringObj gotokingyo_obj(700, 550, "金魚すくい", GetColor(120, 120, 120), font);
+	Button button_start(300, 500, button_handle);	
+	Button button_result(550, 500, button_handle);	//設定ボタン
+	Button button_gotokingyo(750, 500, button_handle);	//射的ゲームへ行くボタン
 
 
 	KeyInput input(KEY_INPUT_Z);
@@ -52,6 +56,8 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	Timer timer(900);
 	Timer timer2(240);
 	int back_img = LoadGraph("./asset/image/syateki_back.jpg");	//ゲーム中の背景
+	int title_img = LoadGraph("./asset/image/syateki_title.jpg");
+
 	int count_Font = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 
 	/* ゲームループ */
@@ -65,18 +71,16 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 		if (ProcessMessage() == -1) break;	//エラーが起きたらループをぬける
 
 		if (windowFlag == 0) {  // メニューウィンドウ
+			DrawGraph(0, 0, title_img, TRUE);
 			SetMainWindowText("射的ゲーム(タイトル)");	//windowテキスト
 
-			DrawStringToHandle(500, 120, "射的ゲーム[WIP]", GetColor(120, 120, 120), font);
+			
 			button_start.draw();	//ゲームスタート
 			button_start.next(px, py);
-			start_obj.draw();
 			button_result.draw();	//結果画面
 			button_result.next(px, py);
-			result_obj.draw();
 			button_gotokingyo.draw();		//射的ゲームへ
 			button_gotokingyo.next(px, py);
-			gotokingyo_obj.draw();
 			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				windowFlag = 1;	//金魚すくいスタート
 			}
@@ -93,7 +97,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 
 			input();
 			gun.next();
-			
+
 			gun.draw();
 			keihin_group.draw();
 
@@ -110,9 +114,9 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 					keihin_group.destroy(index_management[i]);
 					keihin_num--;
 					score++;
-					
+
 				}
-				
+
 
 			}
 
@@ -123,7 +127,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 					DrawFormatString(500, 200, GetColor(120, 120, 120), "%d打ち抜けました!", score, font);
 				}
 				else {
-					DrawFormatString(500, 200, GetColor(120, 120, 120), "残念!",font);
+					DrawFormatString(500, 200, GetColor(120, 120, 120), "残念!", font);
 				}
 				if (timer2() == 0) {
 					windowFlag = 0;
@@ -140,8 +144,8 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 			SetMainWindowText("結果");	//windowテキスト
 		}
 		else if (windowFlag == 10) {  // ゲームの終了
-			calling_check=1;
-			kingyomain(font, bgm, effect,calling_check);
+			calling_check = 1;
+			kingyomain(font, bgm, effect, calling_check);
 		}
 		else {
 			return;
