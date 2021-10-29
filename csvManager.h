@@ -9,7 +9,6 @@ class csvManager
 
 private:
 	std::string file_path;
-	unsigned int column_num = 0;
 
 protected:
 	std::fstream iofs;
@@ -154,6 +153,11 @@ public:
 			++location;
 		}
 		iofs.clear();
+	}
+
+	std::size_t column_num()const noexcept
+	{
+		return detail.size();
 	}
 
 	//指定の行を削除
