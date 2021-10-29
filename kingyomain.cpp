@@ -1,6 +1,5 @@
 ﻿#include "main.h"
 #include "stdafx.h"
-#define pi 3.14159265358979
 
 void kingyomain(int font, int bgm, int effect, int calling_check) {
 	/* ゲームの基本データ */
@@ -18,11 +17,11 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	std::uniform_int_distribution<> rand_posy(101, 500);//y座標を決める乱数
 	int px, py; // マウスポインタの座標
 	int click_event, button_type, cx, cy, log_type;	// マウスポインタのイベント管理用変数
-	KeyInput z_push(KEY_INPUT_Z); // zキーが押されたかどうかを管理する変数
+	KeyInput key_getter({ KEY_INPUT_Z, KEY_INPUT_RIGHT, KEY_INPUT_LEFT, KEY_INPUT_DOWN, KEY_INPUT_UP }); // zキーが押されたかどうかを管理する変数
 	Timer timer60sec(1800); // ゲームの制限時間
 	Timer timer80sec(2400); // 結果 -> タイトルまでに使うタイマー
 	size_t kingyo_num = 5; // 金魚の数
-	size_t telescope_num = 100; //出目金の数
+	size_t telescope_num = 2; //出目金の数
 	unsigned char poi_num_remaining = 5;// 残りポイの数
 	bool poi_destroy; // ポイが破れるフラグ
 	int kingyo_score = 2; // 金魚一匹捕まえたときのスコア
@@ -44,10 +43,11 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	makeImageHandle(kingyo_handle, "./asset/image/kingyo.png", "./asset/image/kingyo_left.png", "./asset/image/kingyo.png", "./asset/image/kingyo_right.png");
 	makeImageHandle(telescope_handle, "./asset/image/Telescope.png", "./asset/image/Telescope_left.png", "./asset/image/Telescope.png", "./asset/image/Telescope_right.png");
 	makeImageHandle(poi_handle, "./asset/image/poi.png", "./asset/image/Telescope.png");
-	Goldfish kingyo(500, 500, pi/2,true, kingyo_handle); // コピー元金魚
+	Goldfish kingyo(500, 500, DX_PI/2,true, kingyo_handle); // コピー元金魚
 	Goldfish telescope(500, 400, true, telescope_handle); // コピー元出目金
 	Obj poiFake(1200, 10, false, poi_handle);// 当たり判定の無いポイ
-	poiFake.setScale(0.25);
+	Obj kingyoFake(0, 0);//アニメーション用金魚
+	poiFake.setScale(0.5);
 
 	Button button_start(400, 300, button_handle); // 金魚掬いのSTARTボタン
 	Button button_back(520, 400, button_back_handle); // 戻るボタン
@@ -55,6 +55,8 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	ObjGroup<Goldfish> kingyo_group; // 金魚のグループ
 	ObjGroup<Goldfish> telescope_group; // 出目金のグループ
 	ObjGroup<Obj> remaining_poi; //ポイの残り個数表示
+	ObjGroup<Obj> kingyo_anim; //アニメーション用金魚のグループ
+	std::vector<Timer> kingyo_anim_timer;
 	kingyo_group.addcpy(kingyo, (unsigned int)kingyo_num); // グループ初期化
 	telescope_group.addcpy(telescope, (unsigned int)telescope_num);
 	remaining_poi.addcpy(poiFake, (unsigned int)poi_num_remaining);
@@ -65,7 +67,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	for (unsigned char i = 0; i < poi_num_remaining; ++i)
 	{
 		/* 残りポイ数表示用オブジェクトグループ */
-		remaining_poi[i].x -= 40 * i; // ポイの位置をずらす
+		remaining_poi[i].x -= 50 * i; // ポイの位置をずらす
 	}
 
 	/* ゲームループ */
@@ -73,7 +75,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 		/* ゲームループ毎の初期化処理 */
 		SetDrawScreen(DX_SCREEN_BACK); // 表示画面を裏に
 		ClearDrawScreen(); // 画面全体をクリア
-		z_push(); // zキーが押されたかどうか(捕獲)
+		key_getter(); // キー押下状態取得
 		GetMousePoint(&px, &py); // マウスポインタ(ポイ)の位置ゲット
 		click_event = GetMouseInputLog2(&button_type, &cx, &cy, &log_type); // マウスのクリックがあったか
 
@@ -128,15 +130,27 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			kingyo_group.draw();
 			telescope_group.draw();
 			for (unsigned char i = 0; i < poi_num_remaining; ++i)remaining_poi[i].draw();
+			for (unsigned int i = 0; i < kingyo_anim.size(); ++i)
+			{
+				if (kingyo_anim_timer[i]() == 0)
+				{
+					kingyo_anim_timer.erase(kingyo_anim_timer.begin() + i);
+					kingyo_anim.destroy(i);
+					i--;
+				}
+			}
+			kingyo_anim.draw();
 
 			/* 次状態の管理 */
 			if (timer60sec() == 0 || poi_num_remaining == 0) windowFlag = 2; // 60秒たったら終了しスコア表示へ
 			else DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), count_Font, "のこり%d秒", timer60sec() / 60); // 残り時間表示
-			if (z_push.GetKeyDown(KEY_INPUT_Z)) {
+			if (key_getter.GetKeyDown(KEY_INPUT_Z)) {
 				/* zキーが押された */
-				poi_destroy = true;
+				Timer tmptimer(60);
+				poi_destroy = true;//ポイが破れるかどうかのフラグ
 				for (int i = 0; i < (int)kingyo_group.size(); i++) {
 					if (kingyo_group[i].isCought(poi)) {
+						kingyoFake = kingyo_group[i];//座標保存
 						switch (rand_four(mt))
 						{
 						case 0:
@@ -156,10 +170,17 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 						}
 						cought_kingyo++;
 						poi_destroy = false;
+						kingyoFake.animsp = 5;//アニメーションスピードを速くする
+						kingyoFake.x -= static_cast<int>(kingyoFake.xlength * 0.1);//画像拡大による位置調整
+						kingyoFake.y -= static_cast<int>(kingyoFake.ylength * 0.1);
+						kingyoFake.setScale(1.2);//金魚を大きくする
+						kingyo_anim.addcpy(kingyoFake);//金魚のアニメーションを描画するオブジェクトグループに追加
+						kingyo_anim_timer.push_back(tmptimer);//1秒タイマーをセット
 					}
 				}
 				for (int i = 0; i < (int)telescope_group.size(); i++) {
 					if (telescope_group[i].isCought(poi)) {
+						kingyoFake = telescope_group[i];
 						switch (rand_four(mt))
 						{
 						case 0:
@@ -179,17 +200,25 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 						}
 						cought_telescope++;
 						poi_destroy = false;
+						//kingyo_groupのときと同様の処理
+						kingyoFake.animsp = 5;
+						kingyoFake.x -= static_cast<int>(kingyoFake.xlength * 0.1);
+						kingyoFake.y -= static_cast<int>(kingyoFake.ylength * 0.1);
+						kingyoFake.setScale(1.2);
+						kingyo_anim.addcpy(kingyoFake);
+						kingyo_anim_timer.push_back(tmptimer);
 					}
 				}
 				if (poi_destroy)
 				{
-					poi_num_remaining--;
+					poi_num_remaining--;//ポイが破れる
 				}
 			}
-			poi.point_change();
+			poi.point_change(key_getter);
 			kingyo_group.Next(); // オブジェクトの見た目の遷移
 			telescope_group.Next();
 			timer60sec.update(); // タイマー更新
+			for (unsigned int i = 0; i < kingyo_anim_timer.size(); ++i)kingyo_anim_timer[i].update();
 		}
 		else if (windowFlag == 2) {
 			/* スコア表示 */

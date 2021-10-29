@@ -30,7 +30,7 @@ private:
 	double move_paramater1 = 0.0;
 	double move_paramater2 = 0.0;
 
-	unsigned int difficulty = 10;
+	unsigned int difficulty = 1;
 
 
 	//クラス外では実行しない
