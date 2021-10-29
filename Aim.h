@@ -4,22 +4,22 @@
 
 class Aim : public Poi {
 public:
-	double scale = 1.0;
 	Aim(int x,
 		int	y,
 		bool can_collision,
 		const std::vector<int>& image_handle
 	) : Poi(x, y, can_collision, image_handle) {}
 	std::vector<int> center() const& {
-		return { x + (int)(scale * xlength / 2), (y + (int)(scale * ylength / 2)) };
+		return {x + xlength / 2, (y + ylength / 2)};
 		// return {0, 0};
 	}
 
-	void next() {//aim‚Ì“®‚«(¶ã‚ğn“_‚Æ‚·‚é”½Œvü‚è
-		if (y == 320 && x > 280) x -= 10;//ã
-		if (x == 280 && y < 560) y +=  10;//‰E
-		if (y == 560 && x < 900) x += 10;//¶
-		if (x == 900 && y > 320)y -= 10;//‚µ‚½
+	void next() {//aimï¿½Ì“ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½_ï¿½Æ‚ï¿½ï¿½é”½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½
+		if (y == 320 && x > 280) x -= 10;//ï¿½ï¿½
+		if (x == 280 && y < 560) y +=  10;//ï¿½E
+		if (y == 560 && x < 900) x += 10;//ï¿½ï¿½
+		if (x == 900 && y > 320)y -= 10;//ï¿½ï¿½ï¿½ï¿½
+
 
 		return;
 	}

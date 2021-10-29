@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "stdafx.h"
 #include "Obj.h"
+#include "KeyInput.h"
 
 //ポイのクラスの定義(Objの継承)
 class Poi : public Obj {
@@ -10,39 +11,19 @@ public:
 	//画像サイズが128x128の時のとき、左上に対する中心の座標は(62, 48)
 	virtual std::vector<int> center()const&
 	{
-		std::vector<int> pos = {x + 62, y + 48};
+		std::vector<int> pos = {x + 64, y + 43};
 		return pos;
 	}
 
-	void point_change() {
-		int PADInput = GetJoypadInputState(DX_INPUT_KEY_PAD1); //要検討(金魚用と合わせて一階のゲームループの最初で受け取ってもいいかも)
-		if (x > 1080) {
-			x = 1080;
-		}
-		else if (x < 100) {
-			x = 100;
-		}
-		else if (y > 500) {
-			y = 500;
-		}
-		else if (y < 100) {
-			y = 100;
-		}
-		else if ((PADInput & PAD_INPUT_RIGHT) != 0) { //十字右キーの入力
-			x = x + 3;
-		}
-
-		else if ((PADInput & PAD_INPUT_LEFT) != 0) { //十字左キーの入力
-			x = x - 3;
-		}
-
-		else if ((PADInput & PAD_INPUT_DOWN) != 0) { //十字下キーの入力
-			y = y + 3;
-		}
-
-		else if ((PADInput & PAD_INPUT_UP) != 0) { //十字上キーの入力
-			y = y - 3;
-		}
+	void point_change(const KeyInput& input)
+	{
+		signed char xdirection = 0, ydirection = 0;
+		if (input.GetKey(KEY_INPUT_RIGHT) && x < 1080)xdirection++;
+		if (input.GetKey(KEY_INPUT_LEFT) && x > 100)xdirection--;
+		if (input.GetKey(KEY_INPUT_DOWN) && y < 500)ydirection++;
+		if (input.GetKey(KEY_INPUT_UP) && y > 100)ydirection--;
+		x += xdirection * 3;
+		y += ydirection * 3;
 	}
 };
 

@@ -7,6 +7,7 @@ class Obj
 protected:
 	/* 派生クラスのみアクセス可能 */
 	unsigned int __frames = 0;
+	double scale = 1.0; // 画像の表示倍率
 
 public:
 	/* メンバ変数 */
@@ -19,6 +20,7 @@ public:
 
 	int xlength=0, ylength=0; // x, y方向の長さ
 	int state = 0; // 描画する画像の、imageにおける添え字
+
 	/* メンバ関数 */
 	Obj( // コンストラクタ
 		int x,
@@ -63,10 +65,22 @@ public:
 
 	}
 
+	void setScale(double scale0)
+	{
+		scale = scale0;
+		xlength = (int)(xlength * scale);
+		ylength = (int)(ylength * scale);
+	}
+
+	double getScale()const& noexcept
+	{
+		return scale;
+	}
+
 	virtual void draw()
 	{
 		/* オブジェクトを画面に反映する */
-		if (DrawRotaGraph(x + xlength / 2, y + ylength / 2, 1.0, angle, images[state], 1) == -1) {
+		if (DrawRotaGraph(x + xlength / 2, y + ylength / 2, scale, angle, images[state], 1) == -1) {
 			throw new std::runtime_error("描画失敗");
 			exit(1);
 		}
@@ -93,33 +107,15 @@ public:
 	}
 };
 
-template<class Obj_orig>
-class Prehab
-{
-private:
-	Obj_orig base;
-public:
-	template<class... Args>
-	Prehab(Args... args) : base(args...)
-	{}
-
-	Prehab(const Obj_orig& object) : base(object)
-	{}
-
-	const Obj_orig& Copy()const&
-	{
-		return base;
-	}
-};
-
 template<class T>
 class ObjGroup
 {
 private:
 	std::vector<T> objects;
+	std::vector<int> tags;
 
 public:
-	ObjGroup(): objects{}
+	ObjGroup() : objects{}, tags{}
 	{}
 
 	template<typename... objArgs>
@@ -128,17 +124,21 @@ public:
 		for (const T& tmp: std::initializer_list<T>{ object... })
 		{
 			objects.push_back(tmp);
+			tags.push_back(0);
 		}
 	}
 
+	//オブジェクトを指定の個数だけコピーしてグループに追加
 	void addcpy(T& object, unsigned int number)
 	{
 		for (unsigned int i = 0; i < number; ++i)
 		{
 			objects.push_back(object);
+			tags.push_back(0);
 		}
 	}
 
+	//グループに所属している全てのオブジェクトを描画
 	void draw()
 	{
 		for (T& tmp : objects)
@@ -147,6 +147,7 @@ public:
 		}
 	}
 
+	//グループに所属している全てのオブジェクトを次フレームの状態に更新
 	void Next()
 	{
 		for (T& tmp : objects)
@@ -155,11 +156,31 @@ public:
 		}
 	}
 
+	unsigned int size()noexcept
+	{
+		return (unsigned int)(objects.size());
+	}
+
+	//オブジェクトを削除
 	void destroy(std::size_t index)
 	{
 		objects.erase(objects.begin() + index);
+		tags.erase(tags.begin() + index);
 	}
 
+	//指定のオブジェクトにタグを付ける
+	int& Tag(std::size_t index)&
+	{
+		return tags[index];
+	}
+
+	//指定のオブジェクトのタグを取得
+	const int& Tag(std::size_t index)const&
+	{
+		return tags[index];
+	}
+
+	//オブジェクトを参照
 	T& operator[](std::size_t index)&
 	{
 		return objects[index];
