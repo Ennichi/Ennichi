@@ -7,12 +7,16 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 	int FramePerSecond = 60;//fps
 	int score = 0;	//ゲームのスコア
 	LONGLONG nowtime, prevtime;//現在時間
+	int hit_flag = 0;//景品を当てたフラグ
 
 	std::random_device seed;//乱数生成器
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice;
 
 	int shot = LoadSoundMem("./asset/effect/break.ogg");
+	int error = LoadSoundMem("./asset/effect/error.ogg");
+	int hazure = LoadSoundMem("./asset/effect/hazure.ogg");
+
 
 	std::vector<int> button_handle{};//ボタン
 	makeImageHandle(button_handle, "./asset/image/start.png", "./asset/image/start.png");
@@ -49,12 +53,14 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 	Timer timer(900);
 	Timer timer2(240);
 	Timer taiki_timer(180);
+	Timer stan(60);
 	int back_img = LoadGraph("./asset/image/syateki_back.jpg");	//ゲーム中の背景
 	int back_black = LoadGraph("./asset/image/black_toumei.png");
 	int title_img = LoadGraph("./asset/image/syateki_title.jpg");
 
-	int count_Font_big = CreateFontToHandle("Mplus1-Regular", 400, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
-	int count_Font_small = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	int count_Font_big = CreateFontToHandle("PixelMplus10 Regular", 400, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	int count_Font_mid = CreateFontToHandle("PixelMplus10 Regular", 200, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	int count_Font_small = CreateFontToHandle("PixelMplus10 Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 	
 	/* 初期化処理 */
 	shateki_ranking.readAll();
@@ -131,25 +137,44 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 
 			if (input.GetKeyDown(KEY_INPUT_Z)) {
 				/* zキーが押された */
+
 				for (int i = 0; i < (int)keihin_num; i++) {
-					if (keihin_group[i].isCought(gun) && keihin_group[i].state < 3) {
+					if (keihin_group[i].isCought(gun) && keihin_group[i].state < 3 &&(stan() == 60 || stan() == 0) ) {
 						PlaySoundMem(shot, DX_PLAYTYPE_BACK);
 						keihin_group[i].state = 3;
 						score++;
+            hit_flag = 1;
 					}
+					if(stan()== 0)stan.reset();
+					stan.update();
+
+					if(!hit_flag) PlaySoundMem(hazure, DX_PLAYTYPE_BACK);
+
 				}
+				else{
+					
+					PlaySoundMem(error, DX_PLAYTYPE_BACK);
+				}
+
 			}
 
 			//60秒たったら終了
 			if (timer() == 0) {
+
 				windowFlag = 3; // 60秒たったら終了しスコア表示へ
 				shateki_ranking.insert(username, score);
 			}
 			else {
+        
 				DrawFormatStringToHandle(500, 50, GetColor(120, 120, 120), count_Font_small, "%d", timer() / 60);
 				DrawFormatStringToHandle(1100, 550, GetColor(120, 120, 120), count_Font_small, "%d", score);
+        if (stan() > 0 && stan() < 60) {
+					DrawStringToHandle(100, 200, "リロード", GetColor(0, 0, 255), count_Font_mid);
+
+				}
 			}
 			timer.update();
+			if(stan() != 60) stan.update();
 		}
 		else if (windowFlag == 2)
 		{
@@ -233,9 +258,13 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 
 			DrawGraph(0, 0, back_black, TRUE);
 
+
 			if (taiki_timer() == 0) windowFlag = 1; //ゲームへ行く
 			if(taiki_timer() < 10)  DrawStringToHandle(200, 200, "Start!",GetColor(255, 0, 0),count_Font_big);
+      
 			else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0), count_Font_big, "%d", taiki_timer() / 60 + 1);
+
+			DrawStringToHandle(100, 100, "注意:弾のリロ-ド中は打てません", GetColor(255,255,0 ), count_Font_small);
 
 			taiki_timer.update();
 		}
