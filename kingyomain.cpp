@@ -261,11 +261,11 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 			/* 次状態の管理 */
 			if (button_back.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				PlaySoundMem(effect, DX_PLAYTYPE_BACK);
-				windowFlag = 10; // タイトル画面へ
+				windowFlag = 11; // タイトル画面へ
 			}
 			if (timer80sec() == 0) { // スコア表示時間を過ぎたら
 				PlaySoundMem(effect, DX_PLAYTYPE_BACK); // 効果音
-				windowFlag = 10; // タイトル画面へ
+				windowFlag = 11; // タイトル画面へ
 			}
 			button_back.next(px, py);
 			timer80sec.update(); // タイマーの更新
@@ -313,6 +313,9 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 			return 0;
 		}
 		else if (windowFlag == 11) { // 射的ゲームへ
+			DeleteFontToHandle(count_Font_big);
+			DeleteFontToHandle(count_Font_mid);
+			DeleteFontToHandle(count_Font_small);
 			DeleteFontToHandle(count_Font);
 			DeleteGraph(back_img);
 			DeleteGraph(title_img);

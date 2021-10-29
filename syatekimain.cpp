@@ -74,7 +74,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 	kingyo_ranking.readAll();
 	input_username.NmlStr = GetColor(255, 255, 255);
 	input_username.NmlCur = GetColor(255, 255, 255);
-	if (calling_check == 0) PlaySoundFile("./asset/bgm/maou_minzoku9.ogg", DX_PLAYTYPE_LOOP); // bgmを読み込む
+	//if (calling_check == 0) PlaySoundFile("./asset/bgm/maou_minzoku9.ogg", DX_PLAYTYPE_LOOP); // bgmを読み込む
 
 	/* ゲームループ */
 	while (1) {
