@@ -88,10 +88,10 @@ private:
 public:
 
 	//コンストラクタ
-	Timer()
+	Timer()noexcept
 	{}
 
-	Timer(uLL frames):__configured{frames}, __remaining{frames}
+	Timer(uLL frames)noexcept:__configured{frames}, __remaining{frames}
 	{}
 
 	//時間を設定(フレーム)
@@ -110,6 +110,12 @@ public:
 	void reset()noexcept
 	{
 		__remaining = __configured;
+	}
+
+	//タイマーの残り時間を強制的に0にする
+	void end()noexcept
+	{
+		__remaining = 0;
 	}
 
 	//毎フレーム実行
