@@ -64,7 +64,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 		if (ProcessMessage() == -1) break;	//エラーが起きたらループをぬける
 
 		if (windowFlag == 0) {  // メニューウィンドウ
-			DrawGraph(0, 0, title_img, TRUE);
+			DrawGraph(0, 0, title_img, FALSE);
 			SetMainWindowText("射的ゲーム(タイトル)");	//windowテキスト
 
 
@@ -101,7 +101,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 		}
 		else if (windowFlag == 1) { // ゲーム中のウィンドウ
 			SetMainWindowText("射的ゲーム(ゲーム中)");	//windowテキスト
-			DrawGraph(0, 0, back_img, TRUE);
+			DrawGraph(0, 0, back_img, FALSE);
 
 			input();
 			gun.next();
@@ -155,8 +155,10 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 		}
 
 		else if (windowFlag == 5) {
-			DrawGraph(0, 0, back_img, TRUE);
+			DrawGraph(0, 0, back_img, FALSE);
+
 			DrawGraph(0, 0, back_black, TRUE);
+
 			if (taiki_timer() == 0) windowFlag = 1; //ゲームへ行く
 			if(taiki_timer() < 10)  DrawStringToHandle(200, 200, "Start!",GetColor(255, 0, 0),count_Font_big);
 			else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0), count_Font_big, "%d", taiki_timer() / 60 + 1);
