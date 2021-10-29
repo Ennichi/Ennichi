@@ -293,7 +293,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 
 			else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0), count_Font_big, "%d", taiki_timer() / 60 + 1);
 
-			DrawStringToHandle(100, 100, "ポイは五枚", GetColor(255, 255, 0), count_Font_small);
+			DrawStringToHandle(100, 100, "ポイは五枚で、掬うのに失敗したら破けるよ", GetColor(255, 255, 0), count_Font_small);
 
 			taiki_timer.update();
 		}
