@@ -13,7 +13,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	std::uniform_int_distribution<> dice(1, 1000);
 
 	std::vector<int> button_handle{};//ボタン
-	makeImageHandle(button_handle, "./asset/image/uncheck.png", "./asset/image/checked.png");
+	makeImageHandle(button_handle, "./asset/image/start.png", "./asset/image/start.png");
 	std::vector<int> gun_handle{};//aim
 	makeImageHandle(gun_handle, "./asset/image/aim.png");	//TODO:画像を置換する
 	std::vector<int> keihin_handle{};//
@@ -31,12 +31,12 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	keihin_group.addcpy(keihin, keihin_num);
 	for (unsigned int i = 0; i < keihin_num; i++) {
 		if (i < 5) {//上段
-			keihin_group[i].state = 1;
+			keihin_group[i].state = dice(mt)%3;
 			keihin_group[i].x = 300 + 120 * i;
 			keihin_group[i].y = 350;
 		}
 		else {//下段
-			keihin_group[i].state = 1;
+			keihin_group[i].state = dice(mt)%3;
 			keihin_group[i].x = 300 + 120 * (i - 5);
 			keihin_group[i].y = 580;
 		}
