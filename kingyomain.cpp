@@ -39,6 +39,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 
 	/* ゲームで使用するデータの読み込み */
 	int count_Font = CreateFontToHandle("PixelMplus10 Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8); // フォントデータ
+	int sound_hazure = LoadSoundMem("./asset/effect/poi_break.ogg");
 	int back_img = LoadGraph("./asset/image/background.png"); // 背景画像
 	int title_img = LoadGraph("./asset/image/title.png"); // タイトル画面
 	int back_black = LoadGraph("./asset/image/black_toumei.png");
@@ -187,6 +188,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 							break;
 						}
 						cought_kingyo++;
+						PlaySoundMem(effect, DX_PLAYTYPE_BACK);
 						poi_destroy = false;
 						kingyoFake.animsp = 5;//アニメーションスピードを速くする
 						kingyoFake.x -= static_cast<int>(kingyoFake.xlength * 0.1);//画像拡大による位置調整
@@ -217,6 +219,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 							break;
 						}
 						cought_telescope++;
+						PlaySoundMem(effect, DX_PLAYTYPE_BACK);
 						poi_destroy = false;
 						//kingyo_groupのときと同様の処理
 						kingyoFake.animsp = 5;
@@ -229,6 +232,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 				}
 				if (poi_destroy)
 				{
+					PlaySoundMem(sound_hazure, DX_PLAYTYPE_BACK);
 					poi_num_remaining--;//ポイが破れる
 				}
 			}
@@ -278,6 +282,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 		}
 		else if (windowFlag == 10) { // 金魚すくいへ
 			DeleteFontToHandle(count_Font);
+			DeleteSoundMem(sound_hazure);
 			DeleteGraph(back_img);
 			DeleteGraph(title_img);
 			DeleteGraph(back_black);
@@ -290,6 +295,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 		}
 		else if (windowFlag == 11) { // 射的ゲームへ
 			DeleteFontToHandle(count_Font);
+			DeleteSoundMem(sound_hazure);
 			DeleteGraph(back_img);
 			DeleteGraph(title_img);
 			DeleteGraph(back_black);
