@@ -64,8 +64,10 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 		if (ProcessMessage() == -1) break;	//エラーが起きたらループをぬける
 
 		if (windowFlag == 0) {  // メニューウィンドウ
+			SetDrawBlendMode(DX_BLENDMODE_SRCCOLOR, 255);
 			DrawGraph(0, 0, title_img, TRUE);
 			SetMainWindowText("射的ゲーム(タイトル)");	//windowテキスト
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 
 
 			button_start.draw();	//ゲームスタート
