@@ -10,15 +10,15 @@ public:
 		const std::vector<int>& image_handle
 	) : Poi(x, y, can_collision, image_handle) {}
 	std::vector<int> center() const& {
-		return { x + (int)(scale * xlength / 2), (y + (int)(scale * ylength / 2)) };
+		return {x + xlength / 2, (y + ylength / 2)};
 		// return {0, 0};
 	}
 
-	void next() {//aim‚Ì“®‚«(¶ã‚ğn“_‚Æ‚·‚é”½Œvü‚è
-		if (y == 380 && x > 300) x -= 10;//ã
-		if (x == 300 && y < 580) y +=  10;//‰E
-		if (y == 580 && x < 900) x += 10;//¶
-		if (x == 900 && y > 380)y -= 10;//‚µ‚½
+	void next() {//aimã®å‹•ã(å·¦ä¸Šã‚’å§‹ç‚¹ã¨ã™ã‚‹åæ™‚è¨ˆå‘¨ã‚Š
+		if (y == 380 && x > 300) x -= 10;//ä¸Š
+		if (x == 300 && y < 580) y +=  10;//å³
+		if (y == 580 && x < 900) x += 10;//å·¦
+		if (x == 900 && y > 380)y -= 10;//ã—ãŸ
 
 		return;
 	}
