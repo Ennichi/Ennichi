@@ -1,7 +1,7 @@
 ﻿#include "main.h"
 #include "stdafx.h"
 
-void deleteImageHandle(std::vector<int>& vHandle) {
+void deleteImageHandle1(std::vector<int>& vHandle) {
 	for (size_t i = 0; i < vHandle.size(); i++) {
 		DeleteGraph(vHandle[i]);
 	}
@@ -292,10 +292,10 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			DeleteGraph(back_img);
 			DeleteGraph(back_black);
 			DeleteGraph(title_img);
-			deleteImageHandle(gun_handle);
-			deleteImageHandle(keihin_handle);
-			deleteImageHandle(button_handle);
-			deleteImageHandle(button_back_handle);
+			deleteImageHandle1(gun_handle);
+			deleteImageHandle1(keihin_handle);
+			deleteImageHandle1(button_handle);
+			deleteImageHandle1(button_back_handle);
 
 		}
 		else {
