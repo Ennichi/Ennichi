@@ -57,7 +57,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 	makeImageHandle(kingyo_handle, "./asset/image/kingyo.png", "./asset/image/kingyo_left.png", "./asset/image/kingyo.png", "./asset/image/kingyo_right.png");
 	makeImageHandle(telescope_handle, "./asset/image/Telescope.png", "./asset/image/Telescope_left.png", "./asset/image/Telescope.png", "./asset/image/Telescope_right.png");
 	makeImageHandle(poi_handle, "./asset/image/poi.png", "./asset/image/Telescope.png");
-	Goldfish kingyo(500, 500, DX_PI/2,true, kingyo_handle); // コピー元金魚
+	Goldfish kingyo(500, 500, DX_PI / 2, true, kingyo_handle); // コピー元金魚
 	Goldfish telescope(500, 400, true, telescope_handle); // コピー元出目金
 	Obj poiFake(1200, 10, false, poi_handle);// 当たり判定の無いポイ
 	Obj kingyoFake(0, 0);//アニメーション用金魚
@@ -257,7 +257,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 			DrawFormatStringToHandle(520, 300, GetColor(120, 120, 120), font, "出目金 × %d匹", cought_telescope);
 			DrawFormatStringToHandle(520, 350, GetColor(120, 120, 120), font, "スコア： %d", total_score);
 			DrawFormatStringToHandle(590, 425, GetColor(120, 120, 120), font, "戻る");
-			
+
 			/* 次状態の管理 */
 			if (button_back.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				PlaySoundMem(effect, DX_PLAYTYPE_BACK);
@@ -283,21 +283,24 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 		}
 
 		else if (windowFlag == 5) {
-		DrawGraph(0, 0, back_img, FALSE);
+			DrawGraph(0, 0, back_img, FALSE);
 
-		DrawGraph(0, 0, back_black, TRUE);
+			DrawGraph(0, 0, back_black, TRUE);
 
 
-		if (taiki_timer() == 0) windowFlag = 1; //ゲームへ行く
-		if (taiki_timer() < 10)  DrawStringToHandle(200, 200, "Start!", GetColor(255, 0, 0), count_Font_big);
+			if (taiki_timer() == 0) windowFlag = 1; //ゲームへ行く
+			if (taiki_timer() < 10)  DrawStringToHandle(200, 200, "Start!", GetColor(255, 0, 0), count_Font_big);
 
-		else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0), count_Font_big, "%d", taiki_timer() / 60 + 1);
+			else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0), count_Font_big, "%d", taiki_timer() / 60 + 1);
 
-		DrawStringToHandle(100, 100, "ポイは五枚", GetColor(255, 255, 0), count_Font_small);
+			DrawStringToHandle(100, 100, "ポイは五枚", GetColor(255, 255, 0), count_Font_small);
 
-		taiki_timer.update();
+			taiki_timer.update();
 		}
 		else if (windowFlag == 10) { // 金魚すくいへ
+			DeleteFontToHandle(count_Font_big);
+			DeleteFontToHandle(count_Font_mid);
+			DeleteFontToHandle(count_Font_small);
 			DeleteFontToHandle(count_Font);
 			DeleteGraph(back_img);
 			DeleteGraph(title_img);
