@@ -33,6 +33,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 
 	/* ゲームで使用するデータの読み込み */
 	int count_Font = CreateFontToHandle("PixelMplus10 Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8); // フォントデータ
+	int sound_hazure = LoadSoundMem("./asset/effect/poi_break.ogg");
 	int back_img = LoadGraph("./asset/image/background.png"); // 背景画像
 	int title_img = LoadGraph("./asset/image/title.png"); // タイトル画面
 	int back_black = LoadGraph("./asset/image/black_toumei.png");
@@ -211,6 +212,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 							break;
 						}
 						cought_telescope++;
+						PlaySoundMem(effect, DX_PLAYTYPE_BACK);
 						poi_destroy = false;
 						//kingyo_groupのときと同様の処理
 						kingyoFake.animsp = 5;
