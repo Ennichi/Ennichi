@@ -40,7 +40,7 @@ int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _
     int flag = 1; // どちらのゲームを呼び出すか管理するフラグ(0: 金魚, 1: 射的)
     //bgmを読み込む
 
-    while (1) {
+    while (ProcessMessage() == 0) {
         if (flag == 0) flag = kingyomain(FontHandle, bgm, effect, calling_check);
         else flag = syatekimain(FontHandle, bgm, effect,calling_check);
     }
