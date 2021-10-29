@@ -147,6 +147,17 @@ public:
 		}
 	}
 
+	//指定のタグが付けられたオブジェクトのみを描画する
+	void draw(int Tag)
+	{
+		for (unsigned int i = 0; i < tags.size(); ++i)
+		{
+			if (tags[i] == Tag)
+			{
+				objects[i].draw();
+			}
+		}
+	}
 	//グループに所属している全てのオブジェクトを次フレームの状態に更新
 	void Next()
 	{
