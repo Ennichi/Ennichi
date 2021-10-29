@@ -160,9 +160,9 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 			for (unsigned int i = 0; i < 15 && i < kingyo_ranking.column_num(); ++i)
 			{
 				tmp = kingyo_ranking.readAt(i);
-				DrawFormatStringToHandle(200, 40 * (i + 1) + 10, GetColor(255, 255, 255), font, (std::to_string(i + 1) + "位").c_str());
-				DrawFormatStringToHandle(550, 40 * (i + 1) + 10, GetColor(255, 255, 255), font, (tmp[0] + " 様").c_str());
-				DrawFormatStringToHandle(900, 40 * (i + 1) + 10, GetColor(255, 255, 255), font, (tmp[1] + "点").c_str());
+				DrawStringToHandle(200, 40 * (i + 1) + 10, (std::to_string(i + 1) + "位").c_str(), GetColor(255, 255, 255), font);
+				DrawStringToHandle(550, 40 * (i + 1) + 10, (tmp[0] + " 様").c_str(), GetColor(255, 255, 255), font);
+				DrawStringToHandle(900, 40 * (i + 1) + 10, (tmp[1] + "点").c_str(), GetColor(255, 255, 255), font);
 			}
 			if (click_event != -1)
 			{
@@ -182,9 +182,9 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 			for (unsigned int i = 0; i < 15 && i < shateki_ranking.column_num(); ++i)
 			{
 				tmp = shateki_ranking.readAt(i);
-				DrawFormatStringToHandle(200, 40 * (i + 1) + 10, GetColor(255, 255, 255), font, (std::to_string(i + 1) + "位").c_str());
-				DrawFormatStringToHandle(550, 40 * (i + 1) + 10, GetColor(255, 255, 255), font, (tmp[0] + " 様").c_str());
-				DrawFormatStringToHandle(900, 40 * (i + 1) + 10, GetColor(255, 255, 255), font, (tmp[1] + "点").c_str());
+				DrawStringToHandle(200, 40 * (i + 1) + 10, (std::to_string(i + 1) + "位").c_str(), GetColor(255, 255, 255), font);
+				DrawStringToHandle(550, 40 * (i + 1) + 10, (tmp[0] + " 様").c_str(), GetColor(255, 255, 255), font);
+				DrawStringToHandle(900, 40 * (i + 1) + 10, (tmp[1] + "点").c_str(), GetColor(255, 255, 255), font);
 			}
 			if (click_event != -1)
 			{
