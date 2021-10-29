@@ -283,10 +283,23 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 		}
 		else if (windowFlag == 10) {  // ゲームの終了
 			calling_check = 1;
-			return 1;
+			DeleteFontToHandle(count_Font_big);
+			DeleteFontToHandle(count_Font_mid);
+			DeleteFontToHandle(count_Font_small);
+			DeleteSoundMem(shot);
+			DeleteSoundMem(error);
+			DeleteSoundMem(hazure);
+			DeleteGraph(back_img);
+			DeleteGraph(back_black);
+			DeleteGraph(title_img);
+			deleteImageHandle(gun_handle);
+			deleteImageHandle(keihin_handle);
+			deleteImageHandle(button_handle);
+			deleteImageHandle(button_back_handle);
+
 		}
 		else {
-			return 1;
+		windowFlag = 10;
 		}
 		ScreenFlip();
 
