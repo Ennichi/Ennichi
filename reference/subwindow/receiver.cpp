@@ -1,4 +1,4 @@
-#include "../../main.h"
+﻿#include "../../main.h"
 #include "../../stdafx.h"
 
 //https://docs.microsoft.com/ja-jp/cpp/code-quality/annotating-function-parameters-and-return-values?view=msvc-160&viewFallbackFrom=vs-2019
@@ -11,6 +11,8 @@ int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _
     SetMultiThreadFlag(TRUE);
     ChangeWindowMode(TRUE);     //ウィンドウモードにする
     SetGraphMode(500, 500, 32); //画面サイズを500x500,32bitカラーにする
+    SetWindowStyleMode(7);
+    SetWindowSizeChangeEnableFlag(TRUE); //ウィンドウのサイズを変更できるようにする
     char StrBuf[256];           // データバッファ
     int NetUDPHandle;           // ネットワークハンドル
     const std::string show_point = "ポイントをゲットしました";
