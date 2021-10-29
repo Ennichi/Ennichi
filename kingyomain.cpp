@@ -316,7 +316,6 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 			DeleteFontToHandle(count_Font_big);
 			DeleteFontToHandle(count_Font_mid);
 			DeleteFontToHandle(count_Font_small);
-			DeleteFontToHandle(count_Font);
 			DeleteGraph(back_img);
 			DeleteGraph(title_img);
 			DeleteGraph(back_black);
