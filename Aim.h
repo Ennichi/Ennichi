@@ -10,7 +10,7 @@ public:
 		const std::vector<int>& image_handle
 	) : Poi(x, y, can_collision, image_handle) {}
 	std::vector<int> center() const& {
-		return {x + (int)(scale * xlength / 2), (y + (int)(scale * ylength / 2))};
+		return {x + xlength / 2, (y + ylength / 2)};
 		// return {0, 0};
 	}
 };
