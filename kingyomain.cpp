@@ -1,6 +1,5 @@
 ﻿#include "main.h"
 #include "stdafx.h"
-#define pi 3.14159265358979
 
 void kingyomain(int font, int bgm, int effect, int calling_check) {
 	/* ゲームの基本データ */
@@ -44,7 +43,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	makeImageHandle(kingyo_handle, "./asset/image/kingyo.png", "./asset/image/kingyo_left.png", "./asset/image/kingyo.png", "./asset/image/kingyo_right.png");
 	makeImageHandle(telescope_handle, "./asset/image/Telescope.png", "./asset/image/Telescope_left.png", "./asset/image/Telescope.png", "./asset/image/Telescope_right.png");
 	makeImageHandle(poi_handle, "./asset/image/poi.png", "./asset/image/Telescope.png");
-	Goldfish kingyo(500, 500, pi/2,true, kingyo_handle); // コピー元金魚
+	Goldfish kingyo(500, 500, DX_PI/2,true, kingyo_handle); // コピー元金魚
 	Goldfish telescope(500, 400, true, telescope_handle); // コピー元出目金
 	Obj poiFake(1200, 10, false, poi_handle);// 当たり判定の無いポイ
 	poiFake.setScale(0.25);
