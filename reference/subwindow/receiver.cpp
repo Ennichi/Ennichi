@@ -17,30 +17,34 @@ int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _
     int NetUDPHandle;           // ネットワークハンドル
     const std::string show_point = "ポイントをゲットしました";
     SetBackgroundColor(129, 161, 193); //背景を水色にする
+
     if (DxLib_Init() == -1)            // ＤＸライブラリ初期化処理
     {
         return -1; // エラーが起きたら直ちに終了
     }
     SetAlwaysRunFlag(TRUE); //フォーカスが外れた時も動作を続ける
-
+	int jchan_img = LoadGraph("./asset/image/3j-chan.png"); //3j-chanの画像(100x200)
+	if(jchan_img==-1){
+		exit(1);
+	}
     int FontHandle = CreateFontToHandle("メイリオ", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
     // ＵＤＰ通信用のソケットハンドルを作成
     NetUDPHandle = MakeUDPSocket(9850);
-    // 受信待ちだよと表示
-    DrawFormatStringToHandle(0, 0, GetColor(163, 190, 140), FontHandle, "縁日ゲーム");
-
     while (1)
     {
         if (ProcessMessage() == -1)
         {
             break; // エラーが起きたらループを抜ける
         }
+        		DrawGraph(0, 300, jchan_img, TRUE); //3j-chanの表示
+
         SetDrawScreen(DX_SCREEN_BACK); // 表示画面を裏に
         ClearDrawScreen();             // 画面全体をクリア
-
         // 文字列の受信を待つ
         while (CheckNetWorkRecvUDP(NetUDPHandle) == FALSE)
         {
+        		DrawGraph(0, 0, jchan_img, TRUE); //3j-chanの表示
+
             //バツボタンが押されたら終了する
             if (GetWindowUserCloseFlag(TRUE))
             {
@@ -61,6 +65,7 @@ int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _
         std::string point = StrBuf;
         std::string show_point_up = point + show_point;
         // 受信した文字列を画面に描画
+        DrawGraph(0, 0, jchan_img, TRUE); //3j-chanの表示
         DrawString(100, 100, show_point_up.c_str(), GetColor(163, 190, 140));
         //バツボタンが押されたら終了する
         if (GetWindowUserCloseFlag(TRUE))
