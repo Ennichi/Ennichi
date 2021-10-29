@@ -102,7 +102,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			button_gotokingyo.next(px, py);
 			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				for (unsigned int i = 0; i < keihin_num; i++) {
-					keihin_group[i].setDifficulty(40);
+					keihin_group[i].setDifficulty(20 + 10*(i%3 + 1) );
 					if (i < keihin_num / 2) {//上段
 						if (i == 3)keihin_group[i].state = 2;
 						else if (i == 1)  keihin_group[i].state = 1;
@@ -111,6 +111,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 						keihin_group[i].y = 350;
 					}
 					else {//下段
+
 						if (i == 5 || i == 8)  keihin_group[i].state = 1;
 						else keihin_group[i].state = 0;
 						keihin_group[i].x = 300 + 120 * (i - 5);
