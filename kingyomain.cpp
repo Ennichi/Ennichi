@@ -20,6 +20,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 	KeyInput key_getter({ KEY_INPUT_Z, KEY_INPUT_RIGHT, KEY_INPUT_LEFT, KEY_INPUT_DOWN, KEY_INPUT_UP }); // zキーが押されたかどうかを管理する変数
 	Timer timer60sec(1800); // ゲームの制限時間
 	Timer timer80sec(2400); // 結果 -> タイトルまでに使うタイマー
+	Timer taiki_timer(180);
 	size_t kingyo_num = 5; // 金魚の数
 	size_t telescope_num = 2; //出目金の数
 	unsigned char poi_num_remaining = 5;// 残りポイの数
@@ -32,6 +33,10 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 	std::string username;
 
 	/* ゲームで使用するデータの読み込み */
+	int count_Font_big = CreateFontToHandle("PixelMplus10 Regular", 400, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	int count_Font_mid = CreateFontToHandle("PixelMplus10 Regular", 200, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	int count_Font_small = CreateFontToHandle("PixelMplus10 Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+
 	int count_Font = CreateFontToHandle("PixelMplus10 Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8); // フォントデータ
 	int back_img = LoadGraph("./asset/image/background.png"); // 背景画像
 	int title_img = LoadGraph("./asset/image/title.png"); // タイトル画面
@@ -266,10 +271,28 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 			input_username.draw();
 			if (input_username.entered())
 			{
-				windowFlag = 1;
+				windowFlag = 5; //待機画面へ
 				input_username.text(username);
 			}
 		}
+
+		else if (windowFlag == 5) {
+		DrawGraph(0, 0, back_img, FALSE);
+
+		DrawGraph(0, 0, back_black, TRUE);
+
+
+		if (taiki_timer() == 0) windowFlag = 1; //ゲームへ行く
+		if (taiki_timer() < 10)  DrawStringToHandle(200, 200, "Start!", GetColor(255, 0, 0), count_Font_big);
+
+		else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0), count_Font_big, "%d", taiki_timer() / 60 + 1);
+
+		DrawStringToHandle(100, 100, "ポイは五枚", GetColor(255, 255, 0), count_Font_small);
+
+		taiki_timer.update();
+		}
+
+
 		else if (windowFlag == 10) {	//射的ゲームへ
 			return 1;
 		}

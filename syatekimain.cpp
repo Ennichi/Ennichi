@@ -95,12 +95,12 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				for (unsigned int i = 0; i < keihin_num; i++) {
 					if (i < keihin_num / 2) {//上段
-						keihin_group[i].state = dice(mt) % 3;
+						keihin_group[i].state = i%3 ;
 						keihin_group[i].x = 300 + 120 * i;
 						keihin_group[i].y = 350;
 					}
 					else {//下段
-						keihin_group[i].state = dice(mt) % 3;
+						keihin_group[i].state = (i-5) % 3;
 						keihin_group[i].x = 300 + 120 * (i - 5);
 						keihin_group[i].y = 580;
 					}
@@ -148,8 +148,8 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 					for (int i = 0; i < (int)keihin_num; i++) {
 						if (keihin_group[i].isCought(gun) && keihin_group[i].state < 3) {
 							PlaySoundMem(shot, DX_PLAYTYPE_BACK);
+							score += keihin_group[i].state + 1;
 							keihin_group[i].state = 3;
-							score++;
 							hit_flag = 1;
 						}
 					}
@@ -283,7 +283,6 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 		DeleteMusicMem(shot);
 		DeleteMusicMem(hazure);
 		DeleteMusicMem(error);
-		DeleteImageHandleVec(keihin_handle);
 			calling_check = 1;
 			return 1;
 		}
