@@ -12,16 +12,14 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice(1, 1000);
 
+	int shot = LoadSoundMem("./asset/effect/break.ogg");
+
 	std::vector<int> button_handle{};//ボタン
 	makeImageHandle(button_handle, "./asset/image/start.png", "./asset/image/start.png");
 	std::vector<int> gun_handle{};//aim
 	makeImageHandle(gun_handle, "./asset/image/aim.png");	//TODO:画像を置換する
 	std::vector<int> keihin_handle{};//
-	makeImageHandle(keihin_handle, "./asset/image/mato1.png", "./asset/image/mato2.png", "./asset/image/mato3.png");
-
-
-
-
+	makeImageHandle(keihin_handle, "./asset/image/mato1.png", "./asset/image/mato2.png", "./asset/image/mato3.png","./asset/image/break.png");
 
 
 	unsigned int keihin_num = 10; //景品の数
@@ -107,6 +105,9 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 				std::vector<int> index_management;
 				for (int i = 0; i < (int)keihin_num; i++) {
 					if (keihin_group[i].isCought(gun, mt, dice)) {
+						PlaySoundMem(shot, DX_PLAYTYPE_BACK);
+						keihin_group[i].state = 3;
+						keihin_group[i].draw();
 						index_management.push_back(i);
 					}
 				}
