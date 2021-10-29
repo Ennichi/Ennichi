@@ -188,6 +188,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 							break;
 						}
 						cought_kingyo++;
+						PlaySoundMem(effect, DX_PLAYTYPE_BACK);
 						poi_destroy = false;
 						kingyoFake.animsp = 5;//アニメーションスピードを速くする
 						kingyoFake.x -= static_cast<int>(kingyoFake.xlength * 0.1);//画像拡大による位置調整
@@ -231,6 +232,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 				}
 				if (poi_destroy)
 				{
+					PlaySoundMem(sound_hazure, DX_PLAYTYPE_BACK);
 					poi_num_remaining--;//ポイが破れる
 				}
 			}
