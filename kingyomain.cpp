@@ -1,7 +1,7 @@
 ﻿#include "main.h"
 #include "stdafx.h"
 
-void kingyomain(int font, int bgm, int effect, int calling_check) {
+int kingyomain(int font, int bgm, int effect, int calling_check) {
 	/* ゲームの基本データ */
 	IPDATA Ip;			// 送信用ＩＰアドレスデータ
 	int NetUDPHandle;	// ネットワークハンドル
@@ -262,14 +262,11 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			/* 次状態の管理 */
 			if (button_back.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				PlaySoundMem(effect, DX_PLAYTYPE_BACK);
-				windowFlag = 0; // スタート画面へ戻る
+				return 0; // タイトル画面へ
 			}
 			if (timer80sec() == 0) { // スコア表示時間を過ぎたら
-				windowFlag = 0; // タイトル画面へ
-				timer60sec.reset(); // タイマーのリセット
-				timer80sec.reset();
-				count_play++; // プレイ回数を増やす
-				//PlaySoundMem(effect, DX_PLAYTYPE_BACK); // 効果音
+				PlaySoundMem(effect, DX_PLAYTYPE_BACK); // 効果音
+				return 0; // タイトル画面へ
 			}
 			button_back.next(px, py);
 			timer80sec.update(); // タイマーの更新
@@ -286,10 +283,10 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			}
 		}
 		else if (windowFlag == 10) {	//射的ゲームへ
-			syatekimain(font, bgm, effect, calling_check);
+			return 1;
 		}
 		else {
-			return;
+			return 0;
 		}
 		ScreenFlip();
 
@@ -301,4 +298,5 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 		}
 		prevtime = nowtime;
 	}
+	return 0;
 }

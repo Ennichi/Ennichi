@@ -95,7 +95,7 @@ public:
 	{}
 
 	//時間を設定(フレーム)
-	void set(uLL frames)
+	void set(uLL frames)noexcept
 	{
 		__configured = frames;
 	}
@@ -107,14 +107,14 @@ public:
 	}
 
 	//タイマーをリセットする
-	void reset()
+	void reset()noexcept
 	{
 		__remaining = __configured;
 	}
 
 	//毎フレーム実行
 	//これを実行している間タイマーが作動する
-	void update()
+	void update()noexcept
 	{
 		if (__remaining != 0)
 		{
@@ -123,7 +123,7 @@ public:
 	}
 
 	//残りフレーム
-	uLL operator()()
+	uLL operator()()noexcept
 	{
 		return __remaining;
 	}
