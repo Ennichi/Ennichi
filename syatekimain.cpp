@@ -22,6 +22,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 	int shot = LoadSoundMem("./asset/effect/break.ogg");
 	int error = LoadSoundMem("./asset/effect/error.ogg");
 	int hazure = LoadSoundMem("./asset/effect/hazure.ogg");
+	int hue = LoadSoundMem("./asset/effect/hue.ogg");
 
 
 	std::vector<int> button_handle{};//ボタン
@@ -56,7 +57,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 	KeyInput input({ KEY_INPUT_Z, KEY_INPUT_RIGHT, KEY_INPUT_LEFT });
 
 	prevtime = GetNowHiPerformanceCount();
-	Timer timer(900);
+	Timer timer(1800);
 	Timer timer2(240);
 	Timer taiki_timer(180);
 	Timer stan(60);
@@ -101,6 +102,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			button_gotokingyo.next(px, py);
 			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				for (unsigned int i = 0; i < keihin_num; i++) {
+					keihin_group[i].setDifficulty(40);
 					if (i < keihin_num / 2) {//上段
 						keihin_group[i].state = dice(mt) % 3;
 						keihin_group[i].x = 300 + 120 * i;
@@ -121,6 +123,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 				stan.end();
 				able_shoot = true;
 				windowFlag = 4;	//ユーザー名入力
+				PlaySoundMem(effect, DX_PLAYTYPE_BACK);
 			}
 			if (button_result.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				windowFlag = 2;	//結果表示
@@ -167,9 +170,9 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 					hit_flag = 0;
 					for (int i = 0; i < (int)keihin_num; i++) {
 						if (keihin_group[i].isCought(gun) && keihin_group[i].state < 3) {
+							score += keihin_group[i].state + 1;
 							PlaySoundMem(shot, DX_PLAYTYPE_BACK);
 							keihin_group[i].state = 3;
-							score += keihin_group[i].state + 1;
 							hit_flag = 1;
 						}
 					}
@@ -193,8 +196,8 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			}
 			else {
         
-				DrawFormatStringToHandle(500, 50, GetColor(120, 120, 120), count_Font_small, "%d", timer() / 60);
-				DrawFormatStringToHandle(1100, 550, GetColor(120, 120, 120), count_Font_small, "%d", score);
+				DrawFormatStringToHandle(480, 0, GetColor(255,0,0), count_Font_mid, "%d", timer() / 60 + 1);
+				DrawFormatStringToHandle(1000, 500, GetColor(255,0,0), count_Font_mid, "%d", score);
 				if (stan() > 0 && stan() <= 60) {
 					DrawStringToHandle(100, 200, "リロード", GetColor(0, 0, 255), count_Font_mid);
 
@@ -286,7 +289,10 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			DrawGraph(0, 0, back_black, TRUE);
 
 
-			if (taiki_timer() == 0) windowFlag = 1; //ゲームへ行く
+			if (taiki_timer() == 0) {
+				PlaySoundMem(hue, DX_PLAYTYPE_BACK);
+				windowFlag = 1; //ゲームへ行く
+			}
 			if(taiki_timer() < 10)  DrawStringToHandle(200, 200, "Start!",GetColor(255, 0, 0),count_Font_big);
       
 			else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0), count_Font_big, "%d", taiki_timer() / 60 + 1);
@@ -300,6 +306,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			DeleteFontToHandle(count_Font_big);
 			DeleteFontToHandle(count_Font_mid);
 			DeleteFontToHandle(count_Font_small);
+			DeleteSoundMem(hue);
 			DeleteSoundMem(shot);
 			DeleteSoundMem(error);
 			DeleteSoundMem(hazure);
