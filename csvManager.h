@@ -8,14 +8,14 @@ class csvManager
 	using ULL = unsigned long long;
 
 private:
-	std::fstream iofs;
 	std::string file_path;
 	unsigned int column_num = 0;
-	unsigned int location = 0;
 
 protected:
+	std::fstream iofs;
 	std::list<std::string> detail;
 	std::list<std::string>::iterator allocitr;
+	unsigned int location = 0;
 
 public:
 	//コンストラクタ
@@ -45,7 +45,7 @@ public:
 	}
 	
 	//ファイルを読み込むだけ
-	void readAll()
+	virtual void readAll()
 	{
 		std::string tmp;
 		iofs.clear();
@@ -203,6 +203,29 @@ public:
 	Ranking& operator=(const Ranking&) = delete;
 	Ranking& operator=(Ranking&&) = default;
 
+	void readAll()override
+	{
+		std::string tmp;
+		std::stringstream ss;
+		iofs.clear();
+		iofs.seekg(std::ios::beg);
+		detail.clear();
+		while (1)
+		{
+			std::string score_tmp;
+			std::getline(iofs, tmp);
+			if (iofs.eof())break;
+			ss << tmp;
+			std::getline(ss, score_tmp, ',');
+			std::getline(ss, score_tmp, ',');
+			detail.push_back(tmp);
+			scoreList.push_back(stoi(score_tmp));
+		}
+		iofs.clear();
+		iofs.seekg(std::ios::beg);
+		allocitr = detail.begin();
+		location = 0;
+	}
 	//挿入
 	void insert(const std::string& username, int score)
 	{

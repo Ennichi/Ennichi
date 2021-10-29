@@ -28,10 +28,13 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	bool poi_destroy; // ポイが破れるフラグ
 	int kingyo_score = 2; // 金魚一匹捕まえたときのスコア
 	int telescope_score = 3; // 出目金一匹捕まえたときのスコア
+	int total_score;
 	const std::string buff1 = "金魚すくい! あなたは";
 	const std::string buff2 = "人目のプレーヤーです";
 	// ＵＤＰ通信用のソケットハンドルを作成
 	NetUDPHandle = MakeUDPSocket(-1);
+	std::string username;
+
 	/* ゲームで使用するデータの読み込み */
 	int count_Font = CreateFontToHandle("PixelMplus10 Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8); // フォントデータ
 	int back_img = LoadGraph("./asset/image/background.png"); // 背景画像
@@ -51,6 +54,8 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	Goldfish telescope(500, 400, true, telescope_handle); // コピー元出目金
 	Obj poiFake(1200, 10, false, poi_handle);// 当たり判定の無いポイ
 	Obj kingyoFake(0, 0);//アニメーション用金魚
+	InputText input_username(500, 300, 40);// 文字入力オブジェクト
+	Ranking kingyo_ranking("./asset/result/kingyo_result.csv");
 	poiFake.setScale(0.5);
 
 	Button button_start(400, 300, button_handle); // 金魚掬いのSTARTボタン
@@ -72,7 +77,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	remaining_poi.addcpy(poiFake, (unsigned int)poi_num_remaining);
 
 	/* ゲーム開始前の初期化処理 */
-	if (calling_check == 0) PlaySoundMem(bgm, DX_PLAYTYPE_LOOP); // bgmを読み込む
+	if (calling_check == 0) PlaySoundFile("./asset/bgm/maou_minzoku9.ogg", DX_PLAYTYPE_LOOP); // bgmを読み込む
 
 	for (unsigned char i = 0; i < poi_num_remaining; ++i)
 	{
@@ -80,6 +85,9 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 		remaining_poi[i].x -= 50 * i; // ポイの位置をずらす
 	}
 
+	input_username.NmlStr = GetColor(255, 255, 255);
+	input_username.NmlCur = GetColor(255, 255, 255);
+	kingyo_ranking.readAll();
 	/* ゲームループ */
 	while (1) {
 		/* ゲームループ毎の初期化処理 */
@@ -101,7 +109,8 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			/* 次状態の管理 */
 			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				PlaySoundMem(effect, DX_PLAYTYPE_BACK);
-				windowFlag = 1;	//金魚すくいスタート
+				windowFlag = 3;	//ユーザー名入力
+				input_username.set();
 
 				for (unsigned int i = 0; i < kingyo_num; i++) {
 					/* 金魚グループに関する初期化 */
@@ -150,7 +159,12 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			kingyo_anim.draw();
 
 			/* 次状態の管理 */
-			if (timer60sec() == 0 || poi_num_remaining == 0) windowFlag = 2; // 60秒たったら終了しスコア表示へ
+			if (timer60sec() == 0 || poi_num_remaining == 0)
+			{
+				windowFlag = 2; // 60秒たったら終了しスコア表示へ
+				total_score = cought_kingyo * kingyo_score + cought_telescope * telescope_score;
+				kingyo_ranking.insert(username, total_score);
+			}
 			else DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), count_Font, "のこり%d秒", timer60sec() / 60); // 残り時間表示
 			if (key_getter.GetKeyDown(KEY_INPUT_Z)) {
 				/* zキーが押された */
@@ -239,9 +253,10 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			DrawBoxAA(320, 180, 320 * 3, 180 * 3, GetColor(218, 165, 32), true);
 			button_back.draw();
 			DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), font, "%d匹捕まえたよ", cought_kingyo + cought_telescope);
-			DrawFormatStringToHandle(520, 200, GetColor(120, 120, 120), font, "金魚 × %d匹", cought_kingyo);
-			DrawFormatStringToHandle(520, 250, GetColor(120, 120, 120), font, "出目金 × %d匹", cought_telescope);
-			DrawFormatStringToHandle(520, 300, GetColor(120, 120, 120), font, "スコア： %d", cought_kingyo * kingyo_score + cought_telescope * telescope_score);
+			DrawFormatStringToHandle(520, 200, GetColor(120, 120, 120), font, (username + "のスコア").c_str());
+			DrawFormatStringToHandle(520, 250, GetColor(120, 120, 120), font, "金魚 × %d匹", cought_kingyo);
+			DrawFormatStringToHandle(520, 300, GetColor(120, 120, 120), font, "出目金 × %d匹", cought_telescope);
+			DrawFormatStringToHandle(520, 350, GetColor(120, 120, 120), font, "スコア： %d", total_score);
 			DrawFormatStringToHandle(590, 425, GetColor(120, 120, 120), font, "戻る");
 			
 			/* 次状態の管理 */
@@ -260,7 +275,15 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			timer80sec.update(); // タイマーの更新
 		}
 		else if (windowFlag == 3) {
-			SetMainWindowText("結果");	//windowテキスト
+			/* ユーザー名入力処理 */
+			DrawGraph(0, 0, title_img, TRUE);
+			DrawGraph(0, 0, back_black, TRUE);
+			input_username.draw();
+			if (input_username.entered())
+			{
+				windowFlag = 1;
+				input_username.text(username);
+			}
 		}
 		else if (windowFlag == 10) {	//射的ゲームへ
 			syatekimain(font, bgm, effect, calling_check);

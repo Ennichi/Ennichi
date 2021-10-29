@@ -22,14 +22,11 @@ int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _
     {
         return -1;
     }
+    int bgm = -1;
     AddFontResourceEx("./asset/fonts/PixelMplus10-Regular.ttf", FR_PRIVATE, NULL);	//フォントを読み込む
     int FontHandle = CreateFontToHandle("PixelMplus10 Regular", 30, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);    //フォントハンドルを作成する
-
-
-    int bgm = LoadSoundMem("./asset/bgm/maou_minzoku9.ogg");                                         //魔王魂民族09
     int effect = LoadSoundMem("./asset/effect/system49.ogg");                                        //システム音
     AddFontResourceEx("./asset/font/fonts/otf/Mplus1-Regular.otf", FR_PRIVATE, NULL);                //フォントを読み込む
-    int FontHandle = CreateFontToHandle("Mplus1-Regular", 30, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8); //フォントハンドルを作成する
     //ディスプレイの1280x720以下の時
     if (dispx <= 1280 || dispy <= 720)
     {
