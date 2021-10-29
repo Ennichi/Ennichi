@@ -45,6 +45,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 
 	int count_Font = CreateFontToHandle("PixelMplus10 Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8); // フォントデータ
 	int sound_hazure = LoadSoundMem("./asset/effect/poi_break.ogg");
+	int hue = LoadSoundMem("./asset/effect/hue.ogg");
 	int back_img = LoadGraph("./asset/image/background.png"); // 背景画像
 	int title_img = LoadGraph("./asset/image/title.png"); // タイトル画面
 	int back_black = LoadGraph("./asset/image/black_toumei.png");
@@ -292,7 +293,10 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 			DrawGraph(0, 0, back_black, TRUE);
 
 
-			if (taiki_timer() == 0) windowFlag = 1; //ゲームへ行く
+			if (taiki_timer() == 0) {
+				windowFlag = 1; //ゲームへ行く
+				PlaySoundMem(hue, DX_PLAYTYPE_BACK);
+			}
 			if (taiki_timer() < 10)  DrawStringToHandle(200, 200, "Start!", GetColor(255, 0, 0), count_Font_big);
 
 			else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0), count_Font_big, "%d", taiki_timer() / 60 + 1);
@@ -307,6 +311,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 			DeleteFontToHandle(count_Font_small);
 			DeleteFontToHandle(count_Font);
 			DeleteSoundMem(sound_hazure);
+			DeleteSoundMem(hue);
 			DeleteGraph(back_img);
 			DeleteGraph(title_img);
 			DeleteGraph(back_black);
