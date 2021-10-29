@@ -25,19 +25,9 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	Goldfish keihin(900, 400, true, keihin_handle);
 	Aim gun(900, 320, true, gun_handle);
 	ObjGroup<Goldfish> keihin_group; //景品
+	std::vector<int> keihin_frames(keihin_num); //景品の経過フレームに関する変数
 	keihin_group.addcpy(keihin, keihin_num);
-	for (unsigned int i = 0; i < keihin_num; i++) {
-		if (i < 5) {//上段
-			keihin_group[i].state = dice(mt) % 3;
-			keihin_group[i].x = 300 + 120 * i;
-			keihin_group[i].y = 350;
-		}
-		else {//下段
-			keihin_group[i].state = dice(mt) % 3;
-			keihin_group[i].x = 300 + 120 * (i - 5);
-			keihin_group[i].y = 580;
-		}
-	}
+
 
 	//タイトル画面のボタンの配置
 	int px, py;
@@ -54,18 +44,17 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	Timer timer2(240);
 	Timer taiki_timer(180);
 	int back_img = LoadGraph("./asset/image/syateki_back.jpg");	//ゲーム中の背景
-	int back_img_taiki = LoadGraph("./asset/image/syateki_back_kurai.jpg");
+	int back_black = LoadGraph("./asset/image/black_toumei.png");
 	int title_img = LoadGraph("./asset/image/syateki_title.jpg");
 
 	int count_Font_big = CreateFontToHandle("Mplus1-Regular", 400, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 	int count_Font_small = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 	
 
-	if (calling_check == 0) PlaySoundMem(bgm, DX_PLAYTYPE_LOOP); // bgmを読み込む
+	if (calling_check == 0) PlaySoundFile("./asset/bgm/maou_minzoku9.ogg", DX_PLAYTYPE_LOOP); // bgmを読み込む
 
 	/* ゲームループ */
 	while (1) {
-		if (calling_check == 0) PlaySoundMem(bgm, DX_PLAYTYPE_LOOP); // bgmを読み込む
 		SetDrawScreen(DX_SCREEN_BACK);  // 表示画面を裏に
 		ClearDrawScreen();  // 画面全体をクリア
 
@@ -86,6 +75,21 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 			button_gotokingyo.draw();		//射的ゲームへ
 			button_gotokingyo.next(px, py);
 			if (button_start.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+				for (unsigned int i = 0; i < keihin_num; i++) {
+					if (i < keihin_num / 2) {//上段
+						keihin_group[i].state = dice(mt) % 3;
+						keihin_group[i].x = 300 + 120 * i;
+						keihin_group[i].y = 350;
+					}
+					else {//下段
+						keihin_group[i].state = dice(mt) % 3;
+						keihin_group[i].x = 300 + 120 * (i - 5);
+						keihin_group[i].y = 580;
+					}
+					keihin_frames[i] = 4;
+					keihin_group.Tag(i) = 0;
+				}
+				timer.reset();
 				windowFlag = 5;	//射的ゲーム待機スタート
 			}
 			if (button_result.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
@@ -103,28 +107,27 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 			gun.next();
 
 			gun.draw();
-			keihin_group.draw();
+			keihin_group.draw(0);
+
+			for (unsigned int i = 0; i < keihin_group.size(); ++i)
+			{
+				if (keihin_group[i].state == 3 && keihin_group.Tag(i) == 0)
+				{
+					keihin_frames[i]--;
+					if (keihin_frames[i] <= 0)keihin_group.Tag(i) = 1;
+				}
+			}
 
 			if (input.GetKeyDown(KEY_INPUT_Z)) {
 				/* zキーが押された */
 				SetMainWindowText("射的ゲーム(タイトル)");	//windowテキスト
-				std::vector<int> index_management;
 				for (int i = 0; i < (int)keihin_num; i++) {
-					if (keihin_group[i].isCought(gun, mt, dice)) {
+					if (keihin_group[i].isCought(gun, mt, dice) && keihin_group[i].state < 3) {
 						PlaySoundMem(shot, DX_PLAYTYPE_BACK);
 						keihin_group[i].state = 3;
-						keihin_group[i].draw();
-						index_management.push_back(i);
+						score++;
 					}
 				}
-				for (int i = (int)index_management.size() - 1; i >= 0; i--) {
-					keihin_group.destroy(index_management[i]);
-					keihin_num--;
-					score++;
-
-				}
-
-
 			}
 
 			//60秒たったら終了
@@ -152,7 +155,8 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 		}
 
 		else if (windowFlag == 5) {
-			DrawGraph(0, 0, back_img_taiki, TRUE);
+			DrawGraph(0, 0, back_img, TRUE);
+			DrawGraph(0, 0, back_black, TRUE);
 			if (taiki_timer() == 0) windowFlag = 1; //ゲームへ行く
 			if(taiki_timer() < 10)  DrawStringToHandle(200, 200, "Start!",GetColor(255, 0, 0),count_Font_big);
 			else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0), count_Font_big, "%d", taiki_timer() / 60 + 1);

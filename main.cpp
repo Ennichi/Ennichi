@@ -19,7 +19,7 @@ int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _
     if (DxLib_Init() == -1) {
         return -1;
     }
-    int bgm = LoadSoundMem("./asset/bgm/maou_minzoku9.ogg");	//魔王魂民族09
+    int bgm = -1;
     int effect = LoadSoundMem("./asset/effect/system49.ogg");	//システム音
 
 
