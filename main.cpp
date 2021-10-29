@@ -37,8 +37,13 @@ int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _
         exit(1);
     }
     int calling_check = 0;
+    int flag = 1; // どちらのゲームを呼び出すか管理するフラグ(0: 金魚, 1: 射的)
     //bgmを読み込む
-    syatekimain(FontHandle, bgm, effect,calling_check);
+
+    while (1) {
+        if (flag == 0) flag = kingyomain(FontHandle, bgm, effect, calling_check);
+        else flag = syatekimain(FontHandle, bgm, effect,calling_check);
+    }
     //終わり
     DxLib_End();
     return 0;

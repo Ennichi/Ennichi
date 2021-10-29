@@ -2,7 +2,7 @@
 #include "stdafx.h"
 
 
-void syatekimain(int font, int bgm, int effect, int calling_check) {
+int syatekimain(int font, int bgm, int effect, int calling_check) {
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
 	int FramePerSecond = 60;//fps
 	int score = 0;	//ゲームのスコア
@@ -108,7 +108,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 				windowFlag = 2;	//結果表示
 			}
 			if (button_gotokingyo.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
-				windowFlag = 10;	//金魚すくいゲームへ遷移
+				return 0; //金魚すくいゲームへ遷移
 			}
 		}
 		else if (windowFlag == 1) { // ゲーム中のウィンドウ
@@ -241,10 +241,10 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 		}
 		else if (windowFlag == 10) {  // ゲームの終了
 			calling_check = 1;
-			kingyomain(font, bgm, effect, calling_check);
+			return 1;
 		}
 		else {
-			return;
+			return 1;
 		}
 		ScreenFlip();
 
@@ -256,4 +256,5 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 		}
 		prevtime = nowtime;
 	}
+	return 1;
 }
