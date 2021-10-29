@@ -7,12 +7,16 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	int FramePerSecond = 60;//fps
 	int score = 0;	//ゲームのスコア
 	LONGLONG nowtime, prevtime;//現在時間
+	int hit_flag = 0;//景品を当てたフラグ
 
 	std::random_device seed;//乱数生成器
 	std::mt19937_64 mt(seed());
 	std::uniform_int_distribution<> dice(1, 1000);
 
 	int shot = LoadSoundMem("./asset/effect/break.ogg");
+	int error = LoadSoundMem("./asset/effect/error.ogg");
+	int hazure = LoadSoundMem("./asset/effect/hazure.ogg");
+
 
 	std::vector<int> button_handle{};//ボタン
 	makeImageHandle(button_handle, "./asset/image/start.png", "./asset/image/start.png");
@@ -43,6 +47,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	Timer timer(900);
 	Timer timer2(240);
 	Timer taiki_timer(180);
+	Timer stan(60);
 	int back_img = LoadGraph("./asset/image/syateki_back.jpg");	//ゲーム中の背景
 	int back_black = LoadGraph("./asset/image/black_toumei.png");
 	int title_img = LoadGraph("./asset/image/syateki_title.jpg");
@@ -50,7 +55,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	int count_Font_big = CreateFontToHandle("PixelMplus10 Regular", 400, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 	int count_Font_mid = CreateFontToHandle("PixelMplus10 Regular", 200, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 	int count_Font_small = CreateFontToHandle("PixelMplus10 Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
-	
+
 
 	if (calling_check == 0) PlaySoundFile("./asset/bgm/maou_minzoku9.ogg", DX_PLAYTYPE_LOOP); // bgmを読み込む
 
@@ -121,13 +126,30 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 
 			if (input.GetKeyDown(KEY_INPUT_Z)) {
 				/* zキーが押された */
-				for (int i = 0; i < (int)keihin_num; i++) {
-					if (keihin_group[i].isCought(gun, mt, dice) && keihin_group[i].state < 3) {
-						PlaySoundMem(shot, DX_PLAYTYPE_BACK);
-						keihin_group[i].state = 3;
-						score++;
+				if (stan() == 60 || stan() == 0) {
+					hit_flag = 0;
+
+					for (int i = 0; i < (int)keihin_num; i++) {
+						if (keihin_group[i].isCought(gun, mt, dice) && keihin_group[i].state < 3) {
+							PlaySoundMem(shot, DX_PLAYTYPE_BACK);
+							keihin_group[i].state = 3;
+							score++;
+							hit_flag = 1;
+
+						}
+
 					}
+					if(stan()== 0)stan.reset();
+					stan.update();
+
+					if(!hit_flag) PlaySoundMem(hazure, DX_PLAYTYPE_BACK);
+
 				}
+				else{
+					
+					PlaySoundMem(error, DX_PLAYTYPE_BACK);
+				}
+
 			}
 
 			//60秒たったら終了
@@ -141,7 +163,7 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 					DrawFormatStringToHandle(700, 350, GetColor(255, 0, 0), count_Font_big, "%d pt", score);
 				}
 				else {
-					DrawFormatString(500, 200, GetColor(255,0,0), "残念!", count_Font_big);
+					DrawFormatString(500, 200, GetColor(255, 0, 0), "残念!", count_Font_big);
 				}
 				if (timer2() == 0) {
 					windowFlag = 0;
@@ -150,9 +172,14 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 			}
 			else {
 				DrawFormatStringToHandle(500, 50, GetColor(255, 0, 0), count_Font_small, "残り%d", timer() / 60);
-				DrawFormatStringToHandle(1000, 450, GetColor(255, 0, 0),count_Font_mid, "%d", score);
+				DrawFormatStringToHandle(1000, 450, GetColor(255, 0, 0), count_Font_mid, "%d", score);
+				if (stan() > 0 && stan() < 60) {
+					DrawStringToHandle(100, 200, "リロード", GetColor(0, 0, 255), count_Font_mid);
+
+				}
 			}
 			timer.update();
+			if(stan() != 60) stan.update();
 		}
 		else if (windowFlag == 3) {
 			SetMainWindowText("結果");	//windowテキスト
@@ -165,8 +192,10 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 				windowFlag = 1; //ゲームへ行く
 				taiki_timer.reset();
 			}
-			if(taiki_timer() < 10)  DrawStringToHandle(200, 200, "Start!",GetColor(255, 0, 0),count_Font_big);
-			else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0),count_Font_big, "%d", taiki_timer() / 60 + 1);
+			if (taiki_timer() < 10)  DrawStringToHandle(200, 200, "Start!", GetColor(255, 0, 0), count_Font_big);
+			else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0), count_Font_big, "%d", taiki_timer() / 60 + 1);
+
+			DrawStringToHandle(100, 100, "注意:弾のリロ-ド中は打てません", GetColor(255,255,0 ), count_Font_small);
 
 			taiki_timer.update();
 		}
