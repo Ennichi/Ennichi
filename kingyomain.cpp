@@ -282,6 +282,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 		}
 		else if (windowFlag == 10) { // 金魚すくいへ
 			DeleteFontToHandle(count_Font);
+			DeleteSoundMem(sound_hazure);
 			DeleteGraph(back_img);
 			DeleteGraph(title_img);
 			DeleteGraph(back_black);
@@ -294,6 +295,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 		}
 		else if (windowFlag == 11) { // 射的ゲームへ
 			DeleteFontToHandle(count_Font);
+			DeleteSoundMem(sound_hazure);
 			DeleteGraph(back_img);
 			DeleteGraph(title_img);
 			DeleteGraph(back_black);
