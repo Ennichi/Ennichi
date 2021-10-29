@@ -283,6 +283,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 		DeleteMusicMem(shot);
 		DeleteMusicMem(hazure);
 		DeleteMusicMem(error);
+		DeleteImageHandleVec(keihin_handle);
 			calling_check = 1;
 			return 1;
 		}
