@@ -30,7 +30,7 @@ private:
 	double move_paramater1 = 0.0;
 	double move_paramater2 = 0.0;
 
-	unsigned int difficulty = 1;
+	unsigned int difficulty = 10;
 
 
 	//クラス外では実行しない
@@ -40,7 +40,7 @@ private:
 	{
 		int midx = x, midy = y;
 		Goldfish::center(midx, midy, xlength, ylength);
-		double d = 1000.0 * dist_elipse(midx, midy, poi.center()[0], poi.center()[1], xlength, ylength);
+		double d = 100.0 * dist_elipse(midx, midy, poi.center()[0], poi.center()[1], xlength, ylength);
 		return 1000 - (int)(d * static_cast<double>(difficulty));
 	}
 
