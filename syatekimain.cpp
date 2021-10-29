@@ -1,6 +1,12 @@
 ﻿#include "main.h"
 #include "stdafx.h"
 
+void deleteImageHandle1(std::vector<int>& vHandle) {
+	for (size_t i = 0; i < vHandle.size(); i++) {
+		DeleteGraph(vHandle[i]);
+	}
+}
+
 
 int syatekimain(int font, int bgm, int effect, int calling_check) {
 	int windowFlag = 0;  // 現在のウィンドウを管理するフラグ
@@ -68,7 +74,8 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 	kingyo_ranking.readAll();
 	input_username.NmlStr = GetColor(255, 255, 255);
 	input_username.NmlCur = GetColor(255, 255, 255);
-	// if (calling_check == 0) PlaySoundFile("./asset/bgm/maou_minzoku9.ogg", DX_PLAYTYPE_LOOP); // bgmを読み込む
+
+	//if (calling_check == 0) PlaySoundFile("./asset/bgm/maou_minzoku9.ogg", DX_PLAYTYPE_LOOP); // bgmを
 
 	/* ゲームループ */
 	while (1) {
@@ -119,6 +126,19 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 				windowFlag = 2;	//結果表示
 			}
 			if (button_gotokingyo.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
+				DeleteFontToHandle(count_Font_big);
+				DeleteFontToHandle(count_Font_mid);
+				DeleteFontToHandle(count_Font_small);
+				DeleteSoundMem(shot);
+				DeleteSoundMem(error);
+				DeleteSoundMem(hazure);
+				DeleteGraph(back_img);
+				DeleteGraph(back_black);
+				DeleteGraph(title_img);
+				deleteImageHandle1(gun_handle);
+				deleteImageHandle1(keihin_handle);
+				deleteImageHandle1(button_handle);
+				deleteImageHandle1(button_back_handle);
 				return 0; //金魚すくいゲームへ遷移
 			}
 		}
@@ -149,7 +169,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 						if (keihin_group[i].isCought(gun) && keihin_group[i].state < 3) {
 							PlaySoundMem(shot, DX_PLAYTYPE_BACK);
 							keihin_group[i].state = 3;
-							score++;
+							score += keihin_group[i].state + 1;
 							hit_flag = 1;
 						}
 					}
@@ -173,8 +193,8 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			}
 			else {
         
-				DrawFormatStringToHandle(500, 0, GetColor(255,0,0), count_Font_mid, "%d", timer() / 60+1);	
-				DrawFormatStringToHandle(1100, 500, GetColor(255,0,0), count_Font_mid, "%d", score);
+				DrawFormatStringToHandle(500, 50, GetColor(120, 120, 120), count_Font_small, "%d", timer() / 60);
+				DrawFormatStringToHandle(1100, 550, GetColor(120, 120, 120), count_Font_small, "%d", score);
 				if (stan() > 0 && stan() <= 60) {
 					DrawStringToHandle(100, 200, "リロード", GetColor(0, 0, 255), count_Font_mid);
 
@@ -276,18 +296,24 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 			taiki_timer.update();
 		}
 		else if (windowFlag == 10) {  // ゲームの終了
-
-		DeleteFontToHandle(count_Font_big);
-		DeleteFontToHandle(count_Font_mid);
-		DeleteFontToHandle(count_Font_small);
-		DeleteMusicMem(shot);
-		DeleteMusicMem(hazure);
-		DeleteMusicMem(error);
 			calling_check = 1;
-			return 1;
+			DeleteFontToHandle(count_Font_big);
+			DeleteFontToHandle(count_Font_mid);
+			DeleteFontToHandle(count_Font_small);
+			DeleteSoundMem(shot);
+			DeleteSoundMem(error);
+			DeleteSoundMem(hazure);
+			DeleteGraph(back_img);
+			DeleteGraph(back_black);
+			DeleteGraph(title_img);
+			deleteImageHandle1(gun_handle);
+			deleteImageHandle1(keihin_handle);
+			deleteImageHandle1(button_handle);
+			deleteImageHandle1(button_back_handle);
+
 		}
 		else {
-			return 1;
+		windowFlag = 10;
 		}
 		ScreenFlip();
 
