@@ -33,6 +33,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	int count_Font = CreateFontToHandle("PixelMplus10 Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8); // フォントデータ
 	int back_img = LoadGraph("./asset/image/background.png"); // 背景画像
 	int title_img = LoadGraph("./asset/image/title.png"); // タイトル画面
+	int back_black = LoadGraph("./asset/image/black_toumei.png");
 	std::vector<int> button_handle{}; // ボタンのデータ
 	std::vector<int> button_back_handle{}; // 戻るボタン
 	std::vector<int> kingyo_handle{}; // 金魚の画像データ
@@ -223,6 +224,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			/* 画面の描画 */
 			SetMainWindowText("スコア表示");	//windowテキスト
 			DrawGraph(0, 0, back_img, TRUE);
+			DrawGraph(0, 0, back_black, TRUE);
 			DrawBoxAA(320, 180, 320 * 3, 180 * 3, GetColor(218, 165, 32), true);
 			button_back.draw();
 			DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), font, "%d匹捕まえたよ", cought_kingyo + cought_telescope);
