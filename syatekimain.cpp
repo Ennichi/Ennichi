@@ -47,8 +47,9 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 	int back_black = LoadGraph("./asset/image/black_toumei.png");
 	int title_img = LoadGraph("./asset/image/syateki_title.jpg");
 
-	int count_Font_big = CreateFontToHandle("Mplus1-Regular", 400, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
-	int count_Font_small = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	int count_Font_big = CreateFontToHandle("PixelMplus10 Regular", 400, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	int count_Font_mid = CreateFontToHandle("PixelMplus10 Regular", 200, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	int count_Font_small = CreateFontToHandle("PixelMplus10 Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 	
 
 	if (calling_check == 0) PlaySoundFile("./asset/bgm/maou_minzoku9.ogg", DX_PLAYTYPE_LOOP); // bgmを読み込む
@@ -120,7 +121,6 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 
 			if (input.GetKeyDown(KEY_INPUT_Z)) {
 				/* zキーが押された */
-				SetMainWindowText("射的ゲーム(タイトル)");	//windowテキスト
 				for (int i = 0; i < (int)keihin_num; i++) {
 					if (keihin_group[i].isCought(gun, mt, dice) && keihin_group[i].state < 3) {
 						PlaySoundMem(shot, DX_PLAYTYPE_BACK);
@@ -132,12 +132,16 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 
 			//60秒たったら終了
 			if (timer() == 0) {
+				DrawGraph(0, 0, back_black, TRUE);
+
+
+
 				SetMainWindowText("スコア表示");	//windowテキスト
 				if (score > 0) {
-					DrawFormatString(500, 200, GetColor(120, 120, 120), "%d打ち抜けました!", score, font);
+					DrawFormatStringToHandle(700, 350, GetColor(255, 0, 0), count_Font_big, "%d pt", score);
 				}
 				else {
-					DrawFormatString(500, 200, GetColor(120, 120, 120), "残念!", font);
+					DrawFormatString(500, 200, GetColor(255,0,0), "残念!", count_Font_big);
 				}
 				if (timer2() == 0) {
 					windowFlag = 0;
@@ -145,8 +149,8 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 				timer2.update();
 			}
 			else {
-				DrawFormatStringToHandle(500, 50, GetColor(120, 120, 120), count_Font_small, "残り%d秒", timer() / 60);
-				DrawFormatStringToHandle(1100, 550, GetColor(120, 120, 120), count_Font_small, "%d", score);
+				DrawFormatStringToHandle(500, 50, GetColor(255, 0, 0), count_Font_small, "残り%d", timer() / 60);
+				DrawFormatStringToHandle(1000, 450, GetColor(255, 0, 0),count_Font_mid, "%d", score);
 			}
 			timer.update();
 		}
@@ -157,9 +161,12 @@ void syatekimain(int font, int bgm, int effect, int calling_check) {
 		else if (windowFlag == 5) {
 			DrawGraph(0, 0, back_img, TRUE);
 			DrawGraph(0, 0, back_black, TRUE);
-			if (taiki_timer() == 0) windowFlag = 1; //ゲームへ行く
+			if (taiki_timer() == 0) {
+				windowFlag = 1; //ゲームへ行く
+				taiki_timer.reset();
+			}
 			if(taiki_timer() < 10)  DrawStringToHandle(200, 200, "Start!",GetColor(255, 0, 0),count_Font_big);
-			else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0), count_Font_big, "%d", taiki_timer() / 60 + 1);
+			else DrawFormatStringToHandle(500, 250, GetColor(255, 0, 0),count_Font_big, "%d", taiki_timer() / 60 + 1);
 
 			taiki_timer.update();
 		}
