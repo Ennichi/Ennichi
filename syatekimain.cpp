@@ -104,12 +104,15 @@ int syatekimain(int font, int bgm, int effect, int calling_check) {
 				for (unsigned int i = 0; i < keihin_num; i++) {
 					keihin_group[i].setDifficulty(40);
 					if (i < keihin_num / 2) {//上段
-						keihin_group[i].state = dice(mt) % 3;
+						if (i == 3)keihin_group[i].state = 2;
+						else if (i == 1)  keihin_group[i].state = 1;
+						else keihin_group[i].state = 0;
 						keihin_group[i].x = 300 + 120 * i;
 						keihin_group[i].y = 350;
 					}
 					else {//下段
-						keihin_group[i].state = dice(mt) % 3;
+						if (i == 5 || i == 8)  keihin_group[i].state = 1;
+						else keihin_group[i].state = 0;
 						keihin_group[i].x = 300 + 120 * (i - 5);
 						keihin_group[i].y = 580;
 					}
