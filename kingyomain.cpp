@@ -33,9 +33,10 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 	// ＵＤＰ通信用のソケットハンドルを作成
 	NetUDPHandle = MakeUDPSocket(-1);
 	/* ゲームで使用するデータの読み込み */
-	int count_Font = CreateFontToHandle("Mplus1-Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8); // フォントデータ
+	int count_Font = CreateFontToHandle("PixelMplus10 Regular", 40, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8); // フォントデータ
 	int back_img = LoadGraph("./asset/image/background.png"); // 背景画像
 	int title_img = LoadGraph("./asset/image/title.png"); // タイトル画面
+	int back_black = LoadGraph("./asset/image/black_toumei.png");
 	std::vector<int> button_handle{}; // ボタンのデータ
 	std::vector<int> button_back_handle{}; // 戻るボタン
 	std::vector<int> kingyo_handle{}; // 金魚の画像データ
@@ -105,7 +106,6 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 				for (unsigned int i = 0; i < kingyo_num; i++) {
 					/* 金魚グループに関する初期化 */
 					kingyo_group[i].setSpeed(1.0, 3.0); // 金魚のスピードを設定
-					kingyo_group[i].setDifficulty(1);
 					kingyo_group[i].animsp = 30; // アニメーションの設定
 					kingyo_group[i].spawn_position(dice(mt) % 980 + 100, dice(mt) % 400 + 100);//範囲内に収まるように補正
 					if (i % 2 == 0) kingyo_group[i].SetMovement(MOV_OPTION::CIRCLE, 300, 1.0);
@@ -114,7 +114,6 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 				for (unsigned int i = 0; i < telescope_num; i++) {
 					/* 出目金グループに関する初期化 */
 					telescope_group[i].setSpeed(1.0, 3.0); // 出目金のスピードを設定
-					telescope_group[i].setDifficulty(1);
 					telescope_group[i].animsp = 30; // アニメーションの設定
 					if (i % 2 == 0) telescope_group[i].SetMovement(MOV_OPTION::CIRCLE, 300, 1.0);
 					if (i % 3 == 0) telescope_group[i].SetMovement(MOV_OPTION::WAVE, 100, 100);
@@ -236,6 +235,7 @@ void kingyomain(int font, int bgm, int effect, int calling_check) {
 			/* 画面の描画 */
 			SetMainWindowText("スコア表示");	//windowテキスト
 			DrawGraph(0, 0, back_img, TRUE);
+			DrawGraph(0, 0, back_black, TRUE);
 			DrawBoxAA(320, 180, 320 * 3, 180 * 3, GetColor(218, 165, 32), true);
 			button_back.draw();
 			DrawFormatStringToHandle(520, 60, GetColor(120, 120, 120), font, "%d匹捕まえたよ", cought_kingyo + cought_telescope);
