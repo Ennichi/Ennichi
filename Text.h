@@ -104,4 +104,10 @@ public:
 		SetActiveKeyInput(inputHandle);
 		SetKeyInputString("", inputHandle);
 	}
+
+	//キャンセルか確定されたらtrue
+	bool entered()const& noexcept
+	{
+		return CheckKeyInput(inputHandle);
+	}
 };
