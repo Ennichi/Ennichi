@@ -1,6 +1,12 @@
 ﻿#include "main.h"
 #include "stdafx.h"
 
+void deleteImageHandle(std::vector<int>& vHandle) {
+	for (size_t i = 0; i < vHandle.size(); i++) {
+		DeleteGraph(vHandle[i]);
+	}
+}
+
 int kingyomain(int font, int bgm, int effect, int calling_check) {
 	/* ゲームの基本データ */
 	int windowFlag = 0; // 現在のウィンドウを管理するフラグ
@@ -68,7 +74,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 	remaining_poi.addcpy(poiFake, (unsigned int)poi_num_remaining);
 
 	/* ゲーム開始前の初期化処理 */
-	if (calling_check == 0) PlaySoundFile("./asset/bgm/maou_minzoku9.ogg", DX_PLAYTYPE_LOOP); // bgmを読み込む
+	// if (calling_check == 0) PlaySoundFile("./asset/bgm/maou_minzoku9.ogg", DX_PLAYTYPE_LOOP); // bgmを読み込む
 
 	for (unsigned char i = 0; i < poi_num_remaining; ++i)
 	{
@@ -252,11 +258,11 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 			/* 次状態の管理 */
 			if (button_back.isReleasedLeft(click_event, button_type, cx, cy, log_type)) {
 				PlaySoundMem(effect, DX_PLAYTYPE_BACK);
-				return 0; // タイトル画面へ
+				windowFlag = 10; // タイトル画面へ
 			}
 			if (timer80sec() == 0) { // スコア表示時間を過ぎたら
 				PlaySoundMem(effect, DX_PLAYTYPE_BACK); // 効果音
-				return 0; // タイトル画面へ
+				windowFlag = 10; // タイトル画面へ
 			}
 			button_back.next(px, py);
 			timer80sec.update(); // タイマーの更新
@@ -272,7 +278,29 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 				input_username.text(username);
 			}
 		}
-		else if (windowFlag == 10) {	//射的ゲームへ
+		else if (windowFlag == 10) { // 金魚すくいへ
+			DeleteFontToHandle(count_Font);
+			DeleteGraph(back_img);
+			DeleteGraph(title_img);
+			DeleteGraph(back_black);
+			deleteImageHandle(button_handle);
+			deleteImageHandle(button_back_handle);
+			deleteImageHandle(kingyo_handle);
+			deleteImageHandle(telescope_handle);
+			deleteImageHandle(poi_handle);
+			return 0;
+		}
+		else if (windowFlag == 11) { // 射的ゲームへ
+			DeleteFontToHandle(count_Font);
+			DeleteGraph(back_img);
+			DeleteGraph(title_img);
+			DeleteGraph(back_black);
+			deleteImageHandle(button_handle);
+			deleteImageHandle(button_back_handle);
+			deleteImageHandle(kingyo_handle);
+			deleteImageHandle(telescope_handle);
+			deleteImageHandle(poi_handle);
+			DeleteFontToHandle(count_Font);
 			return 1;
 		}
 		else {
