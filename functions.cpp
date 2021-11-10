@@ -11,7 +11,7 @@ double dist_elipse(int x1, int y1, int x2, int y2, double magx, double magy)
 	return distance(magx, magy);
 }
 
-bool file_exists(const std::string& fpath)
+bool file_exists(const std::string &fpath)
 {
 	std::ifstream ifs(fpath);
 	return ifs.is_open();

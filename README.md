@@ -11,9 +11,9 @@
 - [tatehata7507](https://github.com/tatehata7507)
 
 # セットアップ
-このプログラムは[Visual Studio 2019](https://visualstudio.microsoft.com/ja/)にて開発されました。<br>
-このリポジトリから直接[ビルド](https://docs.microsoft.com/ja-jp/visualstudio/ide/compiling-and-building-in-visual-studio?view=vs-2019)ができます。<br>
-ビルドする際には[DXライブラリ](https://dxlib.xsrv.jp/)が必要です。<br>
+このプログラムは[Visual Studio 2022](https://visualstudio.microsoft.com/ja/)にて開発されました。<br>
+このリポジトリから直接[ビルド](https://docs.microsoft.com/ja-jp/visualstudio/ide/compiling-and-building-in-visual-studio?view=vs-2022)ができます。  
+ビルドする際には[DXライブラリ](https://dxlib.xsrv.jp/)が必要です。  
 
 # ビルド方法
 1. ブラウザで[ＤＸライブラリ Windows版 VisualStudio( C++ )用(VerXXXX)をダウンロードする(zip圧縮形式(約XXXMB))](https://dxlib.xsrv.jp/dxdload.html)からZIPファイルをダウンロードしてください。
@@ -31,12 +31,12 @@
 - 音楽：MaouDamashii
 
 # 使用しているフォントについて
-使用しているフォントは[M+ FONTS](https://github.com/coz-m/MPLUS_FONTS/)を使用しています。<br>
-OFL-1.1 Licenseでライセンスされています。<br>
-利用規約については[LICENSE](https://mplusfonts.github.io/#license)をご確認ください。
+使用しているフォントは[PixelMplus](https://itouhiro.hatenablog.com/entry/20130602/font)を使用しています。  
+M+ FONT LICENSEでライセンスされています。  
+利用規約については[LICENSE](https://itouhiro.hatenablog.com/entry/20130602/font)をご確認ください。
 
 # ライセンス
-- DX Library Copyright (C) 2001-2021 Takumi Yamada.<br>
+- DX Library Copyright (C) 2001-2021 Takumi Yamada.  
 
 <details>
 <summary>DXライブラリの使用しているライセンスです。広げると表示されます。</summary>

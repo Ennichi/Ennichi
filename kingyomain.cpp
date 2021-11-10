@@ -80,7 +80,6 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 	remaining_poi.addcpy(poiFake, (unsigned int)poi_num_remaining);
 
 	/* ゲーム開始前の初期化処理 */
-	// if (calling_check == 0) PlaySoundFile("./asset/bgm/maou_minzoku9.ogg", DX_PLAYTYPE_LOOP); // bgmを読み込む
 
 	for (unsigned char i = 0; i < poi_num_remaining; ++i)
 	{

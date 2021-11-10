@@ -18,31 +18,31 @@ protected:
 
 public:
 	//コンストラクタ
-	csvManager(std::string fpath
-	): iofs(), 
-		file_path{fpath}, 
-		detail{},
-		allocitr{detail.begin()}
+	csvManager(std::string fpath) : iofs(),
+									file_path{fpath},
+									detail{},
+									allocitr{detail.begin()}
 	{
-		if(!file_exists(fpath))
+		if (!file_exists(fpath))
 		{
 			std::ofstream ofs(fpath);
 		}
 		iofs.open(fpath, CSVMODE);
 	}
 
-	csvManager(const csvManager&) = delete;
-	csvManager(csvManager&&)noexcept = default;
+	csvManager(const csvManager &) = delete;
+	csvManager(csvManager &&) noexcept = default;
 
-	csvManager& operator=(const csvManager&) = delete;
-	csvManager& operator=(csvManager&&) = default;
+	csvManager &operator=(const csvManager &) = delete;
+	csvManager &operator=(csvManager &&) = default;
 
 	//デストラクタ
 	~csvManager()
 	{
-		if(iofs.is_open())iofs.close();
+		if (iofs.is_open())
+			iofs.close();
 	}
-	
+
 	//ファイルを読み込むだけ
 	virtual void readAll()
 	{
@@ -53,7 +53,8 @@ public:
 		while (1)
 		{
 			std::getline(iofs, tmp);
-			if (iofs.eof())break;
+			if (iofs.eof())
+				break;
 			detail.push_back(tmp);
 		}
 		iofs.clear();
@@ -91,8 +92,7 @@ public:
 	}
 
 protected:
-
-	void write_string_insert(const std::string& wstr)
+	void write_string_insert(const std::string &wstr)
 	{
 		allocitr = detail.insert(allocitr, wstr);
 		for (; allocitr != detail.end(); ++allocitr)
@@ -109,7 +109,7 @@ protected:
 		iofs.open(file_path, std::ios::in | std::ios::out | std::ios::trunc);
 		allocitr = std::next(detail.begin(), index);
 		detail.erase(allocitr);
-		for (auto& tmp : detail)
+		for (auto &tmp : detail)
 		{
 			iofs << tmp << std::endl;
 		}
@@ -120,14 +120,14 @@ protected:
 		location = 0;
 		allocitr = detail.begin();
 	}
-public:
 
+public:
 	//指定の行に挿入
-	template<class... cArgs>
-	void insert(unsigned int index, const cArgs&... str)
+	template <class... cArgs>
+	void insert(unsigned int index, const cArgs &...str)
 	{
 		std::string insstr = "";
-		for (std::string strtmp: std::initializer_list<std::string>{str...})
+		for (std::string strtmp : std::initializer_list<std::string>{str...})
 		{
 			insstr += strtmp + ",";
 		}
@@ -136,11 +136,11 @@ public:
 	}
 
 	//指定の行を差し替え
-	template<class... cArgs>
-	void swap(unsigned int index, const cArgs&... str)
+	template <class... cArgs>
+	void swap(unsigned int index, const cArgs &...str)
 	{
 		std::string insstr = "";
-		for (std::string strtmp : std::initializer_list<std::string>{ str... })
+		for (std::string strtmp : std::initializer_list<std::string>{str...})
 		{
 			insstr += strtmp + ",";
 		}
@@ -155,7 +155,7 @@ public:
 		iofs.clear();
 	}
 
-	std::size_t column_num()const noexcept
+	std::size_t column_num() const noexcept
 	{
 		return detail.size();
 	}
@@ -178,7 +178,7 @@ public:
 		iofs.open(file_path, std::ios::in | std::ios::out | std::ios::trunc);
 		allocitr = std::next(detail.begin(), a);
 		detail.erase(allocitr, std::next(allocitr, static_cast<ULL>(b) - static_cast<ULL>(a) + 1));
-		for (auto& tmp : detail)
+		for (auto &tmp : detail)
 		{
 			iofs << tmp << std::endl;
 		}
@@ -191,23 +191,22 @@ public:
 	}
 };
 
-
 //次に作る
-class Ranking :public csvManager
+class Ranking : public csvManager
 {
 private:
 	std::list<int> scoreList;
+
 public:
+	Ranking(std::string fpath) : csvManager(fpath) {}
 
-	Ranking(std::string fpath) : csvManager(fpath){}
+	Ranking(const Ranking &) = delete;
+	Ranking(Ranking &&) = default;
 
-	Ranking(const Ranking&) = delete;
-	Ranking(Ranking&&) = default;
+	Ranking &operator=(const Ranking &) = delete;
+	Ranking &operator=(Ranking &&) = default;
 
-	Ranking& operator=(const Ranking&) = delete;
-	Ranking& operator=(Ranking&&) = default;
-
-	void readAll()override
+	void readAll() override
 	{
 		std::string tmp;
 		std::stringstream ss;
@@ -218,7 +217,8 @@ public:
 		{
 			std::string score_tmp;
 			std::getline(iofs, tmp);
-			if (iofs.eof())break;
+			if (iofs.eof())
+				break;
 			ss << tmp;
 			std::getline(ss, score_tmp, ',');
 			std::getline(ss, score_tmp, ',');
@@ -231,13 +231,14 @@ public:
 		location = 0;
 	}
 	//挿入
-	void insert(const std::string& username, int score)
+	void insert(const std::string &username, int score)
 	{
 		std::list<int>::iterator itr{};
 		unsigned int cnt = 0;
 		for (itr = scoreList.begin(); itr != scoreList.end(); ++itr)
 		{
-			if (score >= *itr)break;
+			if (score >= *itr)
+				break;
 			++cnt;
 		}
 		locate(cnt);
@@ -247,7 +248,7 @@ public:
 	}
 
 	//削除
-	void del(unsigned int index)override
+	void del(unsigned int index) override
 	{
 		scoreList.erase(std::next(scoreList.begin(), index));
 		del_base(index);

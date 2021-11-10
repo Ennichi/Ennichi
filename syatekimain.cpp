@@ -76,7 +76,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check)
 	input_username.NmlStr = GetColor(255, 255, 255);
 	input_username.NmlCur = GetColor(255, 255, 255);
 
-	//if (calling_check == 0) PlaySoundFile("./asset/bgm/maou_minzoku9.ogg", DX_PLAYTYPE_LOOP); // bgmを
+	if (calling_check == 0) PlaySoundFile("./asset/bgm/maou_minzoku9.ogg", DX_PLAYTYPE_LOOP); // bgmを
 
 	/* ゲームループ */
 	while (1)

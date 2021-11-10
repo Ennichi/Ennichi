@@ -18,7 +18,7 @@ public:
 	/* 外部参照可 */
 
 	//デフォルトコンストラクタ
-	nSyncTimer(){}
+	nSyncTimer() {}
 
 	//fps設定コンストラクタ
 	nSyncTimer(unsigned short FramePerSecond) : fps{FramePerSecond} {}
@@ -26,7 +26,8 @@ public:
 	//単位フレームでタイマーセット
 	void setf(unsigned int frames)
 	{
-		if (isSet)return;
+		if (isSet)
+			return;
 		start_time = GetNowHiPerformanceCount();
 		configured_time = (1000000ll * (LL)frames) / fps;
 		isSet = true;
@@ -35,7 +36,8 @@ public:
 	//単位ミリ秒でタイマーセット
 	void setms(unsigned int ms)
 	{
-		if (isSet)return;
+		if (isSet)
+			return;
 		start_time = GetNowHiPerformanceCount();
 		configured_time = 1000ll * (LL)ms;
 		isSet = true;
@@ -44,7 +46,8 @@ public:
 	//単位秒でタイマーセット
 	void sets(double seconds)
 	{
-		if (isSet)return;
+		if (isSet)
+			return;
 		start_time = GetNowHiPerformanceCount();
 		configured_time = (LL)(1000000.0 * seconds);
 		isSet = true;
@@ -53,7 +56,8 @@ public:
 	//単位マイクロ秒でタイマーセット
 	void set(LL microseconds)
 	{
-		if (isSet)return;
+		if (isSet)
+			return;
 		start_time = GetNowHiPerformanceCount();
 		configured_time = microseconds;
 		isSet = true;
@@ -68,7 +72,7 @@ public:
 	}
 
 	//タイマーの名前()で残り時間を取得(タイマー終了時0)
-	LL operator()()const&
+	LL operator()() const &
 	{
 		LL temp = configured_time + start_time - GetNowHiPerformanceCount();
 		return max(temp, 0);
@@ -86,16 +90,17 @@ private:
 	uLL __remaining = 0;
 
 public:
-
 	//コンストラクタ
-	Timer()noexcept
-	{}
+	Timer() noexcept
+	{
+	}
 
-	Timer(uLL frames)noexcept:__configured{frames}, __remaining{frames}
-	{}
+	Timer(uLL frames) noexcept : __configured{frames}, __remaining{frames}
+	{
+	}
 
 	//時間を設定(フレーム)
-	void set(uLL frames)noexcept
+	void set(uLL frames) noexcept
 	{
 		__configured = frames;
 	}
@@ -107,20 +112,20 @@ public:
 	}
 
 	//タイマーをリセットする
-	void reset()noexcept
+	void reset() noexcept
 	{
 		__remaining = __configured;
 	}
 
 	//タイマーの残り時間を強制的に0にする
-	void end()noexcept
+	void end() noexcept
 	{
 		__remaining = 0;
 	}
 
 	//毎フレーム実行
 	//これを実行している間タイマーが作動する
-	void update()noexcept
+	void update() noexcept
 	{
 		if (__remaining != 0)
 		{
@@ -129,7 +134,7 @@ public:
 	}
 
 	//残りフレーム
-	uLL operator()()noexcept
+	uLL operator()() noexcept
 	{
 		return __remaining;
 	}

@@ -13,20 +13,22 @@ struct Vector2
 
 	//基底のコンストラクタ
 	Vector2()
-	{}
+	{
+	}
 
 	//コンストラクタ
 	Vector2(double x0, double y0) : x{x0}, y{y0}
-	{}
+	{
+	}
 
 	/*
 	* コンストラクタ(イニシャライザーリスト)
 	* 使い方
 	* Vector2 a = {2.0, 3.0};
 	*/
-	Vector2(std::initializer_list<double> list
-	) :x{ *list.begin() }, y{ *(list.begin() + 1) }
-	{}
+	Vector2(std::initializer_list<double> list) : x{*list.begin()}, y{*(list.begin() + 1)}
+	{
+	}
 
 	/*
 	* 代入演算子定義(イニシャライザーリスト)
@@ -34,14 +36,13 @@ struct Vector2
 	* Vector2 a;
 	* a = {3.0, 2.5}
 	*/
-	Vector2& operator=(std::initializer_list<double> list)
+	Vector2 &operator=(std::initializer_list<double> list)
 	{
 		x = *list.begin();
 		y = *(list.begin() + 1);
 		return *this;
 	}
 };
-
 
 inline double distance(double dx, double dy)
 {
@@ -50,12 +51,12 @@ inline double distance(double dx, double dy)
 
 double dist_elipse(int x1, int y1, int x2, int y2, double magx, double magy);
 
-bool file_exists(const std::string&);
+bool file_exists(const std::string &);
 
-template<typename... strArgs>
-void makeImageHandle(std::vector<int>& vHandle, const strArgs... pathArgs)
+template <typename... strArgs>
+void makeImageHandle(std::vector<int> &vHandle, const strArgs... pathArgs)
 {
-	std::vector<const char*> path_v = { pathArgs... };
+	std::vector<const char *> path_v = {pathArgs...};
 	unsigned int vsize = static_cast<unsigned int>(vHandle.size());
 	if (vsize > path_v.size())
 	{
@@ -82,5 +83,4 @@ void makeImageHandle(std::vector<int>& vHandle, const strArgs... pathArgs)
 			}
 		}
 	}
-
 }
