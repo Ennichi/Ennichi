@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include "stdafx.h"
-
+#include "../../../header/stdafx.h"
 
 class Obj
 {

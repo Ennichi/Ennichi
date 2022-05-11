@@ -1,7 +1,5 @@
 ﻿#pragma once
-#include "stdafx.h"
-#include "Obj.h"
-#include "KeyInput.h"
+#include "../../../header/stdafx.h"
 
 //ポイのクラスの定義(Objの継承)
 class Poi : public Obj {

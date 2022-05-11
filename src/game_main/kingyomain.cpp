@@ -1,5 +1,8 @@
-﻿#include "main.h"
-#include "stdafx.h"
+﻿#pragma once
+
+#include "../header/stdafx.h"
+#include "../header/main.hpp"
+
 
 void deleteImageHandle(std::vector<int>& vHandle) {
 	for (size_t i = 0; i < vHandle.size(); i++) {
@@ -33,7 +36,7 @@ int kingyomain(int font, int bgm, int effect, int calling_check) {
 	bool poi_destroy; // ポイが破れるフラグ
 	int kingyo_score = 2; // 金魚一匹捕まえたときのスコア
 	int telescope_score = 3; // 出目金一匹捕まえたときのスコア
-	int total_score;
+	int total_score=0;
 	const std::string buff1 = "金魚すくい! あなたは";
 	const std::string buff2 = "人目のプレーヤーです";
 	std::string username;

@@ -1,4 +1,6 @@
 ﻿#pragma once
+
+#include "../../../header/stdafx.h"
 class StringObj
 {
 public:

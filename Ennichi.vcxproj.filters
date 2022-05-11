@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="game_temp.cpp">
+    <ClCompile Include="src\game_main\functions.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="kingyomain.cpp">
+    <ClCompile Include="src\game_main\game_temp.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\game_main\kingyomain.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="src\game_main\main.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="functions.cpp">
+    <ClCompile Include="src\game_main\stdafx.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="syatekimain.cpp">
+    <ClCompile Include="src\game_main\syatekimain.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Goldfish.h">
+    <ClInclude Include="src\class\header\object\Aim.hpp">
       <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
+    <ClInclude Include="src\class\header\object\Button.hpp">
       <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
     </ClInclude>
-    <ClInclude Include="Obj.h">
+    <ClInclude Include="src\class\header\object\Goldfish.hpp">
       <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
     </ClInclude>
-    <ClInclude Include="Poi.h">
+    <ClInclude Include="src\class\header\object\gun.hpp">
       <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="src\class\header\object\Poi.hpp">
+      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
+    </ClInclude>
+    <ClInclude Include="src\class\header\object\StringObj.hpp">
+      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
+    </ClInclude>
+    <ClInclude Include="src\class\header\object\Text.hpp">
+      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
+    </ClInclude>
+    <ClInclude Include="src\class\header\generic\csvManager.hpp">
+      <Filter>ヘッダーファイル\汎用クラス</Filter>
+    </ClInclude>
+    <ClInclude Include="src\class\header\generic\functions.hpp">
+      <Filter>ヘッダーファイル\汎用クラス</Filter>
+    </ClInclude>
+    <ClInclude Include="src\class\header\generic\KeyInput.hpp">
+      <Filter>ヘッダーファイル\汎用クラス</Filter>
+    </ClInclude>
+    <ClInclude Include="src\class\header\generic\Timer.hpp">
+      <Filter>ヘッダーファイル\汎用クラス</Filter>
+    </ClInclude>
+    <ClInclude Include="src\header\main.hpp">
       <Filter>ヘッダーファイル\特別なヘッダ</Filter>
     </ClInclude>
-    <ClInclude Include="functions.h">
-      <Filter>ヘッダーファイル\汎用クラス</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyInput.h">
-      <Filter>ヘッダーファイル\汎用クラス</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>ヘッダーファイル\汎用クラス</Filter>
-    </ClInclude>
-    <ClInclude Include="StringObj.h">
-      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
-    </ClInclude>
-    <ClInclude Include="main.h">
+    <ClInclude Include="src\header\stdafx.h">
       <Filter>ヘッダーファイル\特別なヘッダ</Filter>
     </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
-    </ClInclude>
-    <ClInclude Include="csvManager.h">
-      <Filter>ヘッダーファイル\汎用クラス</Filter>
-    </ClInclude>
-    <ClInclude Include="gun.h">
-      <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
-    </ClInclude>
-    <ClInclude Include="Aim.h">
+    <ClInclude Include="src\class\header\object\Obj.hpp">
       <Filter>ヘッダーファイル\オブジェクトクラス</Filter>
     </ClInclude>
   </ItemGroup>

@@ -88,12 +88,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/3.22c_VS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/src/class/header/generic;$(ProjectDir)/src/class/header/object;$(ProjectDir)/src/header;$(ProjectDir)/3.22c_VS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>$(ProjectDir)src\header\stdafx.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>$(ProjectDir)src\header\stdafx.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -118,8 +118,9 @@ IF %ERRORLEVEL% LSS 8 EXIT 0
       <AdditionalIncludeDirectories>$(ProjectDir)/3.22c_VS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>Create</PrecompiledHeader>
-      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>$(ProjectDir)src\header\stdafx.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>$(ProjectDir)src\header\stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -140,12 +141,12 @@ IF %ERRORLEVEL% LSS 8 EXIT 0
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/3.22c_VS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/src/class/header/generic;$(ProjectDir)/src/class/header/object;$(ProjectDir)/src/header;$(ProjectDir)/3.22c_VS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>$(ProjectDir)src\header\stdafx.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>$(ProjectDir)src\header\stdafx.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -171,8 +172,9 @@ IF %ERRORLEVEL% LSS 8 EXIT 0
       <AdditionalIncludeDirectories>$(ProjectDir)/3.22c_VS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>Create</PrecompiledHeader>
-      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>$(ProjectDir)src\header\stdafx.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>$(ProjectDir)src\header\stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -188,31 +190,28 @@ IF %ERRORLEVEL% LSS 8 EXIT 0
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="functions.cpp" />
-    <ClCompile Include="game_temp.cpp" />
-    <ClCompile Include="kingyomain.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="syatekimain.cpp" />
+    <ClCompile Include="src\game_main\functions.cpp" />
+    <ClCompile Include="src\game_main\game_temp.cpp" />
+    <ClCompile Include="src\game_main\kingyomain.cpp" />
+    <ClCompile Include="src\game_main\main.cpp" />
+    <ClCompile Include="src\game_main\stdafx.cpp" />
+    <ClCompile Include="src\game_main\syatekimain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Aim.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="csvManager.h" />
-    <ClInclude Include="functions.h" />
-    <ClInclude Include="Goldfish.h" />
-    <ClInclude Include="gun.h" />
-    <ClInclude Include="KeyInput.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="Obj.h" />
-    <ClInclude Include="Poi.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="StringObj.h" />
-    <ClInclude Include="Text.h" />
-    <ClInclude Include="Timer.h" />
+    <ClInclude Include="src\class\header\generic\csvManager.hpp" />
+    <ClInclude Include="src\class\header\generic\functions.hpp" />
+    <ClInclude Include="src\class\header\generic\KeyInput.hpp" />
+    <ClInclude Include="src\class\header\generic\Timer.hpp" />
+    <ClInclude Include="src\class\header\object\Aim.hpp" />
+    <ClInclude Include="src\class\header\object\Button.hpp" />
+    <ClInclude Include="src\class\header\object\Goldfish.hpp" />
+    <ClInclude Include="src\class\header\object\gun.hpp" />
+    <ClInclude Include="src\class\header\object\Obj.hpp" />
+    <ClInclude Include="src\class\header\object\Poi.hpp" />
+    <ClInclude Include="src\class\header\object\StringObj.hpp" />
+    <ClInclude Include="src\class\header\object\Text.hpp" />
+    <ClInclude Include="src\header\main.hpp" />
+    <ClInclude Include="src\header\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

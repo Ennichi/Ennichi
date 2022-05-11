@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include "stdafx.h"
-#include "Poi.h"
+#include "../../../header/stdafx.h"
 
 class Aim : public Poi {
 public:

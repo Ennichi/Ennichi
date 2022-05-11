@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "stdafx.h"
+#include "../../../header/stdafx.h"
 
 /* 汎用関数などまとめ */
 

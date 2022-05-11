@@ -1,0 +1,29 @@
+﻿#pragma once
+
+#include <DxLib.h>
+#include <stdlib.h>
+#include <time.h>
+#include <iostream>
+#include <vector>
+#include <stdexcept>
+#include <random>
+#include <cmath>
+#include <filesystem>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+#include <list>
+
+#include "../class/header/object/Obj.hpp"
+#include "../class/header/object/StringObj.hpp"
+#include "../class/header/object/Button.hpp"
+#include "../class/header/generic/functions.hpp"
+#include "../class/header/generic/csvManager.hpp"
+#include "../class/header/generic/KeyInput.hpp"
+#include "../class/header/generic/Timer.hpp"
+#include "../class/header/object/Poi.hpp"
+#include "../class/header/object/gun.hpp"
+#include "../class/header/object/Text.hpp"
+#include "../class/header/object/Aim.hpp"
+#include "../class/header/object/Goldfish.hpp"

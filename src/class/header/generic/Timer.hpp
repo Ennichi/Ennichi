@@ -1,6 +1,5 @@
 ﻿#pragma once
 #define max(a, b) (((a) > (b)) ? (a) : (b))
-#include "stdafx.h"
 
 //非同期式タイマー
 class nSyncTimer

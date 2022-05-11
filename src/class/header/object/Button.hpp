@@ -1,8 +1,5 @@
 ﻿#pragma once
-#include "stdafx.h"
-#include "Obj.h"
-#include "StringObj.h"
-
+#include "../../../header/stdafx.h"
 
 class Button : public Obj
 {

@@ -1,8 +1,7 @@
 ﻿#pragma once
-#include "stdafx.h"
-#include "Poi.h"
-#include "Aim.h"
-#include "functions.h"
+
+#include "../../../header/stdafx.h"
+
 //金魚の正面はここで合わせる
 #define ANGLE0 (- DX_PI / 2.0)
 

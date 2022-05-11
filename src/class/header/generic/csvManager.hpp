@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include "stdafx.h"
-#include "functions.h"
+#include "../../../header/stdafx.h"
 #define CSVMODE (std::ios::in | std::ios::out | std::ios::ate)
 
 class csvManager

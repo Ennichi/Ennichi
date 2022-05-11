@@ -1,5 +1,6 @@
-﻿#include "main.h"    
-#include "stdafx.h"
+﻿#pragma once
+#include "../header/stdafx.h"
+#include "../header/main.hpp"
 
 //https://docs.microsoft.com/ja-jp/cpp/code-quality/annotating-function-parameters-and-return-values?view=msvc-160&viewFallbackFrom=vs-2019
 int WINAPI WinMain([[maybe_unused]] _In_ HINSTANCE hInstance, [[maybe_unused]] _In_opt_  HINSTANCE hPrevInstance, [[maybe_unused]] _In_ LPSTR lpCmdLine, [[maybe_unused]] _In_ int nShowCmd){

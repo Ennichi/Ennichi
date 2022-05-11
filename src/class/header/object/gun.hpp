@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include "stdafx.h"
-#include "Obj.h"
+#include "../../../header/stdafx.h"
 
 class Gun : public Obj {
 public:

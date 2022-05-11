@@ -1,5 +1,9 @@
-﻿#include "main.h"
-#include "stdafx.h"
+﻿#pragma once
+
+#include "../header/stdafx.h"
+#include "../header/main.hpp"
+
+
 
 void deleteImageHandle1(std::vector<int> &vHandle)
 {
