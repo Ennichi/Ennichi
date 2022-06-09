@@ -172,7 +172,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0
       <AdditionalIncludeDirectories>$(ProjectDir)/3.22c_VS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>$(ProjectDir)src\header\stdafx.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>$(ProjectDir)src\header\stdafx.h</ForcedIncludeFiles>
     </ClCompile>

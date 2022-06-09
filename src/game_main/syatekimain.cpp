@@ -98,7 +98,7 @@ int syatekimain(int font, int bgm, int effect, int calling_check)
 		if (windowFlag == 0)
 		{ // メニューウィンドウ
 			DrawGraph(0, 0, title_img, FALSE);
-			SetMainWindowText("射的ゲーム(タイトル)"); //windowテキスト
+			SetMainWindowText("射的ゲーム"); //windowテキスト
 
 			button_start.draw(); //ゲームスタート
 			button_start.next(px, py);
