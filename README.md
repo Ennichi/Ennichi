@@ -1,3 +1,6 @@
+**Welcome Ennichi!!**
+
+https://user-images.githubusercontent.com/55316963/172793014-7fbe9c1b-c114-4f97-9326-a855601408d1.mp4
 # このプロジェクトについて
 [DXライブラリ](https://dxlib.xsrv.jp/)で縁日ゲームを作るプロジェクトです。
 
