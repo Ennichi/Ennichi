@@ -14,6 +14,23 @@ DXライブラリで動く縁日ゲーム
 </samp>
 </div>
 
+
+## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Recent activity [![Time period](https://images.repography.com/30687920/Ennichi/Ennichi/recent-activity/56d4539a21942bfa7c6dd745ebd91c51_badge.svg)](https://repography.com)
+[![Timeline graph](https://images.repography.com/30687920/Ennichi/Ennichi/recent-activity/56d4539a21942bfa7c6dd745ebd91c51_timeline.svg)](https://github.com/Ennichi/Ennichi/commits)
+[![Issue status graph](https://images.repography.com/30687920/Ennichi/Ennichi/recent-activity/56d4539a21942bfa7c6dd745ebd91c51_issues.svg)](https://github.com/Ennichi/Ennichi/issues)
+[![Pull request status graph](https://images.repography.com/30687920/Ennichi/Ennichi/recent-activity/56d4539a21942bfa7c6dd745ebd91c51_prs.svg)](https://github.com/Ennichi/Ennichi/pulls)
+[![Trending topics](https://images.repography.com/30687920/Ennichi/Ennichi/recent-activity/56d4539a21942bfa7c6dd745ebd91c51_words.svg)](https://github.com/Ennichi/Ennichi/commits)
+[![Top contributors](https://images.repography.com/30687920/Ennichi/Ennichi/recent-activity/56d4539a21942bfa7c6dd745ebd91c51_users.svg)](https://github.com/Ennichi/Ennichi/graphs/contributors)
+
+
+## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Structure
+[![Structure](https://images.repography.com/30687920/Ennichi/Ennichi/structure/7f8e5eb99ee7edcc60e4c78770564c27_table.svg)](https://github.com/Ennichi/Ennichi)
+
+
+## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Top contributors
+[![Top contributors](https://images.repography.com/30687920/Ennichi/Ennichi/top-contributors/56d4539a21942bfa7c6dd745ebd91c51_table.svg)](https://github.com/Ennichi/Ennichi/graphs/contributors)
+
+
 # ゲーム画面
 
 https://user-images.githubusercontent.com/55316963/173184388-79aeb6b3-2e0e-4d84-83c5-07879b010e62.mp4
